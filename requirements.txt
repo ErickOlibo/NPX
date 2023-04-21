@@ -28,5 +28,8 @@ mysql-connector-python
 # GUI
 Tkinter
 
+# Login
+# Add if we don't use the Login feature of Tkinter
+
 # Encryption
 # PyCrypto / KeyCzar / pyOpenSSL / pyDes / ...?
