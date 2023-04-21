@@ -21,3 +21,12 @@ sphinx
 
 # Unit test and coverage
 coverage
+
+# Connection to database
+mysql-connector-python
+
+# GUI
+Tkinter
+
+# Encryption
+# PyCrypto / KeyCzar / pyOpenSSL / pyDes / ...?
