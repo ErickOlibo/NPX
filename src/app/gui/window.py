@@ -17,39 +17,36 @@ class Window(customtkinter.CTk):
     def __init__(self) -> None:
         super().__init__()
 
-        # Set the window title and size
-        self.title("Your Secret Companion")
-        self.geometry(f"{self.width}x{self.height}")
-        
-        # set Grid layout
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-        
-        # Load assets
-        self.assets_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "assets")
-        # self.logo_image = customtkinter.CTkImage(
-        #     self._getImage("npx_logo.png"), size=(30, 30))
-        
+        # Set default parameters
+        self._set_window_default_parameters()
+
         # Set Left Side navigation bar
         self.navigation_bar = self._set_navigation_bar()
-        
+
         # Set NPX logo at top of left navigation bar
         self.top_logo = self._set_top_logo()
-        
-        # self.navigation_bar_top = customtkinter.CTkLabel(
-        #     self.navigation_bar, text="     NPX App", image=self.logo_image,
-        #     compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
-        # self.navigation_bar_top.grid(row=0, column=0, padx=20, pady=20)
-        
-        
-        pass
+
+
 
 
     def button_function(self):
         print("button was pressed!")
 
     # PRIVATE METHODS
+    def _set_window_default_parameters(self):
+        # Set the window title and size
+        self.title("Your Secret Companion")
+        self.geometry(f"{self.width}x{self.height}")
+
+        # set Grid layout
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+        
+        # set assets folder path
+        self.assets_path = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "assets")
+
+    
     def _getImage(self, path)-> Image:
         return Image.open(os.path.join(self.assets_path, path))
     
