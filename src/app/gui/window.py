@@ -17,13 +17,10 @@ class Window(customtkinter.CTk):
     def __init__(self) -> None:
         super().__init__()
 
-        # Set default parameters
         self._set_window_default_parameters()
 
-        # Set Left Side navigation bar
         self.navigation_bar = self._set_navigation_bar()
 
-        # Set NPX logo at top of left navigation bar
         self.top_logo = self._set_top_logo()
 
 
