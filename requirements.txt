@@ -16,3 +16,6 @@ coverage
 
 # GUI Library
 customtkinter
+
+# Image Rendering
+Pillow
