@@ -1,14 +1,7 @@
-## JUST FEW MODULE TO START WITH
-
 # Code analysis
 bandit
-
-#cohesion
+cohesion
 flake8
-flake8-docstrings
-flake8-polyfill
-
-#metrics.pylint
 pylint
 radon
 
@@ -17,7 +10,9 @@ black
 
 # Documentation
 pdoc3
-sphinx
 
 # Unit test and coverage
 coverage
+
+# GUI Library
+customtkinter
