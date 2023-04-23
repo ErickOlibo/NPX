@@ -15,7 +15,7 @@ customtkinter.set_default_color_theme("green")
 
 class MainApp(customtkinter.CTk):
     login_view_size = (500, 500)
-    main_view_size = (1280, 720)
+    main_view_size = (1080, 720)
     assets_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "gui/assets")
 
