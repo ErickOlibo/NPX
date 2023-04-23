@@ -49,18 +49,21 @@ class MainApp(customtkinter.CTk):
         self._set_main_view_default_parameters()
         self._set_navigation_bar()
         self._set_top_logo()
-
         self._navigation_icons()
-
         self._navigation_buttons()
         self._get_temporary_main_views()
-        # self._get_journal_view()
-        # self._get_planning_view()
-        # self._get_challenges_view()
 
         self._selected_view(View.JOURNAL)
-        
-        # self._set_mode_menu()
+        self._set_mode_menu()
+
+    def _set_mode_menu(self):
+        self.mode_menu = customtkinter.CTkSegmentedButton(
+            self.navigation_bar, values=["Light", "System", "Dark"],
+            command=self._change_appearance_mode_event)
+        self.mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
+
+    def _change_appearance_mode_event(self, new_value):
+        customtkinter.set_appearance_mode(new_value)
 
     def _navigation_buttons(self):
         self.journal_button = self._set_navigation_button(
@@ -221,7 +224,7 @@ class MainApp(customtkinter.CTk):
     def _getImage(self, path: str)-> Image:
         return Image.open(os.path.join(self.assets_path, path))
 
-    # TEMP view for each Left Tab (Journal, Planning, Challenges)
+    # TEMPORARY view for each Navigation Tab (Journal, Planning, Challenges)
     def _get_temporary_main_views(self):
         self.journal_view = self._set_temp_view("Journal Main View")
         self.planning_view = self._set_temp_view("Planning Main View")
@@ -236,29 +239,6 @@ class MainApp(customtkinter.CTk):
         temp_view_center_button.grid(row=0, column=0, padx=20, pady=300)
         return temp_view
     
-    # def _get_journal_view(self):
-    #     self.journal_view = customtkinter.CTkFrame(
-    #         self, corner_radius=0, fg_color="transparent")
-    #     self.journal_view.grid_columnconfigure(0, weight=1)
-    #     self.journal_view_center_button = customtkinter.CTkButton(
-    #         self.journal_view, text="Journal Main View", compound="left")
-    #     self.journal_view_center_button.grid(row=0, column=0, padx=20, pady=10)
-    
-    # def _get_planning_view(self):
-    #     self.planning_view = customtkinter.CTkFrame(
-    #         self, corner_radius=0, fg_color="transparent")
-    #     self.planning_view.grid_columnconfigure(0, weight=1)
-    #     self.planning_view_center_button = customtkinter.CTkButton(
-    #         self.planning_view, text="Planning Main View", compound="left")
-    #     self.planning_view_center_button.grid(row=0, column=0, padx=20, pady=10)
-    
-    # def _get_challenges_view(self):
-    #     self.challenges_view = customtkinter.CTkFrame(
-    #         self, corner_radius=0, fg_color="transparent")
-    #     self.challenges_view.grid_columnconfigure(0, weight=1)
-    #     self.challenges_view_center_button = customtkinter.CTkButton(
-    #         self.challenges_view, text="Challenges Main View", compound="left")
-    #     self.challenges_view_center_button.grid(row=0, column=0, padx=20, pady=10)
 
 
 
