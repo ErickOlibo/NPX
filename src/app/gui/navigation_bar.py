@@ -2,17 +2,23 @@ import customtkinter
 import os
 from collections.abc import Callable
 from PIL import Image
+from helpers import View
 
 class NavigationBar(customtkinter.CTkFrame):
     assets_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "assets")
     
-    def __init__(self, master):
+    def __init__(self, master,
+                 journal: Callable[[], None],
+                 planning: Callable[[], None],
+                 challenges: Callable[[], None],
+                 logout: Callable[[], None]):
         super().__init__(master)
-        self._corner_radius = 0
         self._attach_logo()
         self._navigation_icons()
-        self._navigation_buttons()
+        self._navigation_buttons(journal, planning, challenges)
+        self._set_mode_menu()
+        self._set_logout_button(logout)
 
 
     def _attach_logo(self):
@@ -60,23 +66,14 @@ class NavigationBar(customtkinter.CTkFrame):
             dark_image=self._getImage(light),
             size=size)
     
-    def _navigation_buttons(self):
+    def _navigation_buttons(self, journal_action, planning_action, challenges_action ):
         self.journal_button = self._set_navigation_button(
-            "Journal", self.journal_icon, self._journal_button_event, (1, 0), "ew")
+            "Journal", self.journal_icon, journal_action, (1, 0), "ew")
         self.planning_button = self._set_navigation_button(
-            "Planning", self.planning_icon, self._planning_button_event, (2, 0), "ew")
+            "Planning", self.planning_icon, planning_action, (2, 0), "ew")
         self.challenges_button = self._set_navigation_button(
-            "Challenges", self.challenges_icon, self._challenges_button_event, (3, 0), "ew")
-    
-    def _journal_button_event(self):
-        print("Journal")
+            "Challenges", self.challenges_icon, challenges_action, (3, 0), "ew")
 
-    def _planning_button_event(self):
-        print("Planning")
-
-    def _challenges_button_event(self):
-        print("Challenges")
-        
     def _set_navigation_button(self, title: str,
                                icon: customtkinter.CTkImage,
                                action: Callable[[], None],
@@ -103,3 +100,19 @@ class NavigationBar(customtkinter.CTkFrame):
             font=customtkinter.CTkFont(size=15), command=action)
         nav_button.grid(row=position[0], column=position[1], sticky=stick_to)
         return nav_button
+    
+    def _set_mode_menu(self):
+        self.mode_menu = customtkinter.CTkSegmentedButton(
+            self, values=["Light", "System", "Dark"],
+            command=self._change_appearance_mode_event)
+        self.mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
+    
+    def _change_appearance_mode_event(self, new_value):
+        customtkinter.set_appearance_mode(new_value)
+
+    def _set_logout_button(self, action):
+        self.logout = customtkinter.CTkButton(
+            self, fg_color="transparent", border_width=2,
+            text="Logout", text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"), command=action)
+        self.logout.grid(row=7, column=0, padx=20, pady=20, sticky="s")

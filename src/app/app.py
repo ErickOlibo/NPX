@@ -32,7 +32,11 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         
-        self.navigation_bar = NavigationBar(self)
+        self.navigation_bar = NavigationBar(
+            self, self._nav_tab_journal,
+            self._nav_tab_planning,
+            self._nav_tab_challenges,
+            self._logout_pressed)
         self.navigation_bar.grid(row=0, column=0, sticky="nsew")
         self.navigation_bar.grid_rowconfigure(4, weight=1)
     
@@ -45,11 +49,26 @@ class App(customtkinter.CTk):
         self.login_view = LoginView(self, self._login_view_button_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
 
+    # Button Pressed
     def _login_view_button_pressed(self):
         (user, password) = self.login_view.get_credentials()
         print(f"CRED: {user} | {password}")
         self.login_view.grid_forget()
         self.show_main_view()
+    
+    def _nav_tab_journal(self):
+        print(f"JOURNAL: {View.JOURNAL.value}")
+    
+    def _nav_tab_planning(self):
+        print(f"PLANNING: {View.PLANNING.value}")
+    
+    def _nav_tab_challenges(self):
+        print(f"CHALLENGES: {View.CHALLENGES.value}")
+    
+    def _logout_pressed(self):
+        print("LOGOUT")
+        
+
 
 
 if __name__ == "__main__":
