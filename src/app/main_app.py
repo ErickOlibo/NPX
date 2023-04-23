@@ -16,26 +16,13 @@ customtkinter.set_default_color_theme("green")
 class MainApp(customtkinter.CTk):
     login_view_size = (500, 500)
     main_view_size = (1280, 720)
-    
+    assets_path = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "gui/assets")
+
     def __init__(self) -> None:
         super().__init__()
 
-        # Prepare Login View
-        self.title("NPX App | Login Screen")
-        self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
-        self.resizable(False, False)
-
-        # Path to assets folder
-        self.assets_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "gui/assets")
-
-        # Create Login View
-        self.login_view = customtkinter.CTkFrame(self, corner_radius=0)
-        self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
-
-        # Attach Logo Title and Credential to Login view
-        self._attach_logo_to_login_view()
-        self._attach_title_credentials()
+        self._prepare_login_view()
 
 
 
@@ -45,6 +32,20 @@ class MainApp(customtkinter.CTk):
 
 
     # PRIVATE METHODS
+    def _prepare_login_view(self):
+        # Prepare Login View
+        self.title("NPX App | Login Screen")
+        self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
+        self.resizable(False, False)
+
+        # Create Login View
+        self.login_view = customtkinter.CTkFrame(self, corner_radius=0)
+        self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
+        
+        # Attach Logo Title and Credential to Login view
+        self._attach_logo_to_login_view()
+        self._attach_title_credentials()
+
     def _prepare_main_view(self):
         self._set_main_view_default_parameters()
         self._set_navigation_bar()
@@ -55,6 +56,22 @@ class MainApp(customtkinter.CTk):
 
         self._selected_view(View.JOURNAL)
         self._set_mode_menu()
+        self._set_logout_button()
+
+    def _set_logout_button(self):
+        self.logout = customtkinter.CTkButton(
+            self.navigation_bar, fg_color="transparent", border_width=2,
+            text="Logout", text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"), command=self._logging_out_pressed)
+        self.logout.grid(row=7, column=0, padx=20, pady=20, sticky="s")
+    
+    def _logging_out_pressed(self):
+        self.navigation_bar.grid_forget()
+        self.journal_view.grid_forget()
+        self.planning_view.grid_forget()
+        self.challenges_view.grid_forget()
+        self._prepare_login_view()
+
 
     def _set_mode_menu(self):
         self.mode_menu = customtkinter.CTkSegmentedButton(
