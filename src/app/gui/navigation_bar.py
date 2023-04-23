@@ -21,6 +21,23 @@ class NavigationBar(customtkinter.CTkFrame):
         self._set_logout_button(logout)
 
 
+    def _reset_navigation_buttons_color(self):
+        self.journal_button.configure(fg_color="transparent")
+        self.planning_button.configure(fg_color="transparent")
+        self.challenges_button.configure(fg_color="transparent")
+        pass
+    
+    def set_active_button(self, tab: View):
+        self._reset_navigation_buttons_color()
+        if tab == View.JOURNAL:
+            self.journal_button.configure(fg_color=("gray75", "gray25"))
+        if tab == View.PLANNING:
+            self.planning_button.configure(fg_color=("gray75", "gray25"))
+        if tab == View.CHALLENGES:
+            self.challenges_button.configure(fg_color=("gray75", "gray25"))
+
+    
+    
     def _attach_logo(self):
         logo_image = customtkinter.CTkImage(
             self._getImage("npx_logo.png"), size=(35, 35))
