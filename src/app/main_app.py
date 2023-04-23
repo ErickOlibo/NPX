@@ -53,12 +53,12 @@ class MainApp(customtkinter.CTk):
         self._navigation_icons()
 
         self._navigation_buttons()
-        
+        self._get_temporary_main_views()
         # self._get_journal_view()
         # self._get_planning_view()
         # self._get_challenges_view()
 
-        #self._selected_view(View.JOURNAL)
+        self._selected_view(View.JOURNAL)
         
         # self._set_mode_menu()
 
@@ -90,6 +90,8 @@ class MainApp(customtkinter.CTk):
             self._set_active_view_button(self.planning_view, self.planning_button)
         if name == View.CHALLENGES:
             self._set_active_view_button(self.challenges_view, self.challenges_button)
+
+
 
     def _reset_views_buttons(self):
         # Reset selection color to transparent
@@ -220,29 +222,43 @@ class MainApp(customtkinter.CTk):
         return Image.open(os.path.join(self.assets_path, path))
 
     # TEMP view for each Left Tab (Journal, Planning, Challenges)
-    def _get_journal_view(self):
-        self.journal_view = customtkinter.CTkFrame(
-            self, corner_radius=0, fg_color="transparent")
-        self.journal_view.grid_columnconfigure(0, weight=1)
-        self.journal_view_center_button = customtkinter.CTkButton(
-            self.journal_view, text="Journal Main View", compound="left")
-        self.journal_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+    def _get_temporary_main_views(self):
+        self.journal_view = self._set_temp_view("Journal Main View")
+        self.planning_view = self._set_temp_view("Planning Main View")
+        self.challenges_view = self._set_temp_view("Challenges Main View")
     
-    def _get_planning_view(self):
-        self.planning_view = customtkinter.CTkFrame(
+    def _set_temp_view(self, title: str) -> customtkinter.CTkFrame:
+        temp_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color="transparent")
-        self.planning_view.grid_columnconfigure(0, weight=1)
-        self.planning_view_center_button = customtkinter.CTkButton(
-            self.planning_view, text="Planning Main View", compound="left")
-        self.planning_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+        temp_view.grid_columnconfigure(0, weight=1)
+        temp_view_center_button = customtkinter.CTkButton(
+            temp_view, text=title, compound="left")
+        temp_view_center_button.grid(row=0, column=0, padx=20, pady=300)
+        return temp_view
     
-    def _get_challenges_view(self):
-        self.challenges_view = customtkinter.CTkFrame(
-            self, corner_radius=0, fg_color="transparent")
-        self.challenges_view.grid_columnconfigure(0, weight=1)
-        self.challenges_view_center_button = customtkinter.CTkButton(
-            self.challenges_view, text="Challenges Main View", compound="left")
-        self.challenges_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+    # def _get_journal_view(self):
+    #     self.journal_view = customtkinter.CTkFrame(
+    #         self, corner_radius=0, fg_color="transparent")
+    #     self.journal_view.grid_columnconfigure(0, weight=1)
+    #     self.journal_view_center_button = customtkinter.CTkButton(
+    #         self.journal_view, text="Journal Main View", compound="left")
+    #     self.journal_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+    
+    # def _get_planning_view(self):
+    #     self.planning_view = customtkinter.CTkFrame(
+    #         self, corner_radius=0, fg_color="transparent")
+    #     self.planning_view.grid_columnconfigure(0, weight=1)
+    #     self.planning_view_center_button = customtkinter.CTkButton(
+    #         self.planning_view, text="Planning Main View", compound="left")
+    #     self.planning_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+    
+    # def _get_challenges_view(self):
+    #     self.challenges_view = customtkinter.CTkFrame(
+    #         self, corner_radius=0, fg_color="transparent")
+    #     self.challenges_view.grid_columnconfigure(0, weight=1)
+    #     self.challenges_view_center_button = customtkinter.CTkButton(
+    #         self.challenges_view, text="Challenges Main View", compound="left")
+    #     self.challenges_view_center_button.grid(row=0, column=0, padx=20, pady=10)
 
 
 
