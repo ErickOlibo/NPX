@@ -32,7 +32,7 @@ class Window(customtkinter.CTk):
         self._get_planning_view()
         self._get_challenges_view()
 
-        self._select_view(View.JOURNAL)
+        self._selected_view(View.JOURNAL)
         
         self._set_mode_menu()
 
@@ -49,7 +49,6 @@ class Window(customtkinter.CTk):
     
     def _change_appearance_mode_event(self, new_value):
         customtkinter.set_appearance_mode(new_value)
-        pass
     
     def _navigation_buttons(self):
         self.journal_button = self._set_navigation_button(
@@ -72,33 +71,32 @@ class Window(customtkinter.CTk):
         self.logout_icon = self._light_dark_image(
             "icons/light_logout.png", "icons/dark_logout.png", icon_size)
     
-    def _select_view(self, name: View):
-        
+    def _selected_view(self, name: View):
+        self._reset_views_buttons()
+        if name == View.JOURNAL:
+            self._set_active_view_button(self.journal_view, self.journal_button)
+        if name == View.PLANNING:
+            self._set_active_view_button(self.planning_view, self.planning_button)
+        if name == View.CHALLENGES:
+            self._set_active_view_button(self.challenges_view, self.challenges_button)
+
+    def _reset_views_buttons(self):
         # Reset selection color to transparent
         self.journal_button.configure(fg_color="transparent")
         self.planning_button.configure(fg_color="transparent")
         self.challenges_button.configure(fg_color="transparent")
-        
+
         # dispose of all views before new selection
         self.journal_view.grid_forget()
         self.planning_view.grid_forget()
         self.challenges_view.grid_forget()
-        
-        # assign new view
-        if name == View.JOURNAL:
-            self.journal_button.configure(fg_color=("gray75", "gray25"))
-            self.journal_view.grid(row=0, column=1, sticky="nsew")
-        if name == View.PLANNING:
-            self.planning_button.configure(fg_color=("gray75", "gray25"))
-            self.planning_view.grid(row=0, column=1, sticky="nsew")
-        if name == View.CHALLENGES:
-            self.challenges_button.configure(fg_color=("gray75", "gray25"))
-            self.challenges_view.grid(row=0, column=1, sticky="nsew")
-            
 
+    def _set_active_view_button(self, view: customtkinter.CTkFrame,
+                                button: customtkinter.CTkButton):
+        button.configure(fg_color=("gray75", "gray25"))
+        view.grid(row=0, column=1, sticky="nsew")
     
     def _get_journal_view(self):
-        # Journal View
         self.journal_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color="transparent")
         self.journal_view.grid_columnconfigure(0, weight=1)
@@ -107,7 +105,6 @@ class Window(customtkinter.CTk):
         self.journal_view_center_button.grid(row=0, column=0, padx=20, pady=10)
     
     def _get_planning_view(self):
-        # Planning View
         self.planning_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color="transparent")
         self.planning_view.grid_columnconfigure(0, weight=1)
@@ -116,7 +113,6 @@ class Window(customtkinter.CTk):
         self.planning_view_center_button.grid(row=0, column=0, padx=20, pady=10)
     
     def _get_challenges_view(self):
-        # Challenges View
         self.challenges_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color="transparent")
         self.challenges_view.grid_columnconfigure(0, weight=1)
@@ -125,15 +121,15 @@ class Window(customtkinter.CTk):
         self.challenges_view_center_button.grid(row=0, column=0, padx=20, pady=10)
 
     def _journal_button_event(self):
-        self._select_view(View.JOURNAL)
+        self._selected_view(View.JOURNAL)
         print("Journal")
     
     def _planning_button_event(self):
-        self._select_view(View.PLANNING)
+        self._selected_view(View.PLANNING)
         print("Planning")
     
     def _challenges_button_event(self):
-        self._select_view(View.CHALLENGES)
+        self._selected_view(View.CHALLENGES)
         print("Challenges")
     
     
@@ -142,7 +138,20 @@ class Window(customtkinter.CTk):
                                action: Callable[[], None],
                                position: tuple[int, int],
                                stick_to: str)-> customtkinter.CTkButton:
-        
+        """Creates a button with charateristics from the parameters
+
+        Parameters
+        ----------
+            title (str): the text in the button
+            icon (customtkinter.CTkImage): the icon image to use
+            action (Callable[[], None]): the method to call on click
+            position (tuple[int, int]): the grid location inside the parent frame
+            stick_to (str): the border side, nsew [north, south, east, west] where
+            to have the button being stuck to
+
+        Returns:
+            customtkinter.CTkButton: a button satisfying the parameters
+        """
         nav_button = customtkinter.CTkButton(
             self.navigation_bar, corner_radius=0, height=40, border_spacing=20,
             text=f"{title}", fg_color="transparent", text_color=("gray10", "gray90"),
