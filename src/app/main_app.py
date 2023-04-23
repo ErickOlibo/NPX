@@ -25,7 +25,6 @@ class MainApp(customtkinter.CTk):
         self._prepare_login_view()
 
 
-
     # PUBLIC METHODS
 
 
@@ -261,6 +260,6 @@ class MainApp(customtkinter.CTk):
 
 
 
-if __name__ == "__main__":
-    app = MainApp()
-    app.mainloop()
+# if __name__ == "__main__":
+#     app = MainApp()
+#     app.mainloop()
