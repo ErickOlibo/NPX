@@ -1,4 +1,4 @@
-"""This module create an instance of the Desktop window"""
+"""This module create an instance of the Desktop mainwindow"""
 import customtkinter
 import os
 from PIL import Image
@@ -9,7 +9,7 @@ from helpers import View
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
 
-class Window(customtkinter.CTk):
+class MainWindow(customtkinter.CTk):
     """Determine characteristics of the GUI window"""
     
     width = 900
@@ -215,5 +215,5 @@ class Window(customtkinter.CTk):
 
 
 # if __name__ == "__main__":
-#     app = Window()
+#     app = MainWindow()
 #     app.mainloop()
