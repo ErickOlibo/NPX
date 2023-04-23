@@ -33,3 +33,6 @@ Tkinter
 
 # Encryption
 # PyCrypto / KeyCzar / pyOpenSSL / pyDes / ...?
+
+# Automatically adding the date to every etry
+dateutil
