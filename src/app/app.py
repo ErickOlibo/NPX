@@ -29,12 +29,13 @@ class App(customtkinter.CTk):
         self.title("NPX App | Login Screen")
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
         self.resizable(False, False)
-        self.login_view = LoginView(self)
+
+        self.login_view = LoginView(self, self._login_view_button_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
-        
 
     def _login_view_button_pressed(self):
-        print("From the Login View")
+        (user, password) = self.login_view.get_credentials()
+        print(f"CRED: {user} | {password}")
 
 
 if __name__ == "__main__":
