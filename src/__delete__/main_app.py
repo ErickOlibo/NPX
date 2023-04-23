@@ -7,11 +7,20 @@ import customtkinter
 import os
 from PIL import Image
 from collections.abc import Callable
-from helpers import View
+from enum import Enum, auto
 
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
+
+class View(Enum):
+    """Enum listing the name of the different views in the GUI"""
+    
+    JOURNAL = auto()
+    PLANNING = auto()
+    CHALLENGES = auto()
+    LOGIN = auto()
+    LOGOUT = auto()
 
 class MainApp(customtkinter.CTk):
     login_view_size = (500, 500)
