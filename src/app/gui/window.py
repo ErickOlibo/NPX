@@ -23,7 +23,43 @@ class Window(customtkinter.CTk):
         self.navigation_bar = self._set_navigation_bar()
 
         self.top_logo = self._set_top_logo()
+
+        self._navigation_icons()
+
+        self._navigation_buttons()
         
+        self._get_journal_view()
+        self._get_planning_view()
+        self._get_challenges_view()
+
+        self._select_view(View.JOURNAL)
+        
+        self._set_mode_menu()
+
+
+
+
+    # PRIVATE METHODS
+    def _set_mode_menu(self):
+        self.mode_menu = customtkinter.CTkSegmentedButton(
+            self.navigation_bar, values=["Light", "System", "Dark"],
+            command=self._change_appearance_mode_event)
+        self.mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
+    
+    
+    def _change_appearance_mode_event(self, new_value):
+        customtkinter.set_appearance_mode(new_value)
+        pass
+    
+    def _navigation_buttons(self):
+        self.journal_button = self._set_navigation_button(
+            "Journal", self.journal_icon, self._journal_button_event, (1, 0), "ew")
+        self.planning_button = self._set_navigation_button(
+            "Planning", self.planning_icon, self._planning_button_event, (2, 0), "ew")
+        self.challenges_button = self._set_navigation_button(
+            "Challenges", self.challenges_icon, self._challenges_button_event, (3, 0), "ew")
+
+    def _navigation_icons(self):
         icon_size = (26, 26)
         self.journal_icon = self._light_dark_image(
             "icons/light_journal.png", "icons/dark_journal.png", icon_size)
@@ -35,45 +71,7 @@ class Window(customtkinter.CTk):
             "icons/light_login.png", "icons/dark_login.png", icon_size)
         self.logout_icon = self._light_dark_image(
             "icons/light_logout.png", "icons/dark_logout.png", icon_size)
-        
-        # Navigation button
-        self.journal_button = self._set_navigation_button(
-            "Journal", self.journal_icon, self._journal_button_event, (1, 0), "ew")
-        
-        self.planning_button = self._set_navigation_button(
-            "Planning", self.planning_icon, self._planning_button_event, (2, 0), "ew")
-        
-        self.challenges_button = self._set_navigation_button(
-            "Challenges", self.challenges_icon, self._challenges_button_event, (3, 0), "ew")
-        
-        # Create Navigation Views
-        
-        # Journal View
-        self.journal_view = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.journal_view.grid_columnconfigure(0, weight=1)
-        self.journal_view_center_button = customtkinter.CTkButton(
-            self.journal_view, text="Journal Main View", compound="left")
-        self.journal_view_center_button.grid(row=0, column=0, padx=20, pady=10)
-        
-        # Planning View
-        self.planning_view = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.planning_view.grid_columnconfigure(0, weight=1)
-        self.planning_view_center_button = customtkinter.CTkButton(
-            self.planning_view, text="Planning Main View", compound="left")
-        self.planning_view_center_button.grid(row=0, column=0, padx=20, pady=10)
-        
-        # Challenges View
-        self.challenges_view = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.challenges_view.grid_columnconfigure(0, weight=1)
-        self.challenges_view_center_button = customtkinter.CTkButton(
-            self.challenges_view, text="Challenges Main View", compound="left")
-        self.challenges_view_center_button.grid(row=0, column=0, padx=20, pady=10)
-        
-        self._select_view(View.JOURNAL)
-
-
-
-    # PRIVATE METHODS
+    
     def _select_view(self, name: View):
         
         # Reset selection color to transparent
@@ -96,8 +94,36 @@ class Window(customtkinter.CTk):
         if name == View.CHALLENGES:
             self.challenges_button.configure(fg_color=("gray75", "gray25"))
             self.challenges_view.grid(row=0, column=1, sticky="nsew")
+            
 
     
+    def _get_journal_view(self):
+        # Journal View
+        self.journal_view = customtkinter.CTkFrame(
+            self, corner_radius=0, fg_color="transparent")
+        self.journal_view.grid_columnconfigure(0, weight=1)
+        self.journal_view_center_button = customtkinter.CTkButton(
+            self.journal_view, text="Journal Main View", compound="left")
+        self.journal_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+    
+    def _get_planning_view(self):
+        # Planning View
+        self.planning_view = customtkinter.CTkFrame(
+            self, corner_radius=0, fg_color="transparent")
+        self.planning_view.grid_columnconfigure(0, weight=1)
+        self.planning_view_center_button = customtkinter.CTkButton(
+            self.planning_view, text="Planning Main View", compound="left")
+        self.planning_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+    
+    def _get_challenges_view(self):
+        # Challenges View
+        self.challenges_view = customtkinter.CTkFrame(
+            self, corner_radius=0, fg_color="transparent")
+        self.challenges_view.grid_columnconfigure(0, weight=1)
+        self.challenges_view_center_button = customtkinter.CTkButton(
+            self.challenges_view, text="Challenges Main View", compound="left")
+        self.challenges_view_center_button.grid(row=0, column=0, padx=20, pady=10)
+
     def _journal_button_event(self):
         self._select_view(View.JOURNAL)
         print("Journal")
