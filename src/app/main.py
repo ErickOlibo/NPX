@@ -3,14 +3,13 @@
 
 some docstring here to explain the purpose and how to use
 """
-from main_app import MainApp
+from app import App
 
 def main():
     """Run the main program."""
-    app = MainApp()
+    app = App()
     app.mainloop()
-    pass
-    
+
 
 
 if __name__ == "__main__":

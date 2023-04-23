@@ -4,12 +4,9 @@ readable code.
 
 import customtkinter
 import os
-from PIL import Image
-from collections.abc import Callable
 from helpers import View
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
-from gui.temp_center_view import TempCenterView
 
 
 customtkinter.set_appearance_mode("System")
@@ -40,13 +37,10 @@ class App(customtkinter.CTk):
             self._logout_pressed)
         self.navigation_bar.grid(row=0, column=0, sticky="nsew")
         self.navigation_bar.grid_rowconfigure(4, weight=1)
-        
-        # Set opening current View
-        self.set_current_view("Journal Center View")
-        
 
-        
-    
+        self.set_current_view("Journal Center View")
+
+
     def set_current_view(self, title: str) -> customtkinter.CTkFrame:
         self.current_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color=("gray90", "gray15"))
@@ -56,7 +50,7 @@ class App(customtkinter.CTk):
         button.grid(row=0, column=0, padx=20, pady=300)
         self.current_view.grid(row=0, column=1, sticky="nsew")
 
-    
+
     def show_login_view(self):
         self.title("NPX App | Login Screen")
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
@@ -65,10 +59,7 @@ class App(customtkinter.CTk):
         self.login_view = LoginView(self, self._login_view_button_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
 
-    def _set_current_tab(self):
-        pass
-    
-    
+
     # Button Pressed
     def _login_view_button_pressed(self):
         (user, password) = self.login_view.get_credentials()
@@ -92,6 +83,9 @@ class App(customtkinter.CTk):
         print(f"CHALLENGES: {View.CHALLENGES.value}")
     
     def _logout_pressed(self):
+        self.navigation_bar.grid_forget()
+        self.current_view.grid_forget()
+        self.show_login_view()
         print("LOGOUT")
         
 
