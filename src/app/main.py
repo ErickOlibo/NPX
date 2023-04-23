@@ -3,11 +3,11 @@
 
 some docstring here to explain the purpose and how to use
 """
-from gui.windows import MainWindow
+from gui.windows import MainWindow, LoginWindow
 
 def main():
     """Run the main program."""
-    app = MainWindow()
+    app = LoginWindow()
     app.mainloop()
     pass
     

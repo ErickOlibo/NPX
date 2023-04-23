@@ -9,8 +9,49 @@ from helpers import View
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
 
+class LoginWindow(customtkinter.CTk):
+    """Instantiate the Login view with its characteristics"""
+
+    width = 300
+    height = 300
+    
+    def __ini__(self) -> None:
+        super().__init__()
+        
+        self.title("Login Page")
+        self.geometry(f"{self.width}x{self.height}")
+        self.resizable(False, False)
+        
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        
+        # self.assets_path = os.path.join(
+        #     os.path.dirname(os.path.realpath(__file__)), "assets")
+        
+        self.login_view = customtkinter.CTkFrame(self, corner_radius=0)
+        self.login_view.grid(row=0, column=0, sticky="ns")
+        self.login_label = customtkinter.CTkLabel(
+            self.login_view, text="NPX App\nLogin Page",
+            font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.login_label.grid(row=0, column=0, padx=30, pady=(150, 15))
+        
+        self.username = customtkinter.CTkEntry(self.login_view, width=200, placeholder_text="username")
+        self.username.grid(row=1, column=0, padx=30, pady=(15, 15))
+        self.password = customtkinter.CTkEntry(self.login_view, width=200, show="*", placeholder_text="password")
+        self.password.grid(row=2, column=0, padx=30, pady=(0, 15))
+        self.login_button = customtkinter.CTkButton(self.login_view, text="Login", command=self.login_pressed, width=200)
+        self.login_button.grid(row=3, column=0, padx=30, pady=(15, 15))
+        
+        pass
+    
+    def login_pressed(self):
+        print("Login Pressed!")
+        pass
+    
+
+
 class MainWindow(customtkinter.CTk):
-    """Determine characteristics of the GUI window"""
+    """Determine characteristics of the Main window at app launch"""
     
     width = 900
     height = 600
@@ -181,6 +222,8 @@ class MainWindow(customtkinter.CTk):
             dark_image=self._getImage(light),
             size=size)
         
+    
+    #def _set_default_window(self, title, size, )
     
     def _set_window_default_parameters(self):
         # Set the window title and size
