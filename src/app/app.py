@@ -3,7 +3,6 @@ readable code.
 """
 
 import customtkinter
-import os
 from helpers import View
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
@@ -15,9 +14,8 @@ customtkinter.set_default_color_theme("green")
 class App(customtkinter.CTk):
     login_view_size = (500, 500)
     main_view_size = (1080, 720)
-    assets_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "gui/assets")
-    
+
+
     def __init__(self) -> None:
         super().__init__()
         self.show_login_view()
@@ -29,7 +27,7 @@ class App(customtkinter.CTk):
         self.resizable(True, True)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
-        
+
         self.navigation_bar = NavigationBar(
             self, self._journal_tab_pressed,
             self._planning_tab_pressed,
@@ -63,33 +61,31 @@ class App(customtkinter.CTk):
     # Button Pressed
     def _login_pressed(self):
         (user, password) = self.login_view.get_credentials()
-        print(f"CRED: {user} | {password}")
+        print(f"Username: {user} | password: {password}")
         self.login_view.grid_forget()
         self.show_main_view()
-    
+
     def _logout_pressed(self):
         self.navigation_bar.grid_forget()
         self.current_view.grid_forget()
         self.show_login_view()
         print("LOGOUT")
-    
+
     def _journal_tab_pressed(self):
         self.navigation_bar.set_active_button(View.JOURNAL)
         self.set_current_view("Journal Center View")
-        print(f"JOURNAL: {View.JOURNAL.value}")
-    
+        print(f"{View.JOURNAL.name}")
+
     def _planning_tab_pressed(self):
         self.navigation_bar.set_active_button(View.PLANNING)
         self.set_current_view("Planning Center View")
-        print(f"PLANNING: {View.PLANNING.value}")
-    
+        print(f"{View.PLANNING.name}")
+
     def _challenges_tab_pressed(self):
         self.navigation_bar.set_active_button(View.CHALLENGES)
         self.set_current_view("Challenges Center View")
-        print(f"CHALLENGES: {View.CHALLENGES.value}")
-    
-    
-        
+        print(f"{View.CHALLENGES.name}")
+
 
 
 
