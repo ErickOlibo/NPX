@@ -26,7 +26,7 @@ class LoginView(customtkinter.CTkFrame):
 
     def _attach_logo_to_login_view(self):
         self.logo_image = customtkinter.CTkImage(
-            self._getImage("npx_logo.png"), size=(45, 45))
+            self._getImage("icons/npx_logo.png"), size=(45, 45))
         self.logo_label = customtkinter.CTkLabel(
             self, text="     NPX App", image=self.logo_image,
             compound="left", font=customtkinter.CTkFont(size=25, weight="bold"))

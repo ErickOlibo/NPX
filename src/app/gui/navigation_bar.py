@@ -2,7 +2,8 @@ import customtkinter
 import os
 from collections.abc import Callable
 from PIL import Image
-from helpers import View
+from helpers import View, Assets
+#from custom_image import CustomImage
 
 class NavigationBar(customtkinter.CTkFrame):
     assets_path = os.path.join(
@@ -40,7 +41,7 @@ class NavigationBar(customtkinter.CTkFrame):
     
     def _attach_logo(self):
         logo_image = customtkinter.CTkImage(
-            self._getImage("npx_logo.png"), size=(35, 35))
+            self._getImage("icons/npx_logo.png"), size=(35, 35))
         self.top_logo = customtkinter.CTkLabel(
             self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
@@ -63,6 +64,19 @@ class NavigationBar(customtkinter.CTkFrame):
         self.logout_icon = self._light_dark_image(
             "icons/light_logout.png", "icons/dark_logout.png", icon_size)
 
+    # try alternatives
+    def _navigation_icons_v2(self):
+        size = (26, 26)
+        self.journal_icon = self.custom_image(Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL, size)
+        self.planning_icon = self.custom_image(Assets.LIGHT_PLANNING, Assets.DARK_PLANNING, size)
+        self.challenges_icon = self.custom_image(Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES, size)
+    
+    def custom_image(self, light_path: str, dark_path: str, size: tuple[int, int]):
+        print(dark_path)
+        print(light_path)
+        print(size)
+        return customtkinter.CTkImage(Image.open(dark_path), Image.open(light_path), size)
+    
     def _light_dark_image(self, light: str, dark: str, size: tuple)-> customtkinter.CTkImage:
         """create a customtkinter image by setting the dark mode image,
         light mode image and the size
@@ -133,3 +147,12 @@ class NavigationBar(customtkinter.CTkFrame):
             text="Logout", text_color=("gray10", "gray90"),
             hover_color=("gray70", "gray30"), command=action)
         self.logout.grid(row=7, column=0, padx=20, pady=20, sticky="s")
+
+# TO MOVE LATER
+# class CustomImage(customtkinter.CTkImage):
+    
+#     def __init__(self, light_path: str, dark_path: str, size: tuple[int, int]):
+#         self._light_image = Image.open(dark_path) # image for light background
+#         self._dark_image = Image.open(light_path) # image for dark background
+#         self._size = size
+        
