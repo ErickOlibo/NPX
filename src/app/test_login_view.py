@@ -1,7 +1,7 @@
 """This module tests Login View using unittest."""
 import unittest
 from gui.login_view import LoginView
-from customtkinter import CTk, CTkButton, CTkLabel, CTkImage, CTkEntry
+from customtkinter import CTkButton
 from app import App
 
 class TestLoginView(unittest.TestCase):
