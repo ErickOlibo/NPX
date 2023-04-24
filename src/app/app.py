@@ -44,7 +44,7 @@ class App(customtkinter.CTk):
         self._set_current_view("Journal Center View")
 
 
-    def _set_current_view(self, title: str) -> customtkinter.CTkFrame:
+    def _set_current_view(self, title: str):
         self.current_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color=("gray90", "gray15"))
         self.current_view.grid_columnconfigure(0, weight=1)
