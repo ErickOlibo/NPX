@@ -1,7 +1,5 @@
 import customtkinter
-import os
 from collections.abc import Callable
-from PIL import Image
 from helpers import View, Assets, CustomImage
 
 class NavigationBar(customtkinter.CTkFrame):
@@ -13,7 +11,7 @@ class NavigationBar(customtkinter.CTkFrame):
                  logout: Callable[[], None]):
         super().__init__(master)
         self._attach_logo()
-        self._navigation_icons_v3()
+        self._navigation_icons()
         self._navigation_buttons(journal, planning, challenges)
         self._set_mode_menu()
         self._set_logout_button(logout)
@@ -41,7 +39,7 @@ class NavigationBar(customtkinter.CTkFrame):
         self.top_logo.grid(row=0, column=0, padx=20, pady=20)
 
     
-    def _navigation_icons_v3(self):
+    def _navigation_icons(self):
         size = (26, 26)
         self.journal_icon = CustomImage(size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).CTk
         self.planning_icon = CustomImage(size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).CTk
