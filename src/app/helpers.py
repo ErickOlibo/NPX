@@ -3,6 +3,7 @@ import os
 from enum import Enum, auto
 import customtkinter
 from PIL import Image
+from collections.abc import Callable
 
 class View(Enum):
     """Enum listing the name of the different views in the GUI"""
@@ -41,6 +42,18 @@ class CustomImage():
             dark_image = Image.open(str(light)) # image for dark background
             self.CTk = customtkinter.CTkImage(light_image, dark_image)
 
+class CustomButton():
+    def __init__(self, master,  title: str,
+                               icon: customtkinter.CTkImage,
+                               action: Callable[[], None],
+                               position: tuple[int, int],
+                               stick: str):
+        self.btn = customtkinter.CTkButton(
+            master, corner_radius=0, height=40, border_spacing=20,
+            text=f"{title}", fg_color="transparent", text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"), image=icon, anchor="w",
+            font=customtkinter.CTkFont(size=15), command=action)
+        self.btn.grid(row=position[0], column=position[1], sticky=stick)
 
 
 SAMPLE_ENTRIES = {
