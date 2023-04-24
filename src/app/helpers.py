@@ -5,6 +5,17 @@ import customtkinter
 from PIL import Image
 from collections.abc import Callable
 
+
+class ExtendEnum(Enum):
+    """
+    Create the list of enums by value or name depending on type.
+    Inspired by @Jeff https://stackoverflow.com/a/54919285/8699673
+    """
+    @classmethod
+    def list(cls, type):
+        if type == "name": return list(map(lambda c: c.name, cls))
+        if type == "value": return list(map(lambda c: c.value, cls))
+
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
 
@@ -16,7 +27,7 @@ class View(Enum):
     NAVIGATION_BAR = auto()
 
 
-class Assets(Enum):
+class Assets(ExtendEnum):
     """Enum listing different name of assets in the icon folder"""
     DARK_JOURNAL = auto()
     LIGHT_JOURNAL = auto()
