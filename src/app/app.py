@@ -31,9 +31,9 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(1, weight=1)
         
         self.navigation_bar = NavigationBar(
-            self, self._nav_tab_journal,
-            self._nav_tab_planning,
-            self._nav_tab_challenges,
+            self, self._journal_tab_pressed,
+            self._planning_tab_pressed,
+            self._challenges_tab_pressed,
             self._logout_pressed)
         self.navigation_bar.grid(row=0, column=0, sticky="nsew")
         self.navigation_bar.grid_rowconfigure(4, weight=1)
@@ -56,37 +56,39 @@ class App(customtkinter.CTk):
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
         self.resizable(False, False)
 
-        self.login_view = LoginView(self, self._login_view_button_pressed)
+        self.login_view = LoginView(self, self._login_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
 
 
     # Button Pressed
-    def _login_view_button_pressed(self):
+    def _login_pressed(self):
         (user, password) = self.login_view.get_credentials()
         print(f"CRED: {user} | {password}")
         self.login_view.grid_forget()
         self.show_main_view()
-    
-    def _nav_tab_journal(self):
-        self.navigation_bar.set_active_button(View.JOURNAL)
-        self.set_current_view("Journal Center View")
-        print(f"JOURNAL: {View.JOURNAL.value}")
-    
-    def _nav_tab_planning(self):
-        self.navigation_bar.set_active_button(View.PLANNING)
-        self.set_current_view("Planning Center View")
-        print(f"PLANNING: {View.PLANNING.value}")
-    
-    def _nav_tab_challenges(self):
-        self.navigation_bar.set_active_button(View.CHALLENGES)
-        self.set_current_view("Challenges Center View")
-        print(f"CHALLENGES: {View.CHALLENGES.value}")
     
     def _logout_pressed(self):
         self.navigation_bar.grid_forget()
         self.current_view.grid_forget()
         self.show_login_view()
         print("LOGOUT")
+    
+    def _journal_tab_pressed(self):
+        self.navigation_bar.set_active_button(View.JOURNAL)
+        self.set_current_view("Journal Center View")
+        print(f"JOURNAL: {View.JOURNAL.value}")
+    
+    def _planning_tab_pressed(self):
+        self.navigation_bar.set_active_button(View.PLANNING)
+        self.set_current_view("Planning Center View")
+        print(f"PLANNING: {View.PLANNING.value}")
+    
+    def _challenges_tab_pressed(self):
+        self.navigation_bar.set_active_button(View.CHALLENGES)
+        self.set_current_view("Challenges Center View")
+        print(f"CHALLENGES: {View.CHALLENGES.value}")
+    
+    
         
 
 
