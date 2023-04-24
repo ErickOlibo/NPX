@@ -1,6 +1,6 @@
 import customtkinter
 from collections.abc import Callable
-from helpers import View, Assets, CustomImage, CustomButton
+from helpers import View, Assets, CustomImage, CustomTabButton
 
 class NavigationBar(customtkinter.CTkFrame):
 
@@ -32,7 +32,7 @@ class NavigationBar(customtkinter.CTkFrame):
 
 
     def _attach_logo(self):
-        logo_image = CustomImage((35, 35),Assets.NPX_LOGO).CTk
+        logo_image = CustomImage((35, 35),Assets.NPX_LOGO).image
         self.top_logo = customtkinter.CTkLabel(
             self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
@@ -41,18 +41,18 @@ class NavigationBar(customtkinter.CTkFrame):
     
     def _navigation_icons(self):
         size = (26, 26)
-        self.journal_icon = CustomImage(size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).CTk
-        self.planning_icon = CustomImage(size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).CTk
-        self.challenges_icon = CustomImage(size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).CTk
+        self.journal_icon = CustomImage(size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).image
+        self.planning_icon = CustomImage(size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).image
+        self.challenges_icon = CustomImage(size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).image
 
 
     def _navigation_buttons_v2(self, jour, plan, chall):
-        self.journal_button = CustomButton(self,
-            "Journal", self.journal_icon, jour, (1, 0), "ew").btn
-        self.planning_button = CustomButton(self,
-            "Planning", self.planning_icon, plan, (2, 0), "ew").btn
-        self.challenges_button = CustomButton(self,
-            "Challenges", self.challenges_icon, chall, (3, 0), "ew").btn
+        self.journal_button = CustomTabButton(self,
+            "Journal", self.journal_icon, jour, (1, 0), "ew").button
+        self.planning_button = CustomTabButton(self,
+            "Planning", self.planning_icon, plan, (2, 0), "ew").button
+        self.challenges_button = CustomTabButton(self,
+            "Challenges", self.challenges_icon, chall, (3, 0), "ew").button
     
     
     def _set_mode_menu(self):

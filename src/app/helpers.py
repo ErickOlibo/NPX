@@ -6,17 +6,18 @@ from PIL import Image
 from collections.abc import Callable
 
 class View(Enum):
-    """Enum listing the name of the different views in the GUI"""
-    
+    """Enum listing the name of the different views in the NPX app."""
+
     JOURNAL = auto()
     PLANNING = auto()
     CHALLENGES = auto()
     LOGIN = auto()
     LOGOUT = auto()
+    NAVIGATION_BAR = auto()
 
 
 class Assets(Enum):
-    
+    """Enum listing different name of assets in the icon folder"""
     DARK_JOURNAL = auto()
     LIGHT_JOURNAL = auto()
     DARK_PLANNING = auto()
@@ -36,28 +37,80 @@ class Assets(Enum):
 
 
 class CustomImage():
+    """A image of type customtkinter.CTkImage to add to a custom frame"""
     def __init__(self, size: tuple[int, int], light: Assets = None, dark: Assets = None):
+        """Instantiate with the necessary attributes
+
+        Parameters
+        ----------
+            size: tuple[int, int]
+                The width and height of the returned image
+            light: Assets, optional
+                The path to the file to use as default image, or as image for
+                the dark mode. Defaults to None.
+            dark: Assets, optional
+                The path to the file to use as image for the light mode.
+                Defaults to None.
+        """
         self._size = size
         if None in [light, dark]:
             image = Image.open(str(light))
-            self.CTk = customtkinter.CTkImage(image, size=size)
+            self._CTk = customtkinter.CTkImage(image, size=size)
         else:
             light_image = Image.open(str(dark)) # image for light background
             dark_image = Image.open(str(light)) # image for dark background
-            self.CTk = customtkinter.CTkImage(light_image, dark_image)
+            self._CTk = customtkinter.CTkImage(light_image, dark_image)
 
-class CustomButton():
+    @property
+    def image(self) -> customtkinter.CTkImage:
+        """
+        Get the image resulting from the parameters entered.
+
+        Returns
+        -------
+            customtkinter.CTkImage: The image requested as instance of.
+        """
+        return self._CTk
+
+class CustomTabButton():
+    """A button of type custom.CTkButton to use as a tab bar button"""
     def __init__(self, master,  title: str,
                                icon: customtkinter.CTkImage,
                                action: Callable[[], None],
                                position: tuple[int, int],
                                stick: str):
-        self.btn = customtkinter.CTkButton(
+        """Instantiate with the necessary attributes
+
+        Parameters
+        ----------
+            master: Any
+                The object that will be owning this object.
+            title: str
+                The label text of the button.
+            icon: customtkinter.CTkImage
+                The icon to be place at the left of the label.
+            action: Callable
+                a method to trigger in the master when the button is pressed
+            position: tuple[int, int]
+                The grid position this element has in the master's grid
+        """
+        self._btn = customtkinter.CTkButton(
             master, corner_radius=0, height=40, border_spacing=20,
             text=f"{title}", fg_color="transparent", text_color=("gray10", "gray90"),
             hover_color=("gray70", "gray30"), image=icon, anchor="w",
             font=customtkinter.CTkFont(size=15), command=action)
-        self.btn.grid(row=position[0], column=position[1], sticky=stick)
+        self._btn.grid(row=position[0], column=position[1], sticky=stick)
+    
+    @property
+    def button(self) -> customtkinter.CTkButton:
+        """
+        Get the button resulting from the parameters entered.
+
+        Returns
+        -------
+            customtkinter.CTkButton: The button requested as instance of.
+        """
+        return self._btn
 
 
 SAMPLE_ENTRIES = {
