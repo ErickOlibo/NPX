@@ -66,7 +66,7 @@ class App(customtkinter.CTk):
     # Button Pressed
     def _login_pressed(self):
         (user, password) = self.login_view.get_credentials()
-        print(f"Username: {user} | password: {password}")
+        print(f"LOGIN\nUsername: {user} | password: {password}")
         self.login_view.grid_forget()
         self._show_main_view()
 

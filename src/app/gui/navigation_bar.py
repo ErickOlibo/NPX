@@ -1,38 +1,51 @@
+"""This module creates a NPX Navigation Bar."""
 import customtkinter
 from collections.abc import Callable
 from helpers import View, Assets, CustomImage, CustomTabButton
 
 class NavigationBar(customtkinter.CTkFrame):
-
+    """A view of type CTkFrame to embeded in custom GUI design."""
     def __init__(self, master,
                  journal: Callable[[], None],
                  planning: Callable[[], None],
                  challenges: Callable[[], None],
                  logout: Callable[[], None]):
+        """Instantiate with the necessary attributes
+        
+        Parameters
+        ----------
+            master: Any
+                The object that will be owning this object.
+            journal: Callable
+                a method to trigger in the master when the button is pressed
+            planning: Callable
+                a method to trigger in the master when the button is pressed
+            challenges: Callable
+                a method to trigger in the master when the button is pressed
+        """
         super().__init__(master)
         self._attach_logo()
         self._navigation_icons()
-        self._navigation_buttons_v2(journal, planning, challenges)
+        self._navigation_buttons(journal, planning, challenges)
         self._set_mode_menu()
         self._set_logout_button(logout)
 
-
-    def _reset_navigation_buttons_color(self):
-        color = "transparent"
-        self.journal_button.configure(fg_color=color)
-        self.planning_button.configure(fg_color=color)
-        self.challenges_button.configure(fg_color=color)
-    
     def set_active_button(self, tab: View):
+        """Set the navigation tab button to active for View enum type."""
         self._reset_navigation_buttons_color()
         color = ("gray75", "gray25")
         if tab == View.JOURNAL: self.journal_button.configure(fg_color=color)
         if tab == View.PLANNING: self.planning_button.configure(fg_color=color)
         if tab == View.CHALLENGES: self.challenges_button.configure(fg_color=color)
 
+    def _reset_navigation_buttons_color(self):
+        color = "transparent"
+        self.journal_button.configure(fg_color=color)
+        self.planning_button.configure(fg_color=color)
+        self.challenges_button.configure(fg_color=color)
 
     def _attach_logo(self):
-        logo_image = CustomImage((35, 35),Assets.NPX_LOGO).image
+        logo_image = CustomImage((35, 35), Assets.NPX_LOGO).image
         self.top_logo = customtkinter.CTkLabel(
             self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
@@ -46,7 +59,7 @@ class NavigationBar(customtkinter.CTkFrame):
         self.challenges_icon = CustomImage(size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).image
 
 
-    def _navigation_buttons_v2(self, jour, plan, chall):
+    def _navigation_buttons(self, jour, plan, chall):
         self.journal_button = CustomTabButton(self,
             "Journal", self.journal_icon, jour, (1, 0), "ew").button
         self.planning_button = CustomTabButton(self,

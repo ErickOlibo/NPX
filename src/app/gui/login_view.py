@@ -4,7 +4,7 @@ from collections.abc import Callable
 from helpers import Assets, CustomImage
 
 class LoginView(customtkinter.CTkFrame):
-    """A view of type CTkFrame of custom desgined."""
+    """A view of type CTkFrame to embeded in custom GUI design."""
     def __init__(self, master, action: Callable[[], None]):
         """Instantiate with the necessary attributes
         
@@ -27,7 +27,7 @@ class LoginView(customtkinter.CTkFrame):
 
         Returns
         -------
-            tuple[str, str]: plaintext uusername and password
+            tuple[str, str]: plaintext username and password
         """
         return (self._username.get(), self._password.get())
 
