@@ -6,4 +6,4 @@ install: requirements.txt
 
 clean:
 	if exist "./build" rd /s /q build
-	if exist "./dits" rd /s /q dist
+	if exist "./dist" rd /s /q dist
