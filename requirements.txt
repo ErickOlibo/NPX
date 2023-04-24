@@ -26,7 +26,7 @@ coverage
 mysql-connector-python
 
 # GUI
-Tkinter
+# tkinter can be imported without installation
 
 # Login
 # Add if we don't use the Login feature of Tkinter
@@ -34,5 +34,5 @@ Tkinter
 # Encryption
 # PyCrypto / KeyCzar / pyOpenSSL / pyDes / ...?
 
-# Automatically adding the date to every etry
-dateutil
+# Automatically adding the date to every entry
+python-dateutil
