@@ -23,6 +23,10 @@ class Assets(Enum):
     LIGHT_PLANNING = auto()
     DARK_CHALLENGES = auto()
     LIGHT_CHALLENGES = auto()
+    DARK_LOGIN = auto()
+    LIGHT_LOGIN = auto()
+    DARK_LOGOUT = auto()
+    LIGHT_LOGOUT = auto()
     NPX_LOGO = auto()
     
     def __str__(self):
