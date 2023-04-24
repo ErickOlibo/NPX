@@ -1,7 +1,6 @@
 import customtkinter
 import os
 from collections.abc import Callable
-from PIL import Image
 from helpers import Assets, CustomImage
 
 class LoginView(customtkinter.CTkFrame):
