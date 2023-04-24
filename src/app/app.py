@@ -1,5 +1,6 @@
-"""This module is the REAL main application. Trying to create a more
-readable code.
+"""
+This module is the responsible for the Desktop app logic. It controls
+the flow of data between the Views and the data models
 """
 
 import customtkinter
@@ -12,16 +13,20 @@ customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
 
 class App(customtkinter.CTk):
-    login_view_size = (500, 500)
-    main_view_size = (1080, 720)
-
+    """
+    Create a instance of the NPX application. At start-up the login view is
+    presented following by the save journal or the creation of a new journal.
+    """
 
     def __init__(self) -> None:
+        """Instantiate the App object and display the login view"""
         super().__init__()
-        self.show_login_view()
+        self.login_view_size = (500, 500)
+        self.main_view_size = (1080, 720)
+        self._show_login_view()
 
 
-    def show_main_view(self):
+    def _show_main_view(self):
         self.title("NPX App | Your Secret Companion")
         self.geometry(f"{self.main_view_size[0]}x{self.main_view_size[1]}")
         self.resizable(True, True)
@@ -36,10 +41,10 @@ class App(customtkinter.CTk):
         self.navigation_bar.grid(row=0, column=0, sticky="nsew")
         self.navigation_bar.grid_rowconfigure(4, weight=1)
 
-        self.set_current_view("Journal Center View")
+        self._set_current_view("Journal Center View")
 
 
-    def set_current_view(self, title: str) -> customtkinter.CTkFrame:
+    def _set_current_view(self, title: str) -> customtkinter.CTkFrame:
         self.current_view = customtkinter.CTkFrame(
             self, corner_radius=0, fg_color=("gray90", "gray15"))
         self.current_view.grid_columnconfigure(0, weight=1)
@@ -49,7 +54,7 @@ class App(customtkinter.CTk):
         self.current_view.grid(row=0, column=1, sticky="nsew")
 
 
-    def show_login_view(self):
+    def _show_login_view(self):
         self.title("NPX App | Login Screen")
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
         self.resizable(False, False)
@@ -63,27 +68,27 @@ class App(customtkinter.CTk):
         (user, password) = self.login_view.get_credentials()
         print(f"Username: {user} | password: {password}")
         self.login_view.grid_forget()
-        self.show_main_view()
+        self._show_main_view()
 
     def _logout_pressed(self):
         self.navigation_bar.grid_forget()
         self.current_view.grid_forget()
-        self.show_login_view()
+        self._show_login_view()
         print("LOGOUT")
 
     def _journal_tab_pressed(self):
         self.navigation_bar.set_active_button(View.JOURNAL)
-        self.set_current_view("Journal Center View")
+        self._set_current_view("Journal Center View")
         print(f"{View.JOURNAL.name}")
 
     def _planning_tab_pressed(self):
         self.navigation_bar.set_active_button(View.PLANNING)
-        self.set_current_view("Planning Center View")
+        self._set_current_view("Planning Center View")
         print(f"{View.PLANNING.name}")
 
     def _challenges_tab_pressed(self):
         self.navigation_bar.set_active_button(View.CHALLENGES)
-        self.set_current_view("Challenges Center View")
+        self._set_current_view("Challenges Center View")
         print(f"{View.CHALLENGES.name}")
 
 
