@@ -2,8 +2,7 @@ import customtkinter
 import os
 from collections.abc import Callable
 from PIL import Image
-from helpers import View, Assets
-#from custom_image import CustomImage
+from helpers import View, Assets, CustomImage
 
 class NavigationBar(customtkinter.CTkFrame):
     assets_path = os.path.join(
@@ -16,32 +15,28 @@ class NavigationBar(customtkinter.CTkFrame):
                  logout: Callable[[], None]):
         super().__init__(master)
         self._attach_logo()
-        self._navigation_icons()
+        self._navigation_icons_v3()
         self._navigation_buttons(journal, planning, challenges)
         self._set_mode_menu()
         self._set_logout_button(logout)
 
 
     def _reset_navigation_buttons_color(self):
-        self.journal_button.configure(fg_color="transparent")
-        self.planning_button.configure(fg_color="transparent")
-        self.challenges_button.configure(fg_color="transparent")
-        pass
+        color = "transparent"
+        self.journal_button.configure(fg_color=color)
+        self.planning_button.configure(fg_color=color)
+        self.challenges_button.configure(fg_color=color)
     
     def set_active_button(self, tab: View):
         self._reset_navigation_buttons_color()
-        if tab == View.JOURNAL:
-            self.journal_button.configure(fg_color=("gray75", "gray25"))
-        if tab == View.PLANNING:
-            self.planning_button.configure(fg_color=("gray75", "gray25"))
-        if tab == View.CHALLENGES:
-            self.challenges_button.configure(fg_color=("gray75", "gray25"))
+        color = ("gray75", "gray25")
+        if tab == View.JOURNAL: self.journal_button.configure(fg_color=color)
+        if tab == View.PLANNING: self.planning_button.configure(fg_color=color)
+        if tab == View.CHALLENGES: self.challenges_button.configure(fg_color=color)
 
-    
-    
+
     def _attach_logo(self):
-        logo_image = customtkinter.CTkImage(
-            self._getImage("icons/npx_logo.png"), size=(35, 35))
+        logo_image = CustomImage((35, 35),Assets.NPX_LOGO).CTk
         self.top_logo = customtkinter.CTkLabel(
             self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
@@ -58,7 +53,7 @@ class NavigationBar(customtkinter.CTkFrame):
         self.planning_icon = self._light_dark_image(
             "icons/light_planning.png", "icons/dark_planning.png", icon_size)
         self.challenges_icon = self._light_dark_image(
-            "icons/light_trophy.png", "icons/dark_trophy.png", icon_size)
+            "icons/light_challenges.png", "icons/dark_challenges.png", icon_size)
         self.login_icon = self._light_dark_image(
             "icons/light_login.png", "icons/dark_login.png", icon_size)
         self.logout_icon = self._light_dark_image(
@@ -70,6 +65,12 @@ class NavigationBar(customtkinter.CTkFrame):
         self.journal_icon = self.custom_image(Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL, size)
         self.planning_icon = self.custom_image(Assets.LIGHT_PLANNING, Assets.DARK_PLANNING, size)
         self.challenges_icon = self.custom_image(Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES, size)
+    
+    def _navigation_icons_v3(self):
+        size = (26, 26)
+        self.journal_icon = CustomImage(size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).CTk
+        self.planning_icon = CustomImage(size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).CTk
+        self.challenges_icon = CustomImage(size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).CTk
     
     def custom_image(self, light_path: str, dark_path: str, size: tuple[int, int]):
         print(dark_path)
