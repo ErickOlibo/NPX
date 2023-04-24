@@ -2,6 +2,7 @@ import customtkinter
 import os
 from collections.abc import Callable
 from PIL import Image
+from helpers import Assets, CustomImage
 
 class LoginView(customtkinter.CTkFrame):
     assets_path = os.path.join(
@@ -25,8 +26,7 @@ class LoginView(customtkinter.CTkFrame):
         return (self.username.get(), self.password.get())
 
     def _attach_logo_to_login_view(self):
-        self.logo_image = customtkinter.CTkImage(
-            self._getImage("icons/npx_logo.png"), size=(45, 45))
+        self.logo_image = CustomImage((45, 45),Assets.NPX_LOGO).CTk
         self.logo_label = customtkinter.CTkLabel(
             self, text="     NPX App", image=self.logo_image,
             compound="left", font=customtkinter.CTkFont(size=25, weight="bold"))
@@ -44,7 +44,3 @@ class LoginView(customtkinter.CTkFrame):
         self.password = customtkinter.CTkEntry(
             self, width=200, show="*", placeholder_text="password")
         self.password.grid(row=4, column=0, padx=30, pady=(0, 15))
-
-    def _getImage(self, path: str)-> Image:
-        return Image.open(os.path.join(self.assets_path, path))
-
