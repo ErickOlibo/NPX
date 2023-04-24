@@ -32,18 +32,18 @@ class LoginView(customtkinter.CTkFrame):
         return (self._username.get(), self._password.get())
 
     def _attach_logo_to_login_view(self):
-        self._logo_image = CustomImage((45, 45),Assets.NPX_LOGO).image
-        self._logo_label = customtkinter.CTkLabel(
-            self, text="     NPX App", image=self._logo_image,
+        logo_image = CustomImage((45, 45),Assets.NPX_LOGO).image
+        label = customtkinter.CTkLabel(
+            self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=25, weight="bold"))
-        self._logo_label.grid(row=0, column=0, padx=30, pady=(10, 15))
+        label.grid(row=0, column=0, padx=30, pady=(10, 15))
 
     def _attach_title_credentials(self):
-        self._login_label = customtkinter.CTkLabel(
+        login_label = customtkinter.CTkLabel(
             self, text="Sign in / Login",
             font=customtkinter.CTkFont(size=20, weight="bold"))
 
-        self._login_label.grid(row=2, column=0, padx=30, pady=(50, 15))
+        login_label.grid(row=2, column=0, padx=30, pady=(50, 15))
         self._username = customtkinter.CTkEntry(
             self, width=200, placeholder_text="username")
         self._username.grid(row=3, column=0, padx=30, pady=(15, 15))
