@@ -5,9 +5,7 @@ from PIL import Image
 from helpers import View, Assets, CustomImage
 
 class NavigationBar(customtkinter.CTkFrame):
-    assets_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "assets")
-    
+
     def __init__(self, master,
                  journal: Callable[[], None],
                  planning: Callable[[], None],
@@ -41,63 +39,15 @@ class NavigationBar(customtkinter.CTkFrame):
             self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
         self.top_logo.grid(row=0, column=0, padx=20, pady=20)
-    
-    
-    def _getImage(self, path: str)-> Image:
-        return Image.open(os.path.join(self.assets_path, path))
-    
-    def _navigation_icons(self):
-        icon_size = (26, 26)
-        self.journal_icon = self._light_dark_image(
-            "icons/light_journal.png", "icons/dark_journal.png", icon_size)
-        self.planning_icon = self._light_dark_image(
-            "icons/light_planning.png", "icons/dark_planning.png", icon_size)
-        self.challenges_icon = self._light_dark_image(
-            "icons/light_challenges.png", "icons/dark_challenges.png", icon_size)
-        self.login_icon = self._light_dark_image(
-            "icons/light_login.png", "icons/dark_login.png", icon_size)
-        self.logout_icon = self._light_dark_image(
-            "icons/light_logout.png", "icons/dark_logout.png", icon_size)
 
-    # try alternatives
-    def _navigation_icons_v2(self):
-        size = (26, 26)
-        self.journal_icon = self.custom_image(Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL, size)
-        self.planning_icon = self.custom_image(Assets.LIGHT_PLANNING, Assets.DARK_PLANNING, size)
-        self.challenges_icon = self.custom_image(Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES, size)
     
     def _navigation_icons_v3(self):
         size = (26, 26)
         self.journal_icon = CustomImage(size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).CTk
         self.planning_icon = CustomImage(size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).CTk
         self.challenges_icon = CustomImage(size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).CTk
-    
-    def custom_image(self, light_path: str, dark_path: str, size: tuple[int, int]):
-        print(dark_path)
-        print(light_path)
-        print(size)
-        return customtkinter.CTkImage(Image.open(dark_path), Image.open(light_path), size)
-    
-    def _light_dark_image(self, light: str, dark: str, size: tuple)-> customtkinter.CTkImage:
-        """create a customtkinter image by setting the dark mode image,
-        light mode image and the size
 
-        Parameters
-        ----------
-            light (str): the relative path to the light icon
-            dark (str): the relative path to the dark icon
-            size (tuple): the size of the displayed icon (Width, Height)
 
-        Returns
-        -------
-            customtkinter.CTkImage: an object CTKImage with the light and dark images
-            accessible via the object's properties light_image, dark_image
-        """
-        return customtkinter.CTkImage(
-            light_image=self._getImage(dark),
-            dark_image=self._getImage(light),
-            size=size)
-    
     def _navigation_buttons(self, journal_action, planning_action, challenges_action ):
         self.journal_button = self._set_navigation_button(
             "Journal", self.journal_icon, journal_action, (1, 0), "ew")
@@ -148,12 +98,3 @@ class NavigationBar(customtkinter.CTkFrame):
             text="Logout", text_color=("gray10", "gray90"),
             hover_color=("gray70", "gray30"), command=action)
         self.logout.grid(row=7, column=0, padx=20, pady=20, sticky="s")
-
-# TO MOVE LATER
-# class CustomImage(customtkinter.CTkImage):
-    
-#     def __init__(self, light_path: str, dark_path: str, size: tuple[int, int]):
-#         self._light_image = Image.open(dark_path) # image for light background
-#         self._dark_image = Image.open(light_path) # image for dark background
-#         self._size = size
-        
