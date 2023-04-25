@@ -5,11 +5,11 @@ conn = sqlite3.connect("user.db")
 cursor = conn.cursor()
 
 cursor.execute("""
-    CREATE TABLE IF NOT EXISTS userdata(
-    id INTEGER PRIMARY KEY,
-    username VARCHARD(255) NOT NULL,
-    password VARCHARD(255) NOT NULL,
-    UNIQUE(username)
+   CREATE TABLE IF NOT EXISTS userdata(
+   id INTEGER PRIMARY KEY,
+   username VARCHARD(255) NOT NULL,
+   password VARCHARD(255) NOT NULL,
+   UNIQUE(username)
 )
 """)
 
