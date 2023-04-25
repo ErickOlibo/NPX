@@ -19,9 +19,10 @@ class LoginView(customtkinter.CTkFrame):
         super().__init__(master)
         self._attach_logo_to_login_view()
         self._attach_title_credentials()
-        self._login_button = customtkinter.CTkButton(
-            self, text="Login", command=action, width=200)
-        self._login_button.grid(row=5, column=0, padx=30, pady=(15, 15))
+        self._attach_login_signin(action)
+        # self._login_button = customtkinter.CTkButton(
+        #     self, text="Login", command=action, width=200)
+        # self._login_button.grid(row=5, column=0, padx=30, pady=(15, 15))
 
     def get_credentials(self) -> tuple[str, str]:
         """Get the values for the username and the password that were entered.
@@ -51,3 +52,9 @@ class LoginView(customtkinter.CTkFrame):
         self._password = customtkinter.CTkEntry(
             self, width=200, show="*", placeholder_text="password")
         self._password.grid(row=4, column=0, padx=30, pady=(0, 15))
+
+    def _attach_login_signin(self, command: Callable[[], None]):
+        self._login_button = customtkinter.CTkButton(
+            self, text="Login", command=command, width=200)
+        self._login_button.grid(row=5, column=0, padx=30, pady=(15, 15))
+        pass
