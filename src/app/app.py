@@ -8,9 +8,9 @@ from helpers import View
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 
-
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
+
 
 class App(customtkinter.CTk):
     """
@@ -24,7 +24,6 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (1080, 720)
         self._show_login_view()
-
 
     def _show_main_view(self):
         self.title("NPX App | Your Secret Companion")
@@ -40,9 +39,7 @@ class App(customtkinter.CTk):
             self._logout_pressed)
         self.navigation_bar.grid(row=0, column=0, sticky="nsew")
         self.navigation_bar.grid_rowconfigure(4, weight=1)
-
         self._set_current_view("Journal Center View")
-
 
     def _set_current_view(self, title: str):
         self.current_view = customtkinter.CTkFrame(
@@ -53,7 +50,6 @@ class App(customtkinter.CTk):
         button.grid(row=0, column=0, padx=20, pady=300)
         self.current_view.grid(row=0, column=1, sticky="nsew")
 
-
     def _show_login_view(self):
         self.title("NPX App | Login Screen")
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
@@ -61,7 +57,6 @@ class App(customtkinter.CTk):
 
         self.login_view = LoginView(self, self._login_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
-
 
     # Button Pressed
     def _login_pressed(self):
@@ -91,9 +86,6 @@ class App(customtkinter.CTk):
         self._set_current_view("Challenges Center View")
         print(f"{View.CHALLENGES.name}")
 
-
-
-
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+# if __name__ == "__main__":
+#     app = App()
+#     app.mainloop()
