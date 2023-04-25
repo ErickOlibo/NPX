@@ -21,6 +21,10 @@ class ExtendEnum(Enum):
             enum_list = list(map(lambda c: c.value, cls))
         return enum_list
 
+class StartUp(Enum):
+    """Enum listing the option available at the start of the NPX app"""
+    SIGN_IN = auto()
+    LOG_IN = auto()
 
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
