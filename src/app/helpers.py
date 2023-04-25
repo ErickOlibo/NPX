@@ -131,6 +131,33 @@ class CustomTabButton():
         """
         return self._btn
 
+class SessionData():
+    """A container for the credential and the type of startup."""
+    def __init__(self, username: str, password: str, type: StartUp):
+        """Instantiate with the necessary attributes.
+
+        Parameters
+        ----------
+            name: str 
+                The username entered during this login/sign in session
+            password: str
+                The password entered duing this login/sing in session
+            type: StartUp
+                The type, Login or Sign in of the current startup session
+        """
+        self._username = username
+        self._password = password
+        self._type = type
+    
+    @property
+    def cookie(self) -> tuple[str, str, StartUp]:
+        """
+        Get the username, password and startup type of the current session.
+
+        Returns:
+            tuple[str, str, StartUp]: respectivelly, username, password, type.
+        """
+        return (self._username, self._password, self._type)
 
 SAMPLE_ENTRIES = {
     0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
