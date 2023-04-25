@@ -19,10 +19,7 @@ class LoginView(customtkinter.CTkFrame):
         super().__init__(master)
         self._attach_logo_to_login_view()
         self._attach_title_credentials()
-        self._attach_login_signin(action)
-        # self._login_button = customtkinter.CTkButton(
-        #     self, text="Login", command=action, width=200)
-        # self._login_button.grid(row=5, column=0, padx=30, pady=(15, 15))
+        self._attach_login_signin_v2(action)
 
     def get_credentials(self) -> tuple[str, str]:
         """Get the values for the username and the password that were entered.
@@ -42,7 +39,7 @@ class LoginView(customtkinter.CTkFrame):
 
     def _attach_title_credentials(self):
         login_label = customtkinter.CTkLabel(
-            self, text="Sign in / Login",
+            self, text="My Secret Journal",
             font=customtkinter.CTkFont(size=20, weight="bold"))
 
         login_label.grid(row=2, column=0, padx=30, pady=(50, 15))
@@ -53,8 +50,27 @@ class LoginView(customtkinter.CTkFrame):
             self, width=200, show="*", placeholder_text="password")
         self._password.grid(row=4, column=0, padx=30, pady=(0, 15))
 
+    def _attach_login_signin_v2(self, command: Callable[[], None]):
+        self._frame = customtkinter.CTkFrame(self)
+        self._frame.configure(fg_color="transparent")
+        self._frame.grid_rowconfigure(0, weight=1)
+        self._frame.columnconfigure(1, weight=1)
+        
+        self._login_button = customtkinter.CTkButton(
+            self._frame, text="Login", command=command, width=80,
+            font=customtkinter.CTkFont(weight="bold"))
+        self._signin_button = customtkinter.CTkButton(
+            self._frame, text="Sign in", command=command, width=80,
+            font=customtkinter.CTkFont(weight="bold"))
+
+        self._signin_button.grid(row=0, column=0, padx=(0, 20), pady=(0, 0), sticky="w")
+        self._login_button.grid(row=0, column=1, padx=(20, 0), pady=(0, 0), sticky="e")
+
+        self._frame.grid(row=5, column=0, padx=30, pady=(15, 15))
+
+        pass
+    
     def _attach_login_signin(self, command: Callable[[], None]):
         self._login_button = customtkinter.CTkButton(
             self, text="Login", command=command, width=200)
         self._login_button.grid(row=5, column=0, padx=30, pady=(15, 15))
-        pass
