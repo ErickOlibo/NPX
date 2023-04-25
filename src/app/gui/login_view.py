@@ -1,13 +1,14 @@
 """This module creates a login view."""
-import customtkinter
 from collections.abc import Callable
+import customtkinter
 from helpers import Assets, CustomImage
+
 
 class LoginView(customtkinter.CTkFrame):
     """A view of type CTkFrame to embeded in custom GUI design."""
     def __init__(self, master, action: Callable[[], None]):
         """Instantiate with the necessary attributes
-        
+
         Parameters
         ----------
             master: Any
@@ -32,7 +33,7 @@ class LoginView(customtkinter.CTkFrame):
         return (self._username.get(), self._password.get())
 
     def _attach_logo_to_login_view(self):
-        logo_image = CustomImage((45, 45),Assets.NPX_LOGO).image
+        logo_image = CustomImage((45, 45), Assets.NPX_LOGO).image
         label = customtkinter.CTkLabel(
             self, text="     NPX App", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=25, weight="bold"))
