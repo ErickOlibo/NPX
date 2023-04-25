@@ -1,0 +1,10 @@
+# flake8 EXCLUDE SETTINGS (NPX App)
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    test/
+max-line-length = 120
+enable-extensions = pylint,mccabe
+disable-extensions = cohesion
