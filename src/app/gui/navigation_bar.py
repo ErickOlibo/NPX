@@ -1,7 +1,8 @@
 """This module creates a NPX Navigation Bar."""
-import customtkinter
 from collections.abc import Callable
+import customtkinter
 from helpers import View, Assets, CustomImage, CustomTabButton
+
 
 class NavigationBar(customtkinter.CTkFrame):
     """A view of type CTkFrame to embeded in custom GUI design."""
@@ -11,7 +12,7 @@ class NavigationBar(customtkinter.CTkFrame):
                  challenges: Callable[[], None],
                  logout: Callable[[], None]):
         """Instantiate with the necessary attributes
-        
+
         Parameters
         ----------
             master: Any
@@ -34,9 +35,12 @@ class NavigationBar(customtkinter.CTkFrame):
         """Set the navigation tab button to active for View enum type."""
         self._reset_navigation_buttons_color()
         color = ("gray75", "gray25")
-        if tab == View.JOURNAL: self.journal_button.configure(fg_color=color)
-        if tab == View.PLANNING: self.planning_button.configure(fg_color=color)
-        if tab == View.CHALLENGES: self.challenges_button.configure(fg_color=color)
+        if tab == View.JOURNAL:
+            self.journal_button.configure(fg_color=color)
+        if tab == View.PLANNING:
+            self.planning_button.configure(fg_color=color)
+        if tab == View.CHALLENGES:
+            self.challenges_button.configure(fg_color=color)
 
     def _reset_navigation_buttons_color(self):
         color = "transparent"
@@ -51,29 +55,26 @@ class NavigationBar(customtkinter.CTkFrame):
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
         self.top_logo.grid(row=0, column=0, padx=20, pady=20)
 
-    
     def _navigation_icons(self):
         size = (26, 26)
         self.journal_icon = CustomImage(size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).image
         self.planning_icon = CustomImage(size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).image
         self.challenges_icon = CustomImage(size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).image
 
-
     def _navigation_buttons(self, jour, plan, chall):
-        self.journal_button = CustomTabButton(self,
-            "Journal", self.journal_icon, jour, (1, 0), "ew").button
-        self.planning_button = CustomTabButton(self,
-            "Planning", self.planning_icon, plan, (2, 0), "ew").button
-        self.challenges_button = CustomTabButton(self,
-            "Challenges", self.challenges_icon, chall, (3, 0), "ew").button
-    
-    
+        self.journal_button = CustomTabButton(self, "Journal", self.journal_icon,
+                                              jour, (1, 0), "ew").button
+        self.planning_button = CustomTabButton(self, "Planning", self.planning_icon,
+                                               plan, (2, 0), "ew").button
+        self.challenges_button = CustomTabButton(self, "Challenges", self.challenges_icon,
+                                                 chall, (3, 0), "ew").button
+
     def _set_mode_menu(self):
         self.mode_menu = customtkinter.CTkSegmentedButton(
             self, values=["Light", "System", "Dark"],
             command=self._change_appearance_mode_event)
         self.mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
-    
+
     def _change_appearance_mode_event(self, new_value):
         customtkinter.set_appearance_mode(new_value)
 
@@ -83,4 +84,3 @@ class NavigationBar(customtkinter.CTkFrame):
             text="Logout", text_color=("gray10", "gray90"),
             hover_color=("gray70", "gray30"), command=action)
         self.logout.grid(row=7, column=0, padx=20, pady=20, sticky="s")
-
