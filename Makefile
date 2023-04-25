@@ -1,5 +1,5 @@
 run:
-	python NPX/main.py
+	python src/app/main.py
 
 install: requirements.txt
 	pip install -r requirements.txt
