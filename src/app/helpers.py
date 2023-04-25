@@ -1,9 +1,9 @@
 """This module is a collection of constan and enums needed."""
 import os
 from enum import Enum, auto
+from collections.abc import Callable
 import customtkinter
 from PIL import Image
-from collections.abc import Callable
 
 
 class ExtendEnum(Enum):
@@ -12,9 +12,15 @@ class ExtendEnum(Enum):
     Inspired by @Jeff https://stackoverflow.com/a/54919285/8699673
     """
     @classmethod
-    def list(cls, type):
-        if type == "name": return list(map(lambda c: c.name, cls))
-        if type == "value": return list(map(lambda c: c.value, cls))
+    def list(cls, list_type):
+        """Return the list of all Enum cases as specified type."""
+
+        if list_type == "name":
+            enum_list = list(map(lambda c: c.name, cls))
+        if list_type == "value":
+            enum_list = list(map(lambda c: c.value, cls))
+        return enum_list
+
 
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
@@ -40,7 +46,7 @@ class Assets(ExtendEnum):
     DARK_LOGOUT = auto()
     LIGHT_LOGOUT = auto()
     NPX_LOGO = auto()
-    
+
     def __str__(self):
         asset_path = f"gui/assets/icons/{self.name.lower()}.png"
         return os.path.join(
@@ -66,11 +72,11 @@ class CustomImage():
         self._size = size
         if None in [light, dark]:
             image = Image.open(str(light))
-            self._CTk = customtkinter.CTkImage(image, size=size)
+            self._image = customtkinter.CTkImage(image, size=size)
         else:
-            light_image = Image.open(str(dark)) # image for light background
-            dark_image = Image.open(str(light)) # image for dark background
-            self._CTk = customtkinter.CTkImage(light_image, dark_image)
+            light_image = Image.open(str(dark))  # image for light background
+            dark_image = Image.open(str(light))  # image for dark background
+            self._image = customtkinter.CTkImage(light_image, dark_image)
 
     @property
     def image(self) -> customtkinter.CTkImage:
@@ -81,15 +87,13 @@ class CustomImage():
         -------
             customtkinter.CTkImage: The image requested as instance of.
         """
-        return self._CTk
+        return self._image
+
 
 class CustomTabButton():
     """A button of type custom.CTkButton to use as a tab bar button"""
-    def __init__(self, master,  title: str,
-                               icon: customtkinter.CTkImage,
-                               action: Callable[[], None],
-                               position: tuple[int, int],
-                               stick: str):
+    def __init__(self, master, title: str, icon: customtkinter.CTkImage,
+                 action: Callable[[], None], position: tuple[int, int], stick: str):
         """Instantiate with the necessary attributes
 
         Parameters
@@ -111,7 +115,7 @@ class CustomTabButton():
             hover_color=("gray70", "gray30"), image=icon, anchor="w",
             font=customtkinter.CTkFont(size=15), command=action)
         self._btn.grid(row=position[0], column=position[1], sticky=stick)
-    
+
     @property
     def button(self) -> customtkinter.CTkButton:
         """
@@ -126,9 +130,12 @@ class CustomTabButton():
 
 SAMPLE_ENTRIES = {
     0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."],
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."],
     1: ["Wed 5 April", "Waiting for the Results", ("Anxiety", "Panic", "Not eating"),
-        "Ut etiam sit amet nisl purus in mollis. Donec massa sapien faucibus et molestie ac feugiat..."],
+        "Ut etiam sit amet nisl purus in mollis. \
+            Donec massa sapien faucibus et molestie ac feugiat..."],
     2: ["Mon 27 March", "Not Sure How I Feel", (),
-        "Sed augue lacus viverra vitae congue eu consequat. Lacinia quis vel eros donec ac. At quis risus sed vulputate odio ut enim...."],
+        "Sed augue lacus viverra vitae congue eu consequat. \
+            Lacinia quis vel eros donec ac. At quis risus sed vulputate odio ut enim...."],
 }
