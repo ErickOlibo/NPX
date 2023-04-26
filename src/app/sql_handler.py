@@ -49,7 +49,7 @@ class SQLHandler:
     def _get_hash_digest(self, password: str ) -> str:
         return hashlib.sha256(password.encode()).hexdigest()
     
-    def verify_user(self, username: str, password: str) -> bool:
+    def verified_user(self, username: str, password: str) -> bool:
         user_name = username.lower()
         hashed_password = self._get_hash_digest(password)
         sql = f"SELECT username FROM {SQLTable.USERDATA} WHERE username = ? AND password = ?"
@@ -63,10 +63,10 @@ class SQLHandler:
         return self._cursor.fetchone() is not None
 
 
-handler = SQLHandler()
-#handler.insert_into(SQLTable.USERDATA, username="Fiona", password="FIONA")
+# handler = SQLHandler()
+# #handler.insert_into(SQLTable.USERDATA, username="Fiona", password="FIONA")
 
-if handler.username_taken("Stevo"):
-    print("TAKEN")
-else:
-    print("FREE")
+# if handler.username_taken("Stevo"):
+#     print("TAKEN")
+# else:
+#     print("FREE")
