@@ -22,6 +22,37 @@ class ExtendEnum(Enum):
         return enum_list
 
 
+class SQLTable(Enum):
+    """Enum listing the database table names."""
+    USERDATA = auto()
+    ENTRIES = auto()
+
+    def __str__(self):
+        return str(self.name.lower())
+
+
+class SQLCreateTable(Enum):
+    """Enum listing the CREATE TABLE statements used in this App."""
+    USERDATA = """
+        CREATE TABLE IF NOT EXISTS userdata(
+        id INTEGER PRIMARY KEY,
+        username VARCHARD(255) NOT NULL,
+        password VARCHARD(255) NOT NULL,
+        UNIQUE(username)
+        )
+    """
+    ENTRIES = """To Fill In Later"""
+
+    def __str__(self):
+        return str(self.value)
+
+
+class StartUp(Enum):
+    """Enum listing the option available at the start of the NPX app"""
+    SIGN_IN = auto()
+    LOG_IN = auto()
+
+
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
 
@@ -51,6 +82,21 @@ class Assets(ExtendEnum):
         asset_path = f"gui/assets/icons/{self.name.lower()}.png"
         return os.path.join(
             os.path.dirname(os.path.realpath(__file__)), asset_path)
+
+
+
+class SessionIssue(Enum):
+    """Enum listing the different issues that can occur during startup"""
+    USERNAME_TAKEN = "Username Already Taken!"
+    WRONG_USERNAME = "Wrong Username!"
+    WRONG_PASSWORD = "Wrong Password!"
+    EMPTY_USERNAME = "Username Field is Empty!"
+    EMPTY_PASSWORD = "Password Field is Empty!"
+    UNKNOWN = "Unknown Issue!"
+    NONE = "None"
+
+    def __str__(self):
+        return str(self.value)
 
 
 class CustomImage():
@@ -126,6 +172,68 @@ class CustomTabButton():
             customtkinter.CTkButton: The button requested as instance of.
         """
         return self._btn
+
+
+class SessionData():
+    """A container for the credential and the type of startup."""
+    def __init__(self, username: str, password: str, type: StartUp):
+        """Instantiate with the necessary attributes.
+
+        Parameters
+        ----------
+            name: str
+                The username entered during this login/sign in session
+            password: str
+                The password entered duing this login/sing in session
+            type: StartUp
+                The type, Login or Sign in of the current startup session
+        """
+        self._username = username
+        self._password = password
+        self._type = type
+
+    @property
+    def cookie(self) -> tuple[str, str, StartUp]:
+        """
+        Get the username, password and startup type of the current session.
+
+        Returns:
+            tuple[str, str, StartUp]: respectivelly, username, password, type.
+        """
+        return (self._username, self._password, self._type)
+
+    @property
+    def username(self) -> str:
+        """
+        Return the username of the current session.
+
+        Returns:
+        - str: the username entered.
+        """
+        return self._username
+
+    @property
+    def password(self) -> str:
+        """
+        Return the password of the current session.
+
+        Returns:
+        - str: the password entered.
+        """
+        return self._password
+
+    @property
+    def type(self) -> StartUp:
+        """
+        Return the Startup type (Login or Sign in) of the current session.
+
+        Returns:
+        - StartUp: the type choosen.
+        """
+        return self._type
+
+    def __str__(self) -> str:
+        return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
 
 
 SAMPLE_ENTRIES = {
