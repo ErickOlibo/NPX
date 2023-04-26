@@ -32,8 +32,8 @@ class LoginView(customtkinter.CTkFrame):
     #     """
     #     return (self._username.get(), self._password.get())
     
-    def wrong_credentials(self, message: str):
-
+    def set_wrong_credentials_message(self, message: str):
+        self._message_box.configure(text=f"* {message}")
         pass
 
     def _attach_logo_to_login_view(self):
@@ -74,14 +74,13 @@ class LoginView(customtkinter.CTkFrame):
         self._login_button.grid(row=0, column=1, padx=(20, 0), pady=(0, 0), sticky="e")
 
         self._frame.grid(row=5, column=0, padx=30, pady=(15, 15))
-    
+
     def _attach_message_box(self):
-        message_box = customtkinter.CTkLabel(
-            self, text="___",
+        self._message_box = customtkinter.CTkLabel(
+            self, text="",
             font=customtkinter.CTkFont(size=15, weight="normal"),
             text_color="red", justify="left")
-        message_box.grid(row=6, column=0, padx=30, pady=(10, 15), sticky="w")
-        pass
+        self._message_box.grid(row=6, column=0, padx=30, pady=(10, 15), sticky="w")
 
     def _login_button_pressed(self):
         data = SessionData(self._username.get(), self._password.get(), StartUp.LOG_IN)

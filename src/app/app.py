@@ -4,7 +4,7 @@ the flow of data between the Views and the data models
 """
 
 import customtkinter
-from helpers import View, SessionData
+from helpers import View, SessionData, SessionIssue
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 
@@ -61,7 +61,7 @@ class App(customtkinter.CTk):
     # LOGIN or SIGN IN Pressed
     def _login_signin_pressed(self, data: SessionData):
         print(data)
-
+        self.login_view.set_wrong_credentials_message(SessionIssue.EMPTY_USERNAME)
         # self.login_view.grid_forget()
         # self._show_main_view()
 
