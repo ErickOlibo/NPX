@@ -1,0 +1,23 @@
+[MESSAGES CONTROL]
+
+#disable=locally-disabled,locally-enabled,E0401
+disable=E0401
+
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+
+[REPORTS]
+
+#reports=no
+
+[MASTER]
+#ignore=*_test.py
+#ignore-patterns=*_test.py
+
+init-hook='import sys; sys.path.append("~/Documents/VISUAL\ STUDIO\ CODE/NPX")'
+
+#max-line-length=1000
