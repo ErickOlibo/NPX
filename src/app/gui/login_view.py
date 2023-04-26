@@ -20,18 +20,9 @@ class LoginView(customtkinter.CTkFrame):
         self._action = action
         self._attach_logo_to_login_view()
         self._attach_title_credentials()
-        self._attach_login_signin_v2()
+        self._attach_login_signin()
         self._attach_message_box()
 
-    # def get_credentials(self) -> tuple[str, str]:
-    #     """Get the values for the username and the password that were entered.
-
-    #     Returns
-    #     -------
-    #         tuple[str, str]: plaintext username and password
-    #     """
-    #     return (self._username.get(), self._password.get())
-    
     def set_wrong_credentials_message(self, message: str):
         self._message_box.configure(text=f"* {message}")
         pass
@@ -56,7 +47,7 @@ class LoginView(customtkinter.CTkFrame):
             self, width=200, show="*", placeholder_text="password")
         self._password.grid(row=4, column=0, padx=30, pady=(0, 15))
 
-    def _attach_login_signin_v2(self):
+    def _attach_login_signin(self):
         self._frame = customtkinter.CTkFrame(self)
         self._frame.configure(fg_color="transparent")
         self._frame.grid_rowconfigure(0, weight=1)
