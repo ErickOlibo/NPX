@@ -4,9 +4,10 @@ the flow of data between the Views and the data models
 """
 
 import customtkinter
-from helpers import View, SessionData, SessionIssue
+from helpers import View, SessionData, SessionIssue, StartUp, SQLTable
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
+from sql_handler import SQLHandler
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
@@ -60,17 +61,42 @@ class App(customtkinter.CTk):
 
     # LOGIN or SIGN IN Pressed
     def _login_signin_pressed(self, data: SessionData):
-        print(data)
-        self.login_view.set_wrong_credentials_message(SessionIssue.EMPTY_USERNAME)
-        # self.login_view.grid_forget()
-        # self._show_main_view()
+        issue = self._processed_data_issue(data)
+        if  issue == SessionIssue.NONE:
+            self.login_view.grid_forget()
+            self._show_main_view()
+        else:
+            self.login_view.set_wrong_credentials_message(issue)
 
+    def _processed_data_issue(self, data: SessionData) -> SessionIssue:
+        if not data.username:
+            return SessionIssue.EMPTY_USERNAME
+        if not data.password:
+            return SessionIssue.EMPTY_PASSWORD
+
+        handler = SQLHandler()
+        if data.type == StartUp.SIGN_IN:
+            if not handler.username_taken(data.username):
+                handler.insert_into(SQLTable.USERDATA,
+                                    username=data.username, password=data.password)
+                return SessionIssue.NONE
+            else:
+                return SessionIssue.USERNAME_TAKEN
+
+        if data.type == StartUp.LOG_IN:
+            if handler.verified_user(data.username, data.password):
+                return SessionIssue.NONE
+            else:
+                if handler.username_taken(data.username):
+                    return SessionIssue.WRONG_PASSWORD
+                else:
+                    return SessionIssue.WRONG_USERNAME
+        return SessionIssue.UNKNOWN
 
     def _logout_pressed(self):
         self.navigation_bar.grid_forget()
         self.current_view.grid_forget()
         self._show_login_view()
-        print("LOGOUT")
 
     def _journal_tab_pressed(self):
         self.navigation_bar.set_active_button(View.JOURNAL)
