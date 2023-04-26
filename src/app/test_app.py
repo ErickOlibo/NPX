@@ -2,7 +2,7 @@
 import unittest
 from app import App
 from customtkinter import CTkFrame
-
+from helpers import View, SessionData, SessionIssue, StartUp, SQLTable
 
 class TestApp(unittest.TestCase):
     """Test classes and methods using UnitTest."""
@@ -43,8 +43,26 @@ class TestApp(unittest.TestCase):
         self.app._challenges_tab_pressed()
         self.assertIsInstance(self.app.current_view, CTkFrame)
 
-    
+    def test_processed_data_issue(self):
+        data = SessionData("Erick", "", StartUp.LOG_IN)
+        self.assertEqual(self.app._processed_data_issue(data), SessionIssue.EMPTY_PASSWORD)
+        data = SessionData("", "1234", StartUp.LOG_IN)
+        self.assertEqual(self.app._processed_data_issue(data), SessionIssue.EMPTY_USERNAME)
+        data = SessionData("Erick", "1234", StartUp.SIGN_IN)
+        self.assertIs(self.app._processed_data_issue(data), SessionIssue.USERNAME_TAKEN)
 
+    def test_login_signin_pressed(self):
+        data = SessionData("", "", StartUp.LOG_IN)
+        self.app._login_signin_pressed(data)
+        
+        data = SessionData("Erick", "", StartUp.LOG_IN)
+        self.app._login_signin_pressed(data)
+        
+        data = SessionData("Erick", "1234", StartUp.LOG_IN)
+        self.app._login_signin_pressed(data)
+        
+        data = SessionData("Erick", "1234", StartUp.SIGN_IN)
+        self.app._login_signin_pressed(data)
 
 if __name__ == '__main__':
     unittest.main()

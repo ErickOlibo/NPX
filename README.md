@@ -37,4 +37,9 @@ At this point the project is not open for community contribution. If that change
 ## License
 [license.md](https://github.com/ErickOlibo/NPX/blob/main/LICENSE.md)
 
-## [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) provided by GitHub.com
+
+### Attributions and Copyrights
+ - [FreePik](https://www.freepik.com) for the NPX logomark
+ - [FontAwesome](https://fontawesome.com) for the icons in the SideBar Navigation
+ - [CustomTKinter](https://github.com/TomSchimansky/CustomTkinter) library for a custom GUI
+ - [Python Pillow](https://github.com/python-pillow/Pillow) for handling image loading and displaying

@@ -1,13 +1,7 @@
-## JUST FEW MODULE TO START WITH
-
 # Code analysis
 bandit
 cohesion
 flake8
-flake8-docstrings
-flake8-polyfill
-
-#metrics.pylint
 pylint
 radon
 
@@ -16,7 +10,6 @@ black
 
 # Documentation
 pdoc3
-sphinx
 
 # Unit test and coverage
 coverage
@@ -29,9 +22,6 @@ customtkinter
 
 # Image Rendering
 Pillow
-
-# Login
-# Add if we don't use the Login feature of Tkinter
 
 # Encryption
 # PyCrypto / KeyCzar / pyOpenSSL / pyDes / ...?
