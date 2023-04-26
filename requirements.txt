@@ -2,8 +2,7 @@
 
 # Code analysis
 bandit
-
-#cohesion
+cohesion
 flake8
 flake8-docstrings
 flake8-polyfill
@@ -26,7 +25,10 @@ coverage
 mysql-connector-python
 
 # GUI
-# tkinter can be imported without installation
+customtkinter
+
+# Image Rendering
+Pillow
 
 # Login
 # Add if we don't use the Login feature of Tkinter
