@@ -6,6 +6,7 @@ from helpers import Assets, CustomImage, SessionData, StartUp
 
 class LoginView(customtkinter.CTkFrame):
     """A view of type CTkFrame to embeded in custom GUI design."""
+    
     def __init__(self, master, action: Callable[[], SessionData]):
         """Instantiate with the necessary attributes
 

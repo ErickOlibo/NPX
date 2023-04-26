@@ -84,6 +84,7 @@ class Assets(ExtendEnum):
             os.path.dirname(os.path.realpath(__file__)), asset_path)
 
 
+
 class SessionIssue(Enum):
     """Enum listing the different issues that can occur during startup"""
     USERNAME_TAKEN = "Username Already Taken!"
