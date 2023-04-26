@@ -15,7 +15,7 @@ customtkinter.set_default_color_theme("green")
 
 class App(customtkinter.CTk):
     """
-    Create a instance of the NPX application. At start-up the login view is
+    Create an instance of the NPX application. At start-up the login view is
     presented following by the save journal or the creation of a new journal.
     """
 
