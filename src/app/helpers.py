@@ -21,6 +21,29 @@ class ExtendEnum(Enum):
             enum_list = list(map(lambda c: c.value, cls))
         return enum_list
 
+class SQLTable(Enum):
+    """Enum listing the database table names."""
+    USERDATA = auto()
+    ENTRIES = auto()
+    
+    def __str__(self):
+        return str(self.name.lower())
+
+class SQLCreateTable(Enum):
+    """Enum listing the CREATE TABLE statements used in this App."""
+    USERDATA = """
+        CREATE TABLE IF NOT EXISTS userdata(
+        id INTEGER PRIMARY KEY,
+        username VARCHARD(255) NOT NULL,
+        password VARCHARD(255) NOT NULL,
+        UNIQUE(username)
+        )
+    """
+    ENTRIES = """To Fill In Later"""
+    
+    def __str__(self):
+        return str(self.value)
+
 class StartUp(Enum):
     """Enum listing the option available at the start of the NPX app"""
     SIGN_IN = auto()
