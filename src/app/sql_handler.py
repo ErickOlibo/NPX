@@ -1,3 +1,4 @@
+import os
 import sqlite3
 import hashlib
 from sqlite3 import Connection, Error
@@ -7,8 +8,9 @@ class SQLHandler:
     """This handles every query to the database. """
 
     def __init__(self):
-        database_path = "db/npx_app.db"
-        self._conn = self._create_connection(database_path)
+        db_path = os.path.join( os.path.dirname(os.path.realpath(__file__)), "db/npx_app.db")
+        #database_path = "db/npx_app.db"
+        self._conn = self._create_connection(db_path)
         self._cursor = self._conn.cursor()
         self._create_userdata_table()
 
