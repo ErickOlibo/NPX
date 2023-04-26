@@ -41,13 +41,32 @@ class SQLHandler:
     def insert_into(self, table: SQLTable, **kwargs):
         if all(item in ["username", "password"] for item in kwargs.keys()):
             sql = f"INSERT OR IGNORE INTO {table} (username, password) VALUES (?, ?)"
-            hash_password = self._get_hash_digest(kwargs["password"])
-            self._cursor.execute(sql, (kwargs["username"], hash_password))
+            username = str(kwargs["username"]).lower()
+            password = self._get_hash_digest(kwargs["password"])
+            self._cursor.execute(sql, (username, password))
             self._conn.commit()
 
-    
     def _get_hash_digest(self, password: str ) -> str:
         return hashlib.sha256(password.encode()).hexdigest()
+    
+    def verify_user(self, username: str, password: str) -> bool:
+        user_name = username.lower()
+        hashed_password = self._get_hash_digest(password)
+        sql = f"SELECT username FROM {SQLTable.USERDATA} WHERE username = ? AND password = ?"
+        self._cursor.execute(sql, (user_name, hashed_password))
+        return self._cursor.fetchone() is not None
+
+    def username_taken(self, username: str) -> bool:
+        user_name = username.lower()
+        sql = f"SELECT username FROM {SQLTable.USERDATA} WHERE username = ?"
+        self._cursor.execute(sql, (user_name,))
+        return self._cursor.fetchone() is not None
+
 
 handler = SQLHandler()
-handler.insert_into(SQLTable.USERDATA, username="Eri", password="22OLIBO")
+#handler.insert_into(SQLTable.USERDATA, username="Fiona", password="FIONA")
+
+if handler.username_taken("Stevo"):
+    print("TAKEN")
+else:
+    print("FREE")
