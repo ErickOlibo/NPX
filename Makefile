@@ -1,3 +1,5 @@
+.PHONY: run clean
+
 # create and setup the virtual environment
 venv/bin/activate: requirements.txt
 	python -m venv .venv
@@ -11,7 +13,6 @@ run: venv/bin/activate
 
 # clean up artifacts from previous builds
 clean:
-	if exist "./build" rd /s /q build
-	if exist "./dist" rd /s /q dist
-	rm -rf __pycache__
-	rm -rf venv
+	rm -r src/app/__pycache__
+	rm -r .venv
+	rm -r .idea
