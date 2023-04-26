@@ -4,7 +4,7 @@ the flow of data between the Views and the data models
 """
 
 import customtkinter
-from helpers import View
+from helpers import View, SessionData
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 
@@ -55,15 +55,16 @@ class App(customtkinter.CTk):
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
         self.resizable(False, False)
 
-        self.login_view = LoginView(self, self._login_pressed)
+        self.login_view = LoginView(self, self._login_signin_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
 
-    # Button Pressed
-    def _login_pressed(self):
-        (user, password) = self.login_view.get_credentials()
-        print(f"LOGIN\nUsername: {user} | password: {password}")
-        self.login_view.grid_forget()
-        self._show_main_view()
+    # LOGIN or SIGN IN Pressed
+    def _login_signin_pressed(self, data: SessionData):
+        print(data)
+
+        # self.login_view.grid_forget()
+        # self._show_main_view()
+
 
     def _logout_pressed(self):
         self.navigation_bar.grid_forget()
