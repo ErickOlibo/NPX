@@ -56,6 +56,16 @@ class Assets(ExtendEnum):
         return os.path.join(
             os.path.dirname(os.path.realpath(__file__)), asset_path)
 
+class SessionIssue(Enum):
+    """Enum listing the different issues that can occur during startup"""
+    USERNAME_TAKEN = "Username Already Taken!"
+    WRONG_USERNAME = "Wrong Username!"
+    WRONG_PASSWORD = "Wrong Password!"
+    EMPTY_USERNAME = "Username Field is Empty!"
+    EMPTY_PASSWORD = "Password Field is Empty!"
+    
+    def __str__(self):
+        return str(self.value)
 
 class CustomImage():
     """A image of type customtkinter.CTkImage to add to a custom frame"""
