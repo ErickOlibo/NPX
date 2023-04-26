@@ -14,7 +14,7 @@ endef
 # Different Keywords for common commands
 #
 
-run: main.py
+run:
 	@printf "This Starts up the NPX App\n"
 	$(PYTHON) src/app/main.py
 
