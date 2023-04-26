@@ -62,11 +62,5 @@ class SQLHandler:
         self._cursor.execute(sql, (user_name,))
         return self._cursor.fetchone() is not None
 
-
-# handler = SQLHandler()
-# #handler.insert_into(SQLTable.USERDATA, username="Fiona", password="FIONA")
-
-# if handler.username_taken("Stevo"):
-#     print("TAKEN")
-# else:
-#     print("FREE")
+    def close_connection(self):
+        self._conn.close()
