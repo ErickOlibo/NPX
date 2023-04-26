@@ -1,12 +1,12 @@
 """This module creates a login view."""
 from collections.abc import Callable
 import customtkinter
-from helpers import Assets, CustomImage
+from helpers import Assets, CustomImage, SessionData, StartUp
 
 
 class LoginView(customtkinter.CTkFrame):
     """A view of type CTkFrame to embeded in custom GUI design."""
-    def __init__(self, master, action: Callable[[], None]):
+    def __init__(self, master, action: Callable[[], SessionData]):
         """Instantiate with the necessary attributes
 
         Parameters
@@ -17,6 +17,7 @@ class LoginView(customtkinter.CTkFrame):
                 a method to trigger in the master when the button is pressed
         """
         super().__init__(master)
+        self._action = action
         self._attach_logo_to_login_view()
         self._attach_title_credentials()
         self._attach_login_signin_v2(action)
@@ -55,22 +56,24 @@ class LoginView(customtkinter.CTkFrame):
         self._frame.configure(fg_color="transparent")
         self._frame.grid_rowconfigure(0, weight=1)
         self._frame.columnconfigure(1, weight=1)
-        
+
         self._login_button = customtkinter.CTkButton(
-            self._frame, text="Login", command=command, width=80,
-            font=customtkinter.CTkFont(weight="bold"))
+            self._frame, text="Login", command=self._login_button_pressed,
+            width=80, font=customtkinter.CTkFont(weight="bold"))
+
         self._signin_button = customtkinter.CTkButton(
-            self._frame, text="Sign in", command=command, width=80,
-            font=customtkinter.CTkFont(weight="bold"))
+            self._frame, text="Sign in", command=self._signin_button_pressed,
+            width=80, font=customtkinter.CTkFont(weight="bold"))
 
         self._signin_button.grid(row=0, column=0, padx=(0, 20), pady=(0, 0), sticky="w")
         self._login_button.grid(row=0, column=1, padx=(20, 0), pady=(0, 0), sticky="e")
 
         self._frame.grid(row=5, column=0, padx=30, pady=(15, 15))
 
-        pass
-    
-    def _attach_login_signin(self, command: Callable[[], None]):
-        self._login_button = customtkinter.CTkButton(
-            self, text="Login", command=command, width=200)
-        self._login_button.grid(row=5, column=0, padx=30, pady=(15, 15))
+    def _login_button_pressed(self):
+        data = SessionData(self._username.get(), self._password.get(), StartUp.LOG_IN)
+        self._action(data)
+
+    def _signin_button_pressed(self):
+        data = SessionData(self._username.get(), self._password.get(), StartUp.SIGN_IN)
+        self._action(data)
