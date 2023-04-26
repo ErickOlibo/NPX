@@ -86,6 +86,8 @@ class SessionIssue(Enum):
     WRONG_PASSWORD = "Wrong Password!"
     EMPTY_USERNAME = "Username Field is Empty!"
     EMPTY_PASSWORD = "Password Field is Empty!"
+    UNKNOWN = "Unknown Issue!"
+    NONE = "None"
     
     def __str__(self):
         return str(self.value)
@@ -192,6 +194,36 @@ class SessionData():
         """
         return (self._username, self._password, self._type)
     
+    @property
+    def username(self) -> str:
+        """
+        Return the username of the current session.
+
+        Returns:
+        - str: the username entered.
+        """
+        return self._username
+
+    @property
+    def password(self) -> str:
+        """
+        Return the password of the current session.
+
+        Returns:
+        - str: the password entered.
+        """
+        return self._password
+
+    @property
+    def type(self) -> StartUp:
+        """
+        Return the Startup type (Login or Sign in) of the current session.
+
+        Returns:
+        - StartUp: the type choosen.
+        """
+        return self._type
+
     def __str__(self) -> str:
         return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
     
