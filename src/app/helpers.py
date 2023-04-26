@@ -158,6 +158,12 @@ class SessionData():
             tuple[str, str, StartUp]: respectivelly, username, password, type.
         """
         return (self._username, self._password, self._type)
+    
+    def __str__(self) -> str:
+        return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
+    
+    
+    
 
 SAMPLE_ENTRIES = {
     0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
