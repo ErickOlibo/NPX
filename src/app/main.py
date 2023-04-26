@@ -3,14 +3,13 @@
 
 some docstring here to explain the purpose and how to use
 """
-from gui.window import Window
+from app import App
+
 
 def main():
     """Run the main program."""
-    app = Window()
+    app = App()
     app.mainloop()
-    pass
-    
 
 
 if __name__ == "__main__":
