@@ -20,16 +20,21 @@ class LoginView(customtkinter.CTkFrame):
         self._action = action
         self._attach_logo_to_login_view()
         self._attach_title_credentials()
-        self._attach_login_signin_v2(action)
+        self._attach_login_signin_v2()
+        self._attach_message_box()
 
-    def get_credentials(self) -> tuple[str, str]:
-        """Get the values for the username and the password that were entered.
+    # def get_credentials(self) -> tuple[str, str]:
+    #     """Get the values for the username and the password that were entered.
 
-        Returns
-        -------
-            tuple[str, str]: plaintext username and password
-        """
-        return (self._username.get(), self._password.get())
+    #     Returns
+    #     -------
+    #         tuple[str, str]: plaintext username and password
+    #     """
+    #     return (self._username.get(), self._password.get())
+    
+    def wrong_credentials(self, message: str):
+
+        pass
 
     def _attach_logo_to_login_view(self):
         logo_image = CustomImage((45, 45), Assets.NPX_LOGO).image
@@ -51,7 +56,7 @@ class LoginView(customtkinter.CTkFrame):
             self, width=200, show="*", placeholder_text="password")
         self._password.grid(row=4, column=0, padx=30, pady=(0, 15))
 
-    def _attach_login_signin_v2(self, command: Callable[[], None]):
+    def _attach_login_signin_v2(self):
         self._frame = customtkinter.CTkFrame(self)
         self._frame.configure(fg_color="transparent")
         self._frame.grid_rowconfigure(0, weight=1)
@@ -69,6 +74,14 @@ class LoginView(customtkinter.CTkFrame):
         self._login_button.grid(row=0, column=1, padx=(20, 0), pady=(0, 0), sticky="e")
 
         self._frame.grid(row=5, column=0, padx=30, pady=(15, 15))
+    
+    def _attach_message_box(self):
+        message_box = customtkinter.CTkLabel(
+            self, text="___",
+            font=customtkinter.CTkFont(size=15, weight="normal"),
+            text_color="red", justify="left")
+        message_box.grid(row=6, column=0, padx=30, pady=(10, 15), sticky="w")
+        pass
 
     def _login_button_pressed(self):
         data = SessionData(self._username.get(), self._password.get(), StartUp.LOG_IN)

@@ -56,7 +56,7 @@ class App(customtkinter.CTk):
         self.resizable(False, False)
 
         self.login_view = LoginView(self, self._login_signin_pressed)
-        self.login_view.grid(row=0, column=0, padx=120, pady=85, sticky="ns")
+        self.login_view.grid(row=0, column=0, padx=120, pady=50, sticky="ns")
 
     # LOGIN or SIGN IN Pressed
     def _login_signin_pressed(self, data: SessionData):
