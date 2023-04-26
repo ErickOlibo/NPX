@@ -5,6 +5,8 @@ exclude =
     __pycache__,
     .venv,
     test/
+    src/app/test_*.py
+    src/app/gui/__init__.py
 max-line-length = 120
 enable-extensions = pylint,mccabe
 disable-extensions = cohesion
