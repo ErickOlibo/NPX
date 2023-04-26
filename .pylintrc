@@ -18,6 +18,6 @@ max-line-length=120
 #ignore=*_test.py
 #ignore-patterns=*_test.py
 
-init-hook='import sys; sys.path.append("~/Documents/VISUAL\ STUDIO\ CODE/NPX")'
+#init-hook='import sys; sys.path.append("~/Documents/VISUAL\ STUDIO\ CODE/NPX")'
 
 #max-line-length=1000
