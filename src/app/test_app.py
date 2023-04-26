@@ -51,6 +51,18 @@ class TestApp(unittest.TestCase):
         data = SessionData("Erick", "1234", StartUp.SIGN_IN)
         self.assertIs(self.app._processed_data_issue(data), SessionIssue.USERNAME_TAKEN)
 
+    def test_login_signin_pressed(self):
+        data = SessionData("", "", StartUp.LOG_IN)
+        self.app._login_signin_pressed(data)
+        
+        data = SessionData("Erick", "", StartUp.LOG_IN)
+        self.app._login_signin_pressed(data)
+        
+        data = SessionData("Erick", "1234", StartUp.LOG_IN)
+        self.app._login_signin_pressed(data)
+        
+        data = SessionData("Erick", "1234", StartUp.SIGN_IN)
+        self.app._login_signin_pressed(data)
 
 if __name__ == '__main__':
     unittest.main()

@@ -20,7 +20,6 @@ class TestLoginView(unittest.TestCase):
     def test_login_view(self):
         self.assertIsInstance(self.view._login_button, CTkButton)
         cred = ("Erick", "This")
-        self.assertIsNot(cred, self.view.get_credentials())
         self.assertEqual("Login", self.view._login_button._text)
 
 
