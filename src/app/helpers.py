@@ -21,6 +21,7 @@ class ExtendEnum(Enum):
             enum_list = list(map(lambda c: c.value, cls))
         return enum_list
 
+
 class SQLTable(Enum):
     """Enum listing the database table names."""
     USERDATA = auto()
@@ -81,7 +82,6 @@ class Assets(ExtendEnum):
         asset_path = f"gui/assets/icons/{self.name.lower()}.png"
         return os.path.join(
             os.path.dirname(os.path.realpath(__file__)), asset_path)
-
 
 
 class SessionIssue(Enum):

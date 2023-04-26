@@ -4,6 +4,7 @@ omit =
     test_*.py
     test/*
     */__init__.py
+    /database/test_verification.py
 
 [report]
 omit =

@@ -60,8 +60,15 @@ class LoginView(customtkinter.CTk):
         # self.back_button.grid(row=1, column=0, padx=30, pady=(15, 15))
 
     def login_event(self):
+        print("Login pressed - username:", self.username.get(), "password:", self.password.get())
         print(f"Login -> username: {self.username.get()} | password: {self.password.get()}")
 
+        #self.login_view.grid_forget()  # remove login frame
+        #self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)  # show main frame
+
+    # def back_event(self):
+    #     #self.main_frame.grid_forget()  # remove main frame
+    #     self.login_view.grid(row=0, column=0, sticky="ns")  # show login frame
     
     def _set_top_logo(self):
         logo_image = customtkinter.CTkImage(

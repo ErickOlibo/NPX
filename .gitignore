@@ -8,3 +8,4 @@ src/*/doc
 build/
 .idea/
 .vscode/
+src/.Trash/login.py

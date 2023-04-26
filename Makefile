@@ -56,7 +56,7 @@ venv/bin/activate: requirements.txt
 	pip install -r requirements.txt
 
 # run the app
-run: venv/bin/activate
+run/venv: venv/bin/activate
 	. .venv/Scripts/activate; \
 	python src/app/main.py
 
@@ -65,4 +65,4 @@ clean:
 	rm -r src/app/__pycache__
 	rm -r .venv
 	rm -r .idea
-=======
+

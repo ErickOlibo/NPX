@@ -1,5 +1,6 @@
 # flake8 EXCLUDE SETTINGS (NPX App)
 [flake8]
+ignore = H601
 exclude =
     .git,
     __pycache__,
