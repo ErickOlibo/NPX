@@ -62,7 +62,7 @@ class App(customtkinter.CTk):
     # LOGIN or SIGN IN Pressed
     def _login_signin_pressed(self, data: SessionData):
         issue = self._processed_data_issue(data)
-        if  issue == SessionIssue.NONE:
+        if issue == SessionIssue.NONE:
             self.login_view.grid_forget()
             self._show_main_view()
         else:
@@ -80,17 +80,14 @@ class App(customtkinter.CTk):
                 handler.insert_into(SQLTable.USERDATA,
                                     username=data.username, password=data.password)
                 return SessionIssue.NONE
-            else:
-                return SessionIssue.USERNAME_TAKEN
+            return SessionIssue.USERNAME_TAKEN
 
         if data.type == StartUp.LOG_IN:
             if handler.verified_user(data.username, data.password):
                 return SessionIssue.NONE
-            else:
-                if handler.username_taken(data.username):
-                    return SessionIssue.WRONG_PASSWORD
-                else:
-                    return SessionIssue.WRONG_USERNAME
+            if handler.username_taken(data.username):
+                return SessionIssue.WRONG_PASSWORD
+            return SessionIssue.WRONG_USERNAME
         return SessionIssue.UNKNOWN
 
     def _logout_pressed(self):

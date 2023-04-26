@@ -25,14 +25,13 @@ class LoginView(customtkinter.CTkFrame):
 
     def set_wrong_credentials_message(self, message: str):
         """Set a feedback message to the user about the reason for failure!
-        
+
         Parameters
         ----------
             message: str
                 The error message to display on the login_view
         """
         self._message_box.configure(text=f"* {message}")
-        pass
 
     def _attach_logo_to_login_view(self):
         logo_image = CustomImage((45, 45), Assets.NPX_LOGO).image

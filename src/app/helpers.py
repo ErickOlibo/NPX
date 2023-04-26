@@ -21,13 +21,15 @@ class ExtendEnum(Enum):
             enum_list = list(map(lambda c: c.value, cls))
         return enum_list
 
+
 class SQLTable(Enum):
     """Enum listing the database table names."""
     USERDATA = auto()
     ENTRIES = auto()
-    
+
     def __str__(self):
         return str(self.name.lower())
+
 
 class SQLCreateTable(Enum):
     """Enum listing the CREATE TABLE statements used in this App."""
@@ -40,14 +42,16 @@ class SQLCreateTable(Enum):
         )
     """
     ENTRIES = """To Fill In Later"""
-    
+
     def __str__(self):
         return str(self.value)
+
 
 class StartUp(Enum):
     """Enum listing the option available at the start of the NPX app"""
     SIGN_IN = auto()
     LOG_IN = auto()
+
 
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
@@ -79,6 +83,7 @@ class Assets(ExtendEnum):
         return os.path.join(
             os.path.dirname(os.path.realpath(__file__)), asset_path)
 
+
 class SessionIssue(Enum):
     """Enum listing the different issues that can occur during startup"""
     USERNAME_TAKEN = "Username Already Taken!"
@@ -88,9 +93,10 @@ class SessionIssue(Enum):
     EMPTY_PASSWORD = "Password Field is Empty!"
     UNKNOWN = "Unknown Issue!"
     NONE = "None"
-    
+
     def __str__(self):
         return str(self.value)
+
 
 class CustomImage():
     """A image of type customtkinter.CTkImage to add to a custom frame"""
@@ -166,6 +172,7 @@ class CustomTabButton():
         """
         return self._btn
 
+
 class SessionData():
     """A container for the credential and the type of startup."""
     def __init__(self, username: str, password: str, type: StartUp):
@@ -173,7 +180,7 @@ class SessionData():
 
         Parameters
         ----------
-            name: str 
+            name: str
                 The username entered during this login/sign in session
             password: str
                 The password entered duing this login/sing in session
@@ -183,7 +190,7 @@ class SessionData():
         self._username = username
         self._password = password
         self._type = type
-    
+
     @property
     def cookie(self) -> tuple[str, str, StartUp]:
         """
@@ -193,7 +200,7 @@ class SessionData():
             tuple[str, str, StartUp]: respectivelly, username, password, type.
         """
         return (self._username, self._password, self._type)
-    
+
     @property
     def username(self) -> str:
         """
@@ -226,9 +233,7 @@ class SessionData():
 
     def __str__(self) -> str:
         return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
-    
-    
-    
+
 
 SAMPLE_ENTRIES = {
     0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
