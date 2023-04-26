@@ -21,7 +21,6 @@ class ExtendEnum(Enum):
             enum_list = list(map(lambda c: c.value, cls))
         return enum_list
 
-
 class SQLTable(Enum):
     """Enum listing the database table names."""
     USERDATA = auto()

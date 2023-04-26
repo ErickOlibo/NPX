@@ -43,6 +43,7 @@ class LoginView(customtkinter.CTkFrame):
 
     def _attach_title_credentials(self):
         login_label = customtkinter.CTkLabel(
+
             self, text="My Secret Journal",
             font=customtkinter.CTkFont(size=20, weight="bold"))
 

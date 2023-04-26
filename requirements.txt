@@ -14,8 +14,17 @@ pdoc3
 # Unit test and coverage
 coverage
 
-# GUI Library
+# Connection to database
+mysql-connector-python
+
+# GUI
 customtkinter
 
 # Image Rendering
 Pillow
+
+# Encryption
+# PyCrypto / KeyCzar / pyOpenSSL / pyDes / ...?
+
+# Automatically adding the date to every entry
+python-dateutil
