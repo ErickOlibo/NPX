@@ -29,6 +29,7 @@ class App(customtkinter.CTk):
     def _show_main_view(self):
         self.title("NPX App | Your Secret Companion")
         self.geometry(f"{self.main_view_size[0]}x{self.main_view_size[1]}")
+        self.eval('tk::PlaceWindow . center')
         self.resizable(True, True)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
@@ -40,6 +41,7 @@ class App(customtkinter.CTk):
             self._logout_pressed)
         self.navigation_bar.grid(row=0, column=0, sticky="nsew")
         self.navigation_bar.grid_rowconfigure(4, weight=1)
+        self.navigation_bar.set_active_button(View.JOURNAL)
         self._set_current_view("Journal Center View")
 
     def _set_current_view(self, title: str):
@@ -54,6 +56,7 @@ class App(customtkinter.CTk):
     def _show_login_view(self):
         self.title("NPX App | Login Screen")
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
+        self.eval('tk::PlaceWindow . center')
         self.resizable(False, False)
 
         self.login_view = LoginView(self, self._login_signin_pressed)
