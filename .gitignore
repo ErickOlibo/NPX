@@ -11,3 +11,5 @@ build/
 src/.Trash/login.py
 .gitignore
 .gitignore
+src/.Trash/
+src/.Bin
