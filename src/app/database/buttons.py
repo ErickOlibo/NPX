@@ -1,15 +1,18 @@
 import sqlite3
 import customtkinter
+import sql_handler
+import os
 
 
-class Buttons(sqlite3,customtkinter):
+class Buttons:
     
     def __init__(self,root):
         self._root = root
-        self._add_button = customtkinter.CTkButton(root, text='Add entry',
+        db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "db/npx_app.db")
+        self._add_button = customtkinter.CTkButton(root, text='Add',
                                                    command= self.add_entry,
                                                    hover= True)
-        self._delete_button = customtkinter.CTkButton(root, text='Delete entry',
+        self._delete_button = customtkinter.CTkButton(root, text='Delete',
                                                     command= self.delete_entry,
                                                     state= 'disabled')
         self._edit_button = customtkinter.CTkButton(root, text='Edit',
@@ -18,7 +21,7 @@ class Buttons(sqlite3,customtkinter):
         self._clear_button = customtkinter.CTkButton(root, text='Clear',
                                                     command= self.clear_entry,
                                                     state= 'disabled')
-        self._conn = sqlite3.Connection('user.db')
+        self._conn = sql_handler.Connection(db_path)
         self._cursor = self._conn.cursor()
     
     def add_entry(self, root, title, entry):
@@ -33,7 +36,7 @@ class Buttons(sqlite3,customtkinter):
                              "VALUES (?, ?)", (title, entry))
         self._conn.commit()
 
-        self._delete_button = customtkinter.CTkButton(root, text='Delete entry',
+        self._delete_button = customtkinter.CTkButton(root, text='Delete',
                                                     command= self.delete_entry,
                                                     hover= True)
         self._edit_button = customtkinter.CTkButton(root, text='Edit',
