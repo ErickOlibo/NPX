@@ -3,7 +3,7 @@ import os
 import sqlite3
 import hashlib
 from sqlite3 import Connection, Error
-from helpers import SQLCreateTable, SQLTable
+from helpers import SQLCreateTable, SQLTable, SessionData
 
 
 class SQLHandler:
@@ -11,7 +11,6 @@ class SQLHandler:
 
     def __init__(self):
         db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "db/npx_app.db")
-        #  database_path = "db/npx_app.db"
         self._conn = self._create_connection(db_path)
         self._cursor = self._conn.cursor()
         self._create_userdata_table()
@@ -41,27 +40,19 @@ class SQLHandler:
         except Error as err:
             print(f"Failed to execute SQL CREATE TABLE statement. {err=}, {type(err)=}")
 
-    def insert_into(self, table: SQLTable, **kwargs):
-        """Insert into a table the values.
-
-        This method host the most common queries to insrt rapidly values in the database.
-        To insert a username and password it is important to reference the arguments
-        with the appropriate name
-        example: insert_into(SQLTable.USERDATA, username="user", password="pwd" )
+    def insert_into_userdata(self, data: SessionData):
+        """Insert into table named userdata the session's username and password.
 
         Parameters
-        ----------
-            table: SQLTable
-                A table name as definied in the Enum SQLTable
-            **kwargs: Any
-                additional argument prefixed but the argument name
+        ---------
+            data: SessionData)
+                Contain the session username, password and type of startup
         """
-        if all(item in ["username", "password"] for item in kwargs.keys()):
-            sql = f"INSERT OR IGNORE INTO {table} (username, password) VALUES (?, ?)"
-            username = str(kwargs["username"]).lower()
-            password = self._get_hash_digest(kwargs["password"])
-            self._cursor.execute(sql, (username, password))
-            self._conn.commit()
+        sql = f"INSERT OR IGNORE INTO {SQLTable.USERDATA} (username, password) VALUES (?, ?)"
+        username = data.username.lower()
+        password = self._get_hash_digest(data.password)
+        self._cursor.execute(sql, (username, password))
+        self._conn.commit()
 
     def _get_hash_digest(self, password: str) -> str:
         return hashlib.sha256(password.encode()).hexdigest()

@@ -84,13 +84,14 @@ class Assets(ExtendEnum):
             os.path.dirname(os.path.realpath(__file__)), asset_path)
 
 
-class SessionIssue(Enum):
+class IssueMessage(Enum):
     """Enum listing the different issues that can occur during startup"""
     USERNAME_TAKEN = "Username Already Taken!"
     WRONG_USERNAME = "Wrong Username!"
     WRONG_PASSWORD = "Wrong Password!"
     EMPTY_USERNAME = "Username Field is Empty!"
     EMPTY_PASSWORD = "Password Field is Empty!"
+    WEAK_PASSWORD = "The Password is too Short\n16 charaters minimum!"
     MISSING_SPECIAL = "Password needs one special\ncharacter:'!@#$%^&?*'!"
     UNKNOWN = "Unknown Issue!"
     NONE = "None"

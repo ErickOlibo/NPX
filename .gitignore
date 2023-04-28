@@ -1,3 +1,4 @@
+.gitignore
 .coverage
 .venv/
 env/
@@ -9,3 +10,8 @@ build/
 .idea/
 .vscode/
 src/.Trash/login.py
+src/.Trash/
+src/.Bin
+src/app2
+src/app/app_v02.py
+src/app/db/npx_app.db
