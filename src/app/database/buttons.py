@@ -21,7 +21,7 @@ class Buttons(sqlite3,customtkinter):
         self._conn = sqlite3.Connection('user.db')
         self._cursor = self._conn.cursor()
     
-    def add_entry(self, root):
+    def add_entry(self, root, title, entry):
         self._root = root
         self._cursor.execute("""
         CREATE TABLE IF NOT EXISTS journal(
@@ -29,8 +29,6 @@ class Buttons(sqlite3,customtkinter):
         entry VARCHAR(max)
         )
         """)
-        title = ''
-        entry = ''
         self._cursor.execute("INSERT INTO journal (title, entry)"
                              "VALUES (?, ?)", (title, entry))
         self._conn.commit()
@@ -54,5 +52,5 @@ class Buttons(sqlite3,customtkinter):
         pass
 
 
-    def clear_entr():
+    def clear_entry(self, text):
         pass
