@@ -13,3 +13,5 @@ src/.Trash/login.py
 .gitignore
 src/.Trash/
 src/.Bin
+src/app2
+src/app/app_v02.py
