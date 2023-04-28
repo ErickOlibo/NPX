@@ -17,8 +17,10 @@ class TestSQLHandler(unittest.TestCase):
         self.assertIsInstance(self.handler._conn, Connection)
     
     def test_verified_user(self):
+        data = SessionData("Thomas", "12345", StartUp.LOG_IN)
+        self.handler.insert_into_userdata(data)
         self.assertFalse(self.handler.verified_user("Erick", "fake"))
-        self.assertTrue(self.handler.verified_user("Erick", "22OLIBO"))
+        self.assertTrue(self.handler.verified_user("Thomas", "12345"))
     
     def test_username_taken(self):
         self.assertTrue(self.handler.username_taken("Erick"))
