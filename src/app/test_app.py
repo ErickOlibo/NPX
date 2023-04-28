@@ -51,6 +51,11 @@ class TestApp(unittest.TestCase):
         data = SessionData("Erick", "1234", StartUp.SIGN_IN)
         self.assertIs(self.app._processed_data_issue(data), SessionIssue.USERNAME_TAKEN)
 
+        data = SessionData("AC", "Password", StartUp.SIGN_IN)
+        self.assertEqual(self.app._processed_data_issue(data), SessionIssue.MISSING_SPECIAL)
+        data = SessionData("AC", "Password1", StartUp.SIGN_IN)
+        self.assertEqual(self.app._processed_data_issue(data), SessionIssue.MISSING_SPECIAL)
+
     def test_login_signin_pressed(self):
         data = SessionData("", "", StartUp.LOG_IN)
         self.app._login_signin_pressed(data)
