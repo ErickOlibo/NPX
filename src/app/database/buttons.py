@@ -3,4 +3,7 @@ import customtkinter
 
 
 class Buttons():
-    pass
+    
+    def __init__(self,add_button,delete_button):
+        self._add = add_button
+        self._delete = delete_button
