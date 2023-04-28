@@ -2,7 +2,7 @@
 
 #disable=locally-disabled,locally-enabled,E0401
 
-disable=E0401,R0901
+disable=E0401,R0901,W0201
 
 
 [FORMAT]
