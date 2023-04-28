@@ -1,9 +1,16 @@
 import sqlite3
-import customtkinter
+from tkinter import *
 
 
-class Buttons():
+class Buttons(tkinter,sqlite3):
     
-    def __init__(self,add_button,delete_button):
-        self._add = add_button
-        self._delete = delete_button
+    def __init__(self,root):
+        self._root = root
+        self._add_button = Button(root, text='Add entry', command= self.add_entry)
+        self._delete_button = Button(root, text='Delete entry', command= self.delete_entry)
+    
+    def add_entry():
+        pass
+
+    def delete_entry():
+        pass
