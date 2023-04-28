@@ -33,7 +33,7 @@ class Buttons(sqlite3,customtkinter):
         self._conn.commit()
 
         self._delete_button = customtkinter.CTkButton(root, text='Delete entry',
-                                                      command= self.delete_entry;
+                                                      command= self.delete_entry,
                                                       hover= True)
         self._edit_button = self._edit_button = customtkinter.CTkButton(root, text='Edit',
                                                     command= self.edit_entry,
