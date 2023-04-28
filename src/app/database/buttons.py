@@ -15,6 +15,9 @@ class Buttons(sqlite3,customtkinter):
         self._edit_button = customtkinter.CTkButton(root, text='Edit',
                                                     command= self.edit_entry,
                                                     state= 'disabled')
+        self._clear_button = customtkinter.CTkButton(root, text='Clear',
+                                                    command= self.clear_entry,
+                                                    state= 'disabled')
         self._conn = sqlite3.Connection('user.db')
         self._cursor = self._conn.cursor()
     
@@ -38,6 +41,9 @@ class Buttons(sqlite3,customtkinter):
         self._edit_button = self._edit_button = customtkinter.CTkButton(root, text='Edit',
                                                     command= self.edit_entry,
                                                     hover= True)
+        self._clear_button = customtkinter.CTkButton(root, text='Clear',
+                                                    command= self.clear_entry,
+                                                    hover= True)
 
 
     def delete_entry():
@@ -45,4 +51,8 @@ class Buttons(sqlite3,customtkinter):
 
     
     def edit_entry():
+        pass
+
+
+    def clear_entr():
         pass
