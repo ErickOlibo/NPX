@@ -91,6 +91,7 @@ class SessionIssue(Enum):
     WRONG_PASSWORD = "Wrong Password!"
     EMPTY_USERNAME = "Username Field is Empty!"
     EMPTY_PASSWORD = "Password Field is Empty!"
+    MISSING_SPECIAL = "Password needs one special\ncharacter:'!@#$%^&?*'!"
     UNKNOWN = "Unknown Issue!"
     NONE = "None"
 
