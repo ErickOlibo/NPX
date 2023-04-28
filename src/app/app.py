@@ -5,6 +5,7 @@ the flow of data between the Views and the data models
 
 import customtkinter
 from helpers import View, SessionData, IssueMessage
+
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
@@ -146,9 +147,6 @@ class App(customtkinter.CTk):
 
         if view == View.PLANNING:
             self._show_planning_view()
-
-        if view == View.CHALLENGES:
-            self._show_challenges_view()
 
         if view == View.LOGOUT:
             self.navigation_bar.grid_forget()
