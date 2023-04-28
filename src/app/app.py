@@ -4,6 +4,7 @@ the flow of data between the Views and the data models
 """
 
 import customtkinter
+import re
 from helpers import View, SessionData, SessionIssue, StartUp, SQLTable
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
@@ -73,6 +74,8 @@ class App(customtkinter.CTk):
             return SessionIssue.EMPTY_USERNAME
         if not data.password:
             return SessionIssue.EMPTY_PASSWORD
+        if not re.search('[!@#$%^&?*]', data.password):
+            return SessionIssue.MISSING_SPECIAL
 
         handler = SQLHandler()
         if data.type == StartUp.SIGN_IN:
