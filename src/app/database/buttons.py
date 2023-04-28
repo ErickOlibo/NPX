@@ -20,7 +20,12 @@ class Buttons(sqlite3,customtkinter):
         entry VARCHAR(max)
         )
         """)
-        
+        title = ''
+        entry = ''
+        self._cursor.execute("INSERT INTO journal (title, entry)"
+                             "VALUES (?, ?)", (title, entry))
+        self._conn.commit()
+
 
     def delete_entry():
         pass
