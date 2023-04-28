@@ -42,3 +42,7 @@ class Buttons(sqlite3,customtkinter):
 
     def delete_entry():
         pass
+
+    
+    def edit_entry():
+        pass
