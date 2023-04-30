@@ -41,7 +41,16 @@ class SQLCreateTable(Enum):
         UNIQUE(username)
         )
     """
-    ENTRIES = """To Fill In Later"""
+    ENTRIES = """
+        CREATE TABLE IF NOT EXISTS entries(
+        id INTEGER PRIMARY KEY,
+        user VARCHAR(255),
+        text VARCHAR(1000),
+        date DATE,
+        time TIME,
+        tags VARCHAR(255)
+        )
+    """
 
     def __str__(self):
         return str(self.value)

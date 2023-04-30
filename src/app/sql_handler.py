@@ -14,6 +14,7 @@ class SQLHandler:
         self._conn = self._create_connection(db_path)
         self._cursor = self._conn.cursor()
         self._create_userdata_table()
+        self._create_entry_table()
 
     def _create_connection(self, path: str) -> Connection:
         try:
@@ -25,6 +26,10 @@ class SQLHandler:
 
     def _create_userdata_table(self):
         sql = str(SQLCreateTable.USERDATA)
+        self.create_table(sql)
+    
+    def _create_entry_table(self):
+        sql = str(SQLCreateTable.ENTRIES)
         self.create_table(sql)
 
     def create_table(self, sql: str):
