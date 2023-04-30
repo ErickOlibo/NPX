@@ -58,6 +58,26 @@ class SQLHandler:
         password = self._get_hash_digest(data.password)
         self._cursor.execute(sql, (username, password))
         self._conn.commit()
+    
+     def insert_into_entries(self, user: str, text: str, date: str, time: str, tags: str):
+        """Insert a new entry into the table named entries.
+
+        Parameters
+        ----------
+        user: str
+            The user who made the entry.
+        text: str
+            The text content of the entry.
+        date: str
+            The date when the entry was made.
+        time: str
+            The time when the entry was made.
+        tags: str
+            The tags associated with the entry.
+        """
+        sql = f"INSERT INTO {SQLTable.ENTRIES} (user, text, date, time, tags) VALUES (?, ?, ?, ?, ?)"
+        self._cursor.execute(sql, (user, text, date, time, tags))
+        self._conn.commit()
 
     def _get_hash_digest(self, password: str) -> str:
         return hashlib.sha256(password.encode()).hexdigest()
