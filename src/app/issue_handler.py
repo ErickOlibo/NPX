@@ -1,17 +1,18 @@
-"""TO_FILL_IN_LATER"""
+"""TO_FILL_IN_LATER."""
 from helpers import SessionData, IssueMessage, StartUp
 from sql_handler import SQLHandler
 import re
 
 
 class IssueHandler:
-    """TO_FILL_IN_LATER"""
+    """TO_FILL_IN_LATER."""
 
     def __init__(self):
+        """__init___."""
         self._handler = SQLHandler()
 
     def get_issue_message(self, data: SessionData) -> IssueMessage:
-        """Get the issue type that a session data may have
+        """Get the issue type that a session data may have.
 
         parameters
         ----------
@@ -25,7 +26,7 @@ class IssueHandler:
         if not data.username or not data.password:
             return self._empty_issue(data)
         if data.type == StartUp.SIGN_IN:
-            return self._sign_in_issue(data)
+            return self._sign_in_issue(data) and self._password_requirements(data)
         if data.type == StartUp.LOG_IN:
             return self._log_in_issue(data)
         return IssueMessage.UNKNOWN
@@ -50,3 +51,8 @@ class IssueHandler:
         if self._handler.username_taken(data.username):
             return IssueMessage.WRONG_PASSWORD
         return IssueMessage.WRONG_USERNAME
+
+    def _password_requirements(self, data: SessionData) -> IssueMessage:
+        if not re.search(r"[!@#$%^&*?]", data.password):
+            return IssueMessage.MISSING_SPECIAL
+        return IssueMessage.NONE
