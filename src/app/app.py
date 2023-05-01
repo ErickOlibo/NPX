@@ -30,6 +30,7 @@ class App(customtkinter.CTk):
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
         self._start_up(with_login=True)
+        self.counter = 0
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -89,11 +90,18 @@ class App(customtkinter.CTk):
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
            self, text="Save",
-           command=lambda: self.button_pressed('ADD'),
+           command= self.on_save_button_click,
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
         self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+    
+    def on_save_button_click(self):
+        if self.counter >= 1:
+            return  # do not activate the button
+
+        self.counter += 1  # increment the counter
+        self.button_pressed('ADD')  # call the button_pressed method
 
     def activate(self):
         state = 'enabled'
@@ -109,16 +117,16 @@ class App(customtkinter.CTk):
     
     def deactivate(self):
         state = 'disabled'
-        self.del_button._delete_button.configure(state=state)  # disable the delete button
-        self.edit_button._edit_button.configure(state=state)  # disable the edit button
+        self.del_button._delete_button.configure(state=state)
+        self.edit_button._edit_button.configure(state=state)
 
-        self.clear_button._clear_button.grid(row=3, column=3)  # enable the clear button
+        self.clear_button._clear_button.grid(row=3, column=3)
 
         self.del_button._delete_button.grid_forget()
         self.edit_button._edit_button.grid_forget()
 
-        self.de_del_button._delete_button.grid(row=3, column=1)
-        self.de_edit_button._edit_button.grid(row=3, column=2)
+        self.del_button._delete_button.grid(row=3, column=1)
+        self.edit_button._edit_button.grid(row=3, column=2)
     
     def button_pressed(self, text):
         print(text)
@@ -127,6 +135,13 @@ class App(customtkinter.CTk):
 
         if text == 'DELETE':
             self.deactivate()
+            self.counter = 0
+
+        if text == 'Clear':
+            self.counter = 0
+
+        if text == 'Edit':
+            self.counter = 0
 
 
 # ############# END JOURNAL ENTRY VIEW ##########################################
@@ -188,6 +203,7 @@ class App(customtkinter.CTk):
 
         if view == View.PLANNING:
             self._show_planning_view()
+            self.counter = 0
 
         if view == View.LOGOUT:
             self.navigation_bar.grid_forget()
