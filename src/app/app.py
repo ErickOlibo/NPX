@@ -94,24 +94,34 @@ class App(customtkinter.CTk):
             border_width=2,
             text_color=("gray10", "gray90"))
         self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+
     def activate(self):
         state = 'enabled'
         self.del_button = Buttons(self, self.button_pressed, state)
         self.edit_button = Buttons(self, self.button_pressed, state)
         self.clear_button = Buttons(self, self.button_pressed, state)
+        self.de_del_button = Buttons(self, self.button_pressed, 'disabled')
+        self.de_edit_button = Buttons(self, self.button_pressed, 'disabled')
+
         self.del_button._delete_button.grid(row=3, column=1)
         self.edit_button._edit_button.grid(row=3, column=2)
         self.clear_button._clear_button.grid(row=3, column=3)
     
     def deactivate(self):
         state = 'disabled'
-        self.de_del_button = Buttons(self, self.button_pressed, state)
-        self.de_edit_button = Buttons(self, self.button_pressed, state)
+        self.del_button._delete_button.configure(state=state)  # disable the delete button
+        self.edit_button._edit_button.configure(state=state)  # disable the edit button
+
+        self.clear_button._clear_button.grid(row=3, column=3)  # enable the clear button
+
+        self.del_button._delete_button.grid_forget()
+        self.edit_button._edit_button.grid_forget()
+
         self.de_del_button._delete_button.grid(row=3, column=1)
         self.de_edit_button._edit_button.grid(row=3, column=2)
     
     def button_pressed(self, text):
-        print(f'pressed {text}')
+        print(text)
         if text == 'ADD':
             self.activate()
 
