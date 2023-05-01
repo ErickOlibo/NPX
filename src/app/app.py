@@ -146,8 +146,6 @@ class App(customtkinter.CTk):
         if text == 'CLEAR':
             if self.entry_box.get('1.0', 'end-1c') != '':
                 self.entry_box.delete('1.0', 'end')
-            if self.tags_entry.get() != '':
-                self.tags_entry.delete(0,'end')
 
         if text == 'Edit':
             pass
