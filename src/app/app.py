@@ -80,11 +80,11 @@ class App(customtkinter.CTk):
 
     def _attach_entry_box(self):
         self.entry_box = customtkinter.CTkTextbox(self, width=250)
-        self.entry_box.grid(row=0, column=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry_box.grid(row=0, column=1,columnspan= 2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
-        self.tags_entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(60, 20), sticky="nsew")
+        self.tags_entry.grid(row=2, column=1, columnspan=2, padx=(20, 0), pady=(60, 20), sticky="nsew")
 
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
@@ -93,22 +93,22 @@ class App(customtkinter.CTk):
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
-        self.save_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+        self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
     def activate(self):
         state = 'enabled'
         self.del_button = Buttons(self, self.button_pressed, state)
         self.edit_button = Buttons(self, self.button_pressed, state)
         self.clear_button = Buttons(self, self.button_pressed, state)
-        self.del_button._delete_button.grid(row=2, column=1)
-        self.edit_button._edit_button.grid(row=2, column=2)
-        self.clear_button._clear_button.grid(row=2, column=3)
+        self.del_button._delete_button.grid(row=3, column=1)
+        self.edit_button._edit_button.grid(row=3, column=2)
+        self.clear_button._clear_button.grid(row=3, column=3)
     
     def deactivate(self):
         state = 'disabled'
         self.de_del_button = Buttons(self, self.button_pressed, state)
         self.de_edit_button = Buttons(self, self.button_pressed, state)
-        self.de_del_button._delete_button.grid(row=2, column=1)
-        self.de_edit_button._edit_button.grid(row=2, column=2)
+        self.de_del_button._delete_button.grid(row=3, column=1)
+        self.de_edit_button._edit_button.grid(row=3, column=2)
     
     def button_pressed(self, text):
         print(f'pressed {text}')
