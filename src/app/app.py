@@ -94,9 +94,6 @@ class App(customtkinter.CTk):
             border_width=2,
             text_color=("gray10", "gray90"))
         self.save_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
-        #save_button = Buttons(self, self.button_pressed, 'enabled')
-        #save_button.add_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
-    
     def activate(self):
         state = 'enabled'
         self.del_button = Buttons(self, self.button_pressed, state)
