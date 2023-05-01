@@ -95,6 +95,7 @@ class IssueMessage(Enum):
     MISSING_SPECIAL = "Password needs one special\ncharacter:'!@#$%^&*?'!"
     NO_LOWER_PASSWORD = "Password needs at least\none lowercase character!"
     NO_UPPER_PASSWORD = "Password needs at least\none uppercase character!"
+    NO_DIGIT_PASSWORD = "Password needs at least\none number!"
     UNKNOWN = "Unknown Issue!"
     NONE = "None"
 
