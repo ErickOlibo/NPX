@@ -55,4 +55,8 @@ class IssueHandler:
     def _password_requirements(self, data: SessionData) -> IssueMessage:
         if not re.search(r"[!@#$%^&*?]", data.password):
             return IssueMessage.MISSING_SPECIAL
+        if not re.search(r"[a-z]", data.password):
+            return IssueMessage.NO_LOWER_PASSWORD
+        if not re.search(r"[A-Z]", data.password):
+            return IssueMessage.NO_UPPER_PASSWORD
         return IssueMessage.NONE
