@@ -40,12 +40,3 @@ class Buttons:
 
 
 
-
-
-#self.delete_button = customtkinter.CTkButton(
-           #self, text="Delete",
-           #command=lambda: self.button_pressed('DELETE'),
-            #fg_color="transparent",
-            #border_width=2,
-            #text_color=("gray10", "gray90"))
-        #self.save_button.grid(row=2, column=3, padx=(20, 20),sticky="nsew")

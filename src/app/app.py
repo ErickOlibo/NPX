@@ -67,16 +67,17 @@ class App(customtkinter.CTk):
         self._attach_entry_box()
         self._attach_tags_entry()
         self._attach_save_botton()
+        self._attach_delete_button()
+        self._attach_edit_button()
+        self._attach_clear_button()
 
     def _forget_journal_view_(self):
         self.tags_entry.grid_forget()
         self.save_button.grid_forget()
         self.entry_box.grid_forget()
-        self.del_button._delete_button.grid_forget()
-        self.edit_button._edit_button.grid_forget()
-        self.clear_button._clear_button.grid_forget()
-        self.de_del_button._delete_button.grid_forget()
-        self.de_edit_button._edit_button.grid_forget()
+        self.delete_button.grid_forget()
+        self.edit_button.grid_forget()
+        self.clear_button.grid_forget()
 
     def _attach_entry_box(self):
         self.entry_box = customtkinter.CTkTextbox(self, width=250)
@@ -94,31 +95,45 @@ class App(customtkinter.CTk):
             border_width=2,
             text_color=("gray10", "gray90"))
         self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+
+    def _attach_delete_button(self):
+        self.delete_button = customtkinter.CTkButton(
+           self, text="Delete",
+           command=lambda: self.button_pressed('DELETE'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"),
+            state='disabled')
+        self.delete_button.grid(row=3, column=1, padx=(20, 20), pady=(60, 20), sticky="nsew")
+    
+    def _attach_clear_button(self):
+        self.clear_button = customtkinter.CTkButton(
+           self, text="Clear",
+           command=lambda: self.button_pressed('CLEAR'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"))
+        self.clear_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+    
+    def _attach_edit_button(self):
+        self.edit_button = customtkinter.CTkButton(
+           self, text="Edit",
+           command=lambda: self.button_pressed('EDIT'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"),
+            state='disabled')
+        self.edit_button.grid(row=3, column=2, padx=(20, 20), pady=(60, 20), sticky="nsew")
     
     def activate(self):
         state = 'enabled'
-        self.del_button = Buttons(self, self.button_pressed, state)
-        self.edit_button = Buttons(self, self.button_pressed, state)
-        self.clear_button = Buttons(self, self.button_pressed, state)
-        self.de_del_button = Buttons(self, self.button_pressed, 'disabled')
-        self.de_edit_button = Buttons(self, self.button_pressed, 'disabled')
-
-        self.del_button._delete_button.grid(row=3, column=1)
-        self.edit_button._edit_button.grid(row=3, column=2)
-        self.clear_button._clear_button.grid(row=3, column=3)
+        self.delete_button.configure(state=state)
+        self.edit_button.configure(state=state)
     
     def deactivate(self):
         state = 'disabled'
-        self.del_button._delete_button.configure(state=state)
-        self.edit_button._edit_button.configure(state=state)
-
-        self.clear_button._clear_button.grid(row=3, column=3)
-
-        self.del_button._delete_button.grid_forget()
-        self.edit_button._edit_button.grid_forget()
-
-        self.del_button._delete_button.grid(row=3, column=1)
-        self.edit_button._edit_button.grid(row=3, column=2)
+        self.delete_button.configure(state=state)
+        self.edit_button.configure(state=state)
     
     def button_pressed(self, text):
         print(text)
@@ -128,8 +143,12 @@ class App(customtkinter.CTk):
         if text == 'DELETE':
             self.deactivate()
 
-        if text == 'Clear':
-            pass
+        if text == 'CLEAR':
+            if self.entry_box.get('1.0', 'end-1c') != '':
+                self.entry_box.delete('1.0', 'end')
+            if self.tags_entry.get() != '':
+                self.tags_entry.delete(0,'end')
+
         if text == 'Edit':
             pass
 
@@ -193,7 +212,6 @@ class App(customtkinter.CTk):
 
         if view == View.PLANNING:
             self._show_planning_view()
-            self.counter = 0
 
         if view == View.LOGOUT:
             self.navigation_bar.grid_forget()
