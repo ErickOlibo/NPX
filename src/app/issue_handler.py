@@ -59,4 +59,6 @@ class IssueHandler:
             return IssueMessage.NO_LOWER_PASSWORD
         if not re.search(r"[A-Z]", data.password):
             return IssueMessage.NO_UPPER_PASSWORD
+        if len(data.password) < 8:
+            return IssueMessage.WEAK_PASSWORD
         return IssueMessage.NONE
