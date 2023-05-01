@@ -85,7 +85,7 @@ class App(customtkinter.CTk):
 
     def _attach_tags_entry(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
-        self.tags_entry.grid(row=2, column=1, columnspan=2, padx=(20, 0), pady=(60, 20), sticky="nsew")
+        self.tags_entry.grid(row=2, column=1, columnspan=2, padx=(20, 0), pady=(3, 20), sticky="nsew")
 
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
@@ -94,7 +94,7 @@ class App(customtkinter.CTk):
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
-        self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+        self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(3, 20), sticky="nsew")
 
     def _attach_delete_button(self):
         self.delete_button = customtkinter.CTkButton(
