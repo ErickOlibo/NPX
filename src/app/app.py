@@ -30,7 +30,6 @@ class App(customtkinter.CTk):
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
         self._start_up(with_login=True)
-        self.counter = 0
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -90,19 +89,12 @@ class App(customtkinter.CTk):
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
            self, text="Save",
-           command= self.on_save_button_click,
+           command=lambda: self.button_pressed('ADD'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
         self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
     
-    def on_save_button_click(self):
-        if self.counter >= 1:
-            return  # do not activate the button
-
-        self.counter += 1  # increment the counter
-        self.button_pressed('ADD')  # call the button_pressed method
-
     def activate(self):
         state = 'enabled'
         self.del_button = Buttons(self, self.button_pressed, state)
@@ -135,13 +127,11 @@ class App(customtkinter.CTk):
 
         if text == 'DELETE':
             self.deactivate()
-            self.counter = 0
 
         if text == 'Clear':
-            self.counter = 0
-
+            pass
         if text == 'Edit':
-            self.counter = 0
+            pass
 
 
 # ############# END JOURNAL ENTRY VIEW ##########################################
