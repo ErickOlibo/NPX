@@ -10,6 +10,7 @@ from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
 from issue_handler import IssueHandler
+from buttons import Buttons
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
@@ -71,6 +72,11 @@ class App(customtkinter.CTk):
         self.tags_entry.grid_forget()
         self.save_button.grid_forget()
         self.entry_box.grid_forget()
+        self.del_button._delete_button.grid_forget()
+        self.edit_button._edit_button.grid_forget()
+        self.clear_button._clear_button.grid_forget()
+        self.de_del_button._delete_button.grid_forget()
+        self.de_edit_button._edit_button.grid_forget()
 
     def _attach_entry_box(self):
         self.entry_box = customtkinter.CTkTextbox(self, width=250)
@@ -82,11 +88,39 @@ class App(customtkinter.CTk):
 
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
-            self, text="Save",
+           self, text="Save",
+           command=lambda: self.button_pressed('ADD'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
         self.save_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+        #save_button = Buttons(self, self.button_pressed, 'enabled')
+        #save_button.add_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+    
+    def activate(self):
+        state = 'enabled'
+        self.del_button = Buttons(self, self.button_pressed, state)
+        self.edit_button = Buttons(self, self.button_pressed, state)
+        self.clear_button = Buttons(self, self.button_pressed, state)
+        self.del_button._delete_button.grid(row=2, column=1)
+        self.edit_button._edit_button.grid(row=2, column=2)
+        self.clear_button._clear_button.grid(row=2, column=3)
+    
+    def deactivate(self):
+        state = 'disabled'
+        self.de_del_button = Buttons(self, self.button_pressed, state)
+        self.de_edit_button = Buttons(self, self.button_pressed, state)
+        self.de_del_button._delete_button.grid(row=2, column=1)
+        self.de_edit_button._edit_button.grid(row=2, column=2)
+    
+    def button_pressed(self, text):
+        print(f'pressed {text}')
+        if text == 'ADD':
+            self.activate()
+
+        if text == 'DELETE':
+            self.deactivate()
+
 
 # ############# END JOURNAL ENTRY VIEW ##########################################
 

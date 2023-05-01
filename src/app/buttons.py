@@ -9,16 +9,20 @@ class Buttons:
         self._action = action
         self.state = state
         self.add_button = customtkinter.CTkButton(
-            root, text='Add', command= self.add_pressed, state= self.state)
+            root, text='Add', command= self.add_pressed, state= self.state,
+            fg_color="transparent",border_width=2,text_color=("gray10", "gray90"))
 
         self._delete_button = customtkinter.CTkButton(
-            root, text='Delete', command= self.delete_pressed, state= self.state)
+            root, text='Delete', command= self.delete_pressed, state= self.state,
+            fg_color="transparent",border_width=2,text_color=("gray10", "gray90"))
 
         self._edit_button = customtkinter.CTkButton(
-            root, text='Edit', command= self.edit_pressed, state= self.state)
+            root, text='Edit', command= self.edit_pressed, state= self.state,
+            fg_color="transparent",border_width=2,text_color=("gray10", "gray90"))
 
         self._clear_button = customtkinter.CTkButton(
-            root, text='Clear', command= self.clear_pressed, state= self.state)
+            root, text='Clear', command= self.clear_pressed, state= self.state,
+            fg_color="transparent",border_width=2,text_color=("gray10", "gray90"))
 
 
 
@@ -33,3 +37,15 @@ class Buttons:
 
     def clear_pressed(self):
         self._action("CLEAR")
+
+
+
+
+
+#self.delete_button = customtkinter.CTkButton(
+           #self, text="Delete",
+           #command=lambda: self.button_pressed('DELETE'),
+            #fg_color="transparent",
+            #border_width=2,
+            #text_color=("gray10", "gray90"))
+        #self.save_button.grid(row=2, column=3, padx=(20, 20),sticky="nsew")

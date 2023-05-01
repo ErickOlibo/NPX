@@ -59,21 +59,21 @@ class SQLHandler:
         self._cursor.execute(sql, (username, password))
         self._conn.commit()
     
-     def insert_into_entries(self, user: str, text: str, date: str, time: str, tags: str):
+    def insert_into_entries(self, user: str, text: str, date: str, time: str, tags: str):
         """Insert a new entry into the table named entries.
 
         Parameters
         ----------
-        user: str
-            The user who made the entry.
-        text: str
-            The text content of the entry.
-        date: str
-            The date when the entry was made.
-        time: str
-            The time when the entry was made.
-        tags: str
-            The tags associated with the entry.
+            user: str
+                The user who made the entry.
+            text: str
+                The text content of the entry.
+            date: str
+                The date when the entry was made.
+            time: str
+                The time when the entry was made.
+            tags: str
+                The tags associated with the entry.
         """
         sql = f"INSERT INTO {SQLTable.ENTRIES} (user, text, date, time, tags) VALUES (?, ?, ?, ?, ?)"
         self._cursor.execute(sql, (user, text, date, time, tags))
