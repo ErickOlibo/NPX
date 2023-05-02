@@ -55,7 +55,7 @@ class NavigationBar(customtkinter.CTkFrame):
         self.mode_menu = customtkinter.CTkSegmentedButton(
             self, values=["Light", "System", "Dark"],
             command=self._change_appearance_mode_event)
-        self.mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
+        self.mode_menu.grid(row=6, column=0, padx=20, pady=(0, 12), sticky="s")
 
     def _change_appearance_mode_event(self, new_value):
         customtkinter.set_appearance_mode(new_value)
