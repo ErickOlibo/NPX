@@ -91,8 +91,11 @@ class IssueMessage(Enum):
     WRONG_PASSWORD = "Wrong Password!"
     EMPTY_USERNAME = "Username Field is Empty!"
     EMPTY_PASSWORD = "Password Field is Empty!"
-    WEAK_PASSWORD = "The Password is too Short\n16 charaters minimum!"
-    MISSING_SPECIAL = "Password needs one special\ncharacter:'!@#$%^&?*'!"
+    WEAK_PASSWORD = "The Password is too Short!\n8 charaters minimum!"
+    MISSING_SPECIAL = "Password needs one special\ncharacter:'!@#$%^&*?'!"
+    NO_LOWER_PASSWORD = "Password needs at least\none lowercase character!"
+    NO_UPPER_PASSWORD = "Password needs at least\none uppercase character!"
+    NO_DIGIT_PASSWORD = "Password needs at least\none number!"
     UNKNOWN = "Unknown Issue!"
     NONE = "None"
 
