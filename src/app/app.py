@@ -10,7 +10,7 @@ from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
 from issue_handler import IssueHandler
-from buttons import Buttons
+
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
