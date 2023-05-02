@@ -120,7 +120,7 @@ class App(customtkinter.CTk):
             self, text="Edit",
             command=lambda: self.button_pressed('EDIT'),
             fg_color="transparent",
-            border_width=2,
+            border_width=2, 
             text_color=("gray10", "gray90"),
             state='disabled')
         self.edit_button.grid(row=3, column=2, padx=(20, 20), pady=(60, 20), sticky="nsew")
