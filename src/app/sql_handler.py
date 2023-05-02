@@ -14,6 +14,7 @@ class SQLHandler:
         self._conn = self._create_connection(db_path)
         self._cursor = self._conn.cursor()
         self._create_userdata_table()
+        self._create_entry_table()
 
     def _create_connection(self, path: str) -> Connection:
         try:
@@ -27,8 +28,12 @@ class SQLHandler:
         sql = str(SQLCreateTable.USERDATA)
         self.create_table(sql)
 
+    def _create_entry_table(self):
+        sql = str(SQLCreateTable.ENTRIES)
+        self.create_table(sql)
+
     def create_table(self, sql: str):
-        """Create a table from the sql statement
+        """Create a table from the sql statement.
 
         Parameters
         ----------
@@ -54,11 +59,31 @@ class SQLHandler:
         self._cursor.execute(sql, (username, password))
         self._conn.commit()
 
+    def insert_into_entries(self, user: str, text: str, date: str, time: str, tags: str):
+        """Insert a new entry into the table named entries.
+
+        Parameters
+        ----------
+            user: str
+                The user who made the entry.
+            text: str
+                The text content of the entry.
+            date: str
+                The date when the entry was made.
+            time: str
+                The time when the entry was made.
+            tags: str
+                The tags associated with the entry.
+        """
+        sql = f"INSERT INTO {SQLTable.ENTRIES} (user, text, date, time, tags) VALUES (?, ?, ?, ?, ?)"
+        self._cursor.execute(sql, (user, text, date, time, tags))
+        self._conn.commit()
+
     def _get_hash_digest(self, password: str) -> str:
         return hashlib.sha256(password.encode()).hexdigest()
 
     def verified_user(self, username: str, password: str) -> bool:
-        """Verify if the credential for a loging in users is correct
+        """Verify if the credential for a loging in users is correct.
 
         Parameters
         ----------

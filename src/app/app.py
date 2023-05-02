@@ -11,6 +11,7 @@ from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
 from issue_handler import IssueHandler
 
+
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("green")
 
@@ -66,27 +67,93 @@ class App(customtkinter.CTk):
         self._attach_entry_box()
         self._attach_tags_entry()
         self._attach_save_botton()
+        self._attach_delete_button()
+        self._attach_edit_button()
+        self._attach_clear_button()
 
     def _forget_journal_view_(self):
         self.tags_entry.grid_forget()
         self.save_button.grid_forget()
         self.entry_box.grid_forget()
+        self.delete_button.grid_forget()
+        self.edit_button.grid_forget()
+        self.clear_button.grid_forget()
 
     def _attach_entry_box(self):
         self.entry_box = customtkinter.CTkTextbox(self, width=250)
-        self.entry_box.grid(row=0, column=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry_box.grid(row=0, column=1, columnspan= 2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
-        self.tags_entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(60, 20), sticky="nsew")
+        self.tags_entry.grid(row=2, column=1, columnspan=2, padx=(20, 0), pady=(3, 20), sticky="nsew")
 
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
             self, text="Save",
+            command=lambda: self.button_pressed('ADD'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
-        self.save_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+        self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(3, 20), sticky="nsew")
+
+    def _attach_delete_button(self):
+        self.delete_button = customtkinter.CTkButton(
+            self, text="Delete",
+            command=lambda: self.button_pressed('DELETE'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"),
+            state='disabled')
+        self.delete_button.grid(row=3, column=1, padx=(20, 20), pady=(60, 20), sticky="nsew")
+
+    def _attach_clear_button(self):
+        self.clear_button = customtkinter.CTkButton(
+            self, text="Clear",
+            command=lambda: self.button_pressed('CLEAR'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"))
+        self.clear_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+
+    def _attach_edit_button(self):
+        self.edit_button = customtkinter.CTkButton(
+            self, text="Edit",
+            command=lambda: self.button_pressed('EDIT'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"),
+            state='disabled')
+        self.edit_button.grid(row=3, column=2, padx=(20, 20), pady=(60, 20), sticky="nsew")
+
+    def activate(self):
+        """Activate the delete button and edit button."""
+
+        state = 'enabled'
+        self.delete_button.configure(state=state)
+        self.edit_button.configure(state=state)
+
+    def deactivate(self):
+        """Deactivate the delete button and edit button."""
+
+        state = 'disabled'
+        self.delete_button.configure(state=state)
+        self.edit_button.configure(state=state)
+
+    def button_pressed(self, text):
+        print(text)
+        if text == 'ADD':
+            self.activate()
+
+        if text == 'DELETE':
+            self.deactivate()
+
+        if text == 'CLEAR':
+            if self.entry_box.get('1.0', 'end-1c') != '':
+                self.entry_box.delete('1.0', 'end')
+
+        if text == 'Edit':
+            pass
+
 
 # ############# END JOURNAL ENTRY VIEW ##########################################
 
