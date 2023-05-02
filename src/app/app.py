@@ -29,7 +29,7 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
-        self._start_up(with_login=True)
+        self._start_up(with_login=False)
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -59,7 +59,8 @@ class App(customtkinter.CTk):
         self.navigation_bar.set_active_button(View.JOURNAL)
 
         # Configure Main app to accomodate Journal View
-        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(0, weight=0)
+        self.grid_columnconfigure(1, weight=0)
         self.grid_columnconfigure(2, weight=0)
         self.grid_rowconfigure(0, weight=1)
 
@@ -80,12 +81,12 @@ class App(customtkinter.CTk):
         self.clear_button.grid_forget()
 
     def _attach_entry_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=250)
-        self.entry_box.grid(row=0, column=1, columnspan= 2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry_box = customtkinter.CTkTextbox(self, width=350)
+        self.entry_box.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
-        self.tags_entry.grid(row=2, column=1, columnspan=2, padx=(20, 0), pady=(3, 20), sticky="nsew")
+        self.tags_entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(0, 80), sticky="nsew")
 
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
@@ -94,7 +95,7 @@ class App(customtkinter.CTk):
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
-        self.save_button.grid(row=2, column=3, padx=(20, 20), pady=(3, 20), sticky="nsew")
+        self.save_button.grid(row=3, column=3, padx=(40, 20), pady=(0, 80), sticky="nsew")
 
     def _attach_delete_button(self):
         self.delete_button = customtkinter.CTkButton(
@@ -104,16 +105,8 @@ class App(customtkinter.CTk):
             border_width=2,
             text_color=("gray10", "gray90"),
             state='disabled')
-        self.delete_button.grid(row=3, column=1, padx=(20, 20), pady=(60, 20), sticky="nsew")
-
-    def _attach_clear_button(self):
-        self.clear_button = customtkinter.CTkButton(
-            self, text="Clear",
-            command=lambda: self.button_pressed('CLEAR'),
-            fg_color="transparent",
-            border_width=2,
-            text_color=("gray10", "gray90"))
-        self.clear_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
+        self.delete_button.grid(row=3, column=1, padx=(20, 20), pady=(60, 20), sticky="w")
+        self._invisible_button(self.delete_button, "disabled")
 
     def _attach_edit_button(self):
         self.edit_button = customtkinter.CTkButton(
@@ -123,7 +116,19 @@ class App(customtkinter.CTk):
             border_width=2,
             text_color=("gray10", "gray90"),
             state='disabled')
-        self.edit_button.grid(row=3, column=2, padx=(20, 20), pady=(60, 20), sticky="nsew")
+        self.edit_button.grid(row=3, column=2, padx=(20, 0), pady=(60, 20), sticky="e")
+        self._invisible_button(self.edit_button, "disabled")
+
+    def _attach_clear_button(self):
+        self.clear_button = customtkinter.CTkButton(
+            self, text="Clear",
+            command=lambda: self.button_pressed('CLEAR'),
+            fg_color="transparent",
+            border_width=2,
+            text_color=("gray10", "gray90"))
+        self.clear_button.grid(row=3, column=3, padx=(40, 20), pady=(60, 20), sticky="nsew")
+
+
 
     def activate(self):
         """Activate the delete button and edit button."""
@@ -138,6 +143,12 @@ class App(customtkinter.CTk):
         state = 'disabled'
         self.delete_button.configure(state=state)
         self.edit_button.configure(state=state)
+    
+    def _invisible_button(self, button: customtkinter.CTkButton, state: str):
+        button.configure(border_width=0, text="", state=state)
+    
+    def _visible_button(self, button: customtkinter.CTkButton, label: str, state: str):
+        button.configure(border_width=2, text=label, state=state)
 
     def button_pressed(self, text):
         print(text)
@@ -170,7 +181,7 @@ class App(customtkinter.CTk):
     def _configure_main_view(self):
         self.title("NPX App | Your Secret Companion")
         self.geometry(f"{self.main_view_size[0]}x{self.main_view_size[1]}")
-        self.resizable(True, True)
+        self.resizable(False, False)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=0)
