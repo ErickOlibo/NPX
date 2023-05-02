@@ -27,13 +27,13 @@ class SQLHandler:
     def _create_userdata_table(self):
         sql = str(SQLCreateTable.USERDATA)
         self.create_table(sql)
-    
+
     def _create_entry_table(self):
         sql = str(SQLCreateTable.ENTRIES)
         self.create_table(sql)
 
     def create_table(self, sql: str):
-        """Create a table from the sql statement
+        """Create a table from the sql statement.
 
         Parameters
         ----------
@@ -58,7 +58,7 @@ class SQLHandler:
         password = self._get_hash_digest(data.password)
         self._cursor.execute(sql, (username, password))
         self._conn.commit()
-    
+
     def insert_into_entries(self, user: str, text: str, date: str, time: str, tags: str):
         """Insert a new entry into the table named entries.
 
@@ -83,7 +83,7 @@ class SQLHandler:
         return hashlib.sha256(password.encode()).hexdigest()
 
     def verified_user(self, username: str, password: str) -> bool:
-        """Verify if the credential for a loging in users is correct
+        """Verify if the credential for a loging in users is correct.
 
         Parameters
         ----------

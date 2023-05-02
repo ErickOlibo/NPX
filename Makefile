@@ -2,7 +2,7 @@
 #!/usr/bin/env make
 
 # Version of Python
-PYTHON ?= python3
+PYTHON ?= python
 
 # To define targets in each directory under the src/
 define FOREACH

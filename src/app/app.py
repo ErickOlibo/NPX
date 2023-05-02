@@ -81,7 +81,7 @@ class App(customtkinter.CTk):
 
     def _attach_entry_box(self):
         self.entry_box = customtkinter.CTkTextbox(self, width=250)
-        self.entry_box.grid(row=0, column=1,columnspan= 2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry_box.grid(row=0, column=1, columnspan= 2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
@@ -89,8 +89,8 @@ class App(customtkinter.CTk):
 
     def _attach_save_botton(self):
         self.save_button = customtkinter.CTkButton(
-           self, text="Save",
-           command=lambda: self.button_pressed('ADD'),
+            self, text="Save",
+            command=lambda: self.button_pressed('ADD'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
@@ -98,43 +98,47 @@ class App(customtkinter.CTk):
 
     def _attach_delete_button(self):
         self.delete_button = customtkinter.CTkButton(
-           self, text="Delete",
-           command=lambda: self.button_pressed('DELETE'),
+            self, text="Delete",
+            command=lambda: self.button_pressed('DELETE'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"),
             state='disabled')
         self.delete_button.grid(row=3, column=1, padx=(20, 20), pady=(60, 20), sticky="nsew")
-    
+
     def _attach_clear_button(self):
         self.clear_button = customtkinter.CTkButton(
-           self, text="Clear",
-           command=lambda: self.button_pressed('CLEAR'),
+            self, text="Clear",
+            command=lambda: self.button_pressed('CLEAR'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"))
         self.clear_button.grid(row=3, column=3, padx=(20, 20), pady=(60, 20), sticky="nsew")
-    
+
     def _attach_edit_button(self):
         self.edit_button = customtkinter.CTkButton(
-           self, text="Edit",
-           command=lambda: self.button_pressed('EDIT'),
+            self, text="Edit",
+            command=lambda: self.button_pressed('EDIT'),
             fg_color="transparent",
             border_width=2,
             text_color=("gray10", "gray90"),
             state='disabled')
         self.edit_button.grid(row=3, column=2, padx=(20, 20), pady=(60, 20), sticky="nsew")
-    
+
     def activate(self):
+        """Activate the delete button and edit button."""
+
         state = 'enabled'
         self.delete_button.configure(state=state)
         self.edit_button.configure(state=state)
-    
+
     def deactivate(self):
+        """Deactivate the delete button and edit button."""
+
         state = 'disabled'
         self.delete_button.configure(state=state)
         self.edit_button.configure(state=state)
-    
+
     def button_pressed(self, text):
         print(text)
         if text == 'ADD':
