@@ -23,7 +23,7 @@ class TestApp(unittest.TestCase):
         self.app._show_main_view()
         title = "Secret"
         self.assertIn(title, self.app.title())
-        self.assertNotEqual(self.app.resizable(), (False, False))
+        self.assertNotEqual(self.app.resizable(), (True, True))
 
     def test_set_current_view(self):
         title = "Test"

@@ -14,4 +14,5 @@ src/.Trash/
 src/.Bin
 src/app2
 src/app/app_v02.py
+src/app/testing.py
 src/app/db/npx_app.db

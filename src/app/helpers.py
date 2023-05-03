@@ -249,6 +249,57 @@ class SessionData():
         return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
 
 
+# Written By FIONA
+class EntriesData():
+    """Container for the data to enter in the entries table"""
+    def __init__(self, user: str, text: str, datenow: str, timenow: str, tags: str):
+        """Instantiate with the necessary attributes.
+
+        Parameters
+        ----------
+            user: str
+                The username of the person writting the journal
+            text: str
+                The text entered
+            datenow: str
+                Today date as YYYY/MM/DD format
+            timenow: str
+                The time at the time of saving (HH:MM:SS)
+            tags: str
+                The tags added to the entry
+        """
+        self._user = user
+        self._text = text
+        self._tags = tags
+        self._datenow = datenow
+        self._timenow = timenow
+
+    @property
+    def user(self) -> str:
+        """Return the username of this current entries data"""
+        return self._user
+
+    @property
+    def text(self) -> str:
+        """Return the content of the entry for this current entries data"""
+        return self._text
+
+    @property
+    def tags(self) -> str:
+        """Return the tags of the entry for this current entries data"""
+        return self._tags
+
+    @property
+    def datenow(self) -> str:
+        """Return the day of creation of the entry for this current entries data"""
+        return self._datenow
+
+    @property
+    def timenow(self) -> str:
+        """Return the time of creation of the entry for this current entries data"""
+        return self._timenow
+
+
 SAMPLE_ENTRIES = {
     0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\
