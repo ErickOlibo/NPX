@@ -3,14 +3,13 @@ This module is the responsible for the Desktop app logic. It controls
 the flow of data between the Views and the data models
 """
 
+from datetime import datetime
 import customtkinter
 from helpers import View, SessionData, IssueMessage, EntriesData
-
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
 from issue_handler import IssueHandler
-from datetime import datetime
 
 
 customtkinter.set_appearance_mode("System")
@@ -30,7 +29,7 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
-        self._start_up(with_login=False)
+        self._start_up(with_login=True)
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -129,8 +128,6 @@ class App(customtkinter.CTk):
             text_color=("gray10", "gray90"))
         self.clear_button.grid(row=3, column=3, padx=(40, 20), pady=(60, 20), sticky="nsew")
 
-
-
     def activate(self):
         """Activate the delete button and edit button."""
 
@@ -144,14 +141,15 @@ class App(customtkinter.CTk):
         state = 'disabled'
         self.delete_button.configure(state=state)
         self.edit_button.configure(state=state)
-    
+
     def _invisible_button(self, button: customtkinter.CTkButton, state: str):
         button.configure(border_width=0, text="", state=state)
-    
+
     def _visible_button(self, button: customtkinter.CTkButton, label: str, state: str):
         button.configure(border_width=2, text=label, state=state)
 
     def button_pressed(self, text):
+        """Respond to a button being pressed in the GUI"""
         print(text)
         if text == 'ADD':
             self.activate()
@@ -167,14 +165,14 @@ class App(customtkinter.CTk):
             pass
 
     def _add(self):
-        username = self._sessionData.username
+        username = self._session_data.username
         tags = self.tags_entry.get()
         entry = self.entry_box.get('1.0', 'end')
         now = datetime.now().strftime('%Y/%m/%d')
         timenow = datetime.now().strftime("%H:%M:%S")
-        data = EntriesData(username, entry, now, timenow, tags)
-        self._handler.insert_into_entries(data)
-        #print(f"{username}\n{entry}\n{tags}\n{now}\n{timenow}")
+        if len(entry.rstrip()) > 0:
+            data = EntriesData(username, entry, now, timenow, tags)
+            self._handler.insert_into_entries(data)
         self._clear()
 
     def _clear(self):
@@ -185,17 +183,17 @@ class App(customtkinter.CTk):
         self.tags_entry.configure(placeholder_text="Tags")
         self.focus()
 
-
 # ############# END JOURNAL ENTRY VIEW ##########################################
-
     def _show_planning_view(self):
         self.navigation_bar.set_active_button(View.PLANNING)
         self._forget_journal_view_()
+        self.current_view.grid_forget()
         self._show_temporary_center_view(View.PLANNING)
 
     def _show_challenges_view(self):
         self.navigation_bar.set_active_button(View.CHALLENGES)
         self._forget_journal_view_()
+        self.current_view.grid_forget()
         self._show_temporary_center_view(View.CHALLENGES)
 
     def _configure_main_view(self):
@@ -212,7 +210,7 @@ class App(customtkinter.CTk):
         self.navigation_bar.grid_rowconfigure(4, weight=1)
 
     def _login_signin_pressed(self, data: SessionData):
-        self._sessionData = data
+        self._session_data = data
         issue = IssueHandler().get_issue_message(data)
         if issue == IssueMessage.NONE:
             self.login_view.grid_forget()
@@ -230,13 +228,9 @@ class App(customtkinter.CTk):
         self.current_view.grid(row=0, column=1, sticky="nsew")
 
     def _show_temporary_center_view(self, view: View):
-        self.current_view = customtkinter.CTkFrame(
-            self, corner_radius=0, fg_color=("gray90", "gray15"))
-        self.current_view.grid_columnconfigure(0, weight=1)
-        button = customtkinter.CTkButton(
-            self.current_view, text=f"{view.name} Center View", compound="left")
-        button.grid(row=0, column=0, padx=20, pady=300)
-        self.current_view.grid(row=0, column=1, sticky="nsew")
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(0, weight=0)
+        self._set_current_view(view.name)
 
     # Navigation Bar buttons
     def _navigation_button_pressed(self, view: View):
@@ -246,6 +240,9 @@ class App(customtkinter.CTk):
 
         if view == View.PLANNING:
             self._show_planning_view()
+
+        if view == View.CHALLENGES:
+            self._show_challenges_view()
 
         if view == View.LOGOUT:
             self.navigation_bar.grid_forget()

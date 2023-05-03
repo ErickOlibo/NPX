@@ -1,7 +1,7 @@
 """TO_FILL_IN_LATER."""
+import re
 from helpers import SessionData, IssueMessage, StartUp
 from sql_handler import SQLHandler
-import re
 
 
 class IssueHandler:
