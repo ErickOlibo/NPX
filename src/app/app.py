@@ -81,7 +81,7 @@ class App(customtkinter.CTk):
         self.clear_button.grid_forget()
 
     def _attach_entry_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=350)
+        self.entry_box = customtkinter.CTkTextbox(self, width=350, wrap="word")
         self.entry_box.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
@@ -161,6 +161,10 @@ class App(customtkinter.CTk):
         if text == 'CLEAR':
             if self.entry_box.get('1.0', 'end-1c') != '':
                 self.entry_box.delete('1.0', 'end')
+
+            self.tags_entry.delete(0, 'end')
+            self.tags_entry.configure(placeholder_text="Tags")
+            self.focus()
 
         if text == 'Edit':
             pass
