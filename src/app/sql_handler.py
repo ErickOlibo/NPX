@@ -3,7 +3,7 @@ import os
 import sqlite3
 import hashlib
 from sqlite3 import Connection, Error
-from helpers import SQLCreateTable, SQLTable, SessionData
+from helpers import SQLCreateTable, SQLTable, SessionData, EntriesData
 
 
 class SQLHandler:
@@ -59,24 +59,17 @@ class SQLHandler:
         self._cursor.execute(sql, (username, password))
         self._conn.commit()
 
-    def insert_into_entries(self, user: str, text: str, date: str, time: str, tags: str):
+    def insert_into_entries(self, data: EntriesData):
         """Insert a new entry into the table named entries.
 
         Parameters
         ----------
-            user: str
-                The user who made the entry.
-            text: str
-                The text content of the entry.
-            date: str
-                The date when the entry was made.
-            time: str
-                The time when the entry was made.
-            tags: str
-                The tags associated with the entry.
+            data: EntriesData
+                The username, the journal entry, the date, the time, and the tags
+                to insert into the database.
         """
         sql = f"INSERT INTO {SQLTable.ENTRIES} (user, text, date, time, tags) VALUES (?, ?, ?, ?, ?)"
-        self._cursor.execute(sql, (user, text, date, time, tags))
+        self._cursor.execute(sql, (data.user, data.text, data.datenow, data.timenow, data.tags))
         self._conn.commit()
 
     def _get_hash_digest(self, password: str) -> str:

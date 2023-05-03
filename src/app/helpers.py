@@ -249,6 +249,36 @@ class SessionData():
         return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
 
 
+# Written By FIONA
+class EntriesData():
+    def __init__(self, user: str, text: str, datenow: str, timenow: str, tags: str):
+        self._user = user
+        self._text = text
+        self._tags = tags
+        self._datenow = datenow
+        self._timenow = timenow
+
+    @property
+    def user(self) -> str:
+        return self._user
+
+    @property
+    def text(self) -> str:
+        return self._text
+
+    @property
+    def tags(self) -> str:
+        return self._tags
+
+    @property
+    def datenow(self) -> str:
+        return self._datenow
+
+    @property
+    def timenow(self) -> str:
+        return self._timenow
+
+
 SAMPLE_ENTRIES = {
     0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\

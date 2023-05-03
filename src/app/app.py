@@ -4,12 +4,13 @@ the flow of data between the Views and the data models
 """
 
 import customtkinter
-from helpers import View, SessionData, IssueMessage
+from helpers import View, SessionData, IssueMessage, EntriesData
 
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
 from issue_handler import IssueHandler
+from datetime import datetime
 
 
 customtkinter.set_appearance_mode("System")
@@ -29,7 +30,7 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
-        self._start_up(with_login=False)
+        self._start_up(with_login=True)
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -154,20 +155,35 @@ class App(customtkinter.CTk):
         print(text)
         if text == 'ADD':
             self.activate()
+            self._add()
 
         if text == 'DELETE':
             self.deactivate()
 
         if text == 'CLEAR':
-            if self.entry_box.get('1.0', 'end-1c') != '':
-                self.entry_box.delete('1.0', 'end')
-
-            self.tags_entry.delete(0, 'end')
-            self.tags_entry.configure(placeholder_text="Tags")
-            self.focus()
+            self._clear()
 
         if text == 'Edit':
             pass
+
+    def _add(self):
+        username = self._sessionData.username
+        tags = self.tags_entry.get()
+        entry = self.entry_box.get('1.0', 'end')
+        now = datetime.now().strftime('%Y/%m/%d')
+        timenow = datetime.now().strftime("%H:%M:%S")
+        data = EntriesData(username, entry, now, timenow, tags)
+        self._handler.insert_into_entries(data)
+        print(f"{username}\n{entry}\n{tags}\n{now}\n{timenow}")
+        self._clear()
+    
+    def _clear(self):
+        if self.entry_box.get('1.0', 'end-1c') != '':
+            self.entry_box.delete('1.0', 'end')
+
+        self.tags_entry.delete(0, 'end')
+        self.tags_entry.configure(placeholder_text="Tags")
+        self.focus()
 
 
 # ############# END JOURNAL ENTRY VIEW ##########################################
@@ -196,6 +212,7 @@ class App(customtkinter.CTk):
         self.navigation_bar.grid_rowconfigure(4, weight=1)
 
     def _login_signin_pressed(self, data: SessionData):
+        self._sessionData = data
         issue = IssueHandler().get_issue_message(data)
         if issue == IssueMessage.NONE:
             self.login_view.grid_forget()
