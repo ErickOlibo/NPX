@@ -30,7 +30,7 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
-        self._start_up(with_login=True)
+        self._start_up(with_login=False)
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -174,9 +174,9 @@ class App(customtkinter.CTk):
         timenow = datetime.now().strftime("%H:%M:%S")
         data = EntriesData(username, entry, now, timenow, tags)
         self._handler.insert_into_entries(data)
-        print(f"{username}\n{entry}\n{tags}\n{now}\n{timenow}")
+        #print(f"{username}\n{entry}\n{tags}\n{now}\n{timenow}")
         self._clear()
-    
+
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
             self.entry_box.delete('1.0', 'end')
