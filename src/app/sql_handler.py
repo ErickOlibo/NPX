@@ -68,8 +68,8 @@ class SQLHandler:
                 The username, the journal entry, the date, the time, and the tags
                 to insert into the database.
         """
-        sql = f"INSERT INTO {SQLTable.ENTRIES} (user, text, date, time, tags) VALUES (?, ?, ?, ?, ?)"
-        self._cursor.execute(sql, (data.user, data.text, data.datenow, data.timenow, data.tags))
+        sql = f"INSERT INTO {SQLTable.ENTRIES} (user, title, text, date, time, tags) VALUES (?, ?, ?, ?, ?, ?)"
+        self._cursor.execute(sql, (data.user, data.title, data.text, data.datenow, data.timenow, data.tags))
         self._conn.commit()
 
     def _get_hash_digest(self, password: str) -> str:
