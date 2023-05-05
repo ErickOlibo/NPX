@@ -62,8 +62,7 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=0)
         self.grid_columnconfigure(2, weight=0)
-        self.grid_rowconfigure(0, weight=0)
-        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
         # Attach Journal View Elements
         self._attach_title_entry()
@@ -88,7 +87,7 @@ class App(customtkinter.CTk):
         self.title_entry.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
 
     def _attach_entry_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=350, wrap="word")
+        self.entry_box = customtkinter.CTkTextbox(self, width=350, height= 400, wrap="word")
         self.entry_box.grid(row=1, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
@@ -188,7 +187,6 @@ class App(customtkinter.CTk):
             self.entry_box.delete('1.0', 'end')
 
         self.title_entry.delete(0, 'end')
-
         self.tags_entry.delete(0, 'end')
         self.tags_entry.configure(placeholder_text="Tags")
         self.focus()
