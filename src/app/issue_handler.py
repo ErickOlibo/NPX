@@ -40,6 +40,10 @@ class IssueHandler:
         return issue
 
     def _sign_in_issue(self, data: SessionData) -> IssueMessage:
+        if len(data.username) > 15:
+            return IssueMessage.LONG_USERNAME
+        if len(data.username) < 3:
+            return IssueMessage.SHORT_USERNAME
         if not self._handler.username_taken(data.username):
             password_issue = self._password_requirements(data)
             if password_issue is IssueMessage.NONE:
