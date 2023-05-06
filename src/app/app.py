@@ -37,7 +37,9 @@ class App(customtkinter.CTk):
             self._show_login_view()
         else:
             self._session_data = SessionData("Test User", "123456", StartUp.LOG_IN)
-            self._show_main_view()
+            self._configure_main_view()
+            self._attach_navigation_bar()
+            self._show_journal_view()
 
 
     def _show_login_view(self):
@@ -57,20 +59,21 @@ class App(customtkinter.CTk):
             self._show_journal_view()
         if view == View.ENTRIES:
             self._show_entries_view()
-        # if view == View.CHALLENGES:
-        #     self._show_challenges_view()
+
 
 # ############## CREATE THE JOURNAL VIEW HERE ###################################
     def _show_journal_view(self):
         self.navigation_bar.set_active_button(View.JOURNAL)
+        self._configure_main_view_for_journal_view()
+        self._attach_journal_view_elements()
 
-        # Configure Main app to accomodate Journal View
+    def _configure_main_view_for_journal_view(self):
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=0)
         self.grid_columnconfigure(2, weight=0)
         self.grid_rowconfigure(0, weight=1)
 
-        # Attach Journal View Elements
+    def _attach_journal_view_elements(self):
         self._attach_entry_box()
         self._attach_tags_entry()
         self._attach_save_botton()
@@ -97,82 +100,34 @@ class App(customtkinter.CTk):
     # REFACTORING BUTTONS
     def _attach_save_botton(self):
         label = JournalButton.SAVE
-        self.save_button = CustomButton(self, label, lambda: self.button_pressed(label)).get()
-        # self.save_button = customtkinter.CTkButton(
-        #     self, text="Save",
-        #     command=lambda: self.button_pressed('ADD'),
-        #     fg_color="transparent",
-        #     border_width=2,
-        #     text_color=("gray10", "gray90"))
+        self.save_button = CustomButton(self, label, lambda: self.button_pressed(label))
         self.save_button.grid(row=3, column=3, padx=(40, 20), pady=(0, 80), sticky="nsew")
 
     def _attach_delete_button(self):
         label = JournalButton.DELETE
-        self.delete_button = CustomButton(self, label, lambda: self.button_pressed(label)).get()
-        # self.delete_button = customtkinter.CTkButton(
-        #     self, text="Delete",
-        #     command=lambda: self.button_pressed('DELETE'),
-        #     fg_color="transparent",
-        #     border_width=2,
-        #     text_color=("gray10", "gray90"),
-        #     state='disabled')
+        self.delete_button = CustomButton(self, label, lambda: self.button_pressed(label))
         self.delete_button.grid(row=3, column=1, padx=(20, 20), pady=(60, 20), sticky="w")
-        self._invisible_button(self.delete_button, "disabled")
+        self.delete_button.hidden()
 
     def _attach_edit_button(self):
         label = JournalButton.EDIT
-        self.edit_button = CustomButton(self, label, lambda: self.button_pressed(label)).get()
-        # self.edit_button = customtkinter.CTkButton(
-        #     self, text="Edit",
-        #     command=lambda: self.button_pressed('EDIT'),
-        #     fg_color="transparent",
-        #     border_width=2,
-        #     text_color=("gray10", "gray90"),
-        #     state='disabled')
+        self.edit_button = CustomButton(self, label, lambda: self.button_pressed(label))
         self.edit_button.grid(row=3, column=2, padx=(20, 0), pady=(60, 20), sticky="e")
-        self._invisible_button(self.edit_button, "disabled")
+        self.edit_button.hidden()
 
     def _attach_clear_button(self):
         label = JournalButton.CLEAR
-        self.clear_button = CustomButton(self, label, lambda: self.button_pressed(label)).get()
-        # self.clear_button = customtkinter.CTkButton(
-        #     self, text="Clear",
-        #     command=lambda: self.button_pressed('CLEAR'),
-        #     fg_color="transparent",
-        #     border_width=2,
-        #     text_color=("gray10", "gray90"))
+        self.clear_button = CustomButton(self, label, lambda: self.button_pressed(label))
         self.clear_button.grid(row=3, column=3, padx=(40, 20), pady=(60, 20), sticky="nsew")
-
-    def activate(self):
-        """Activate the delete button and edit button."""
-
-        state = 'enabled'
-        self.delete_button.configure(state=state)
-        self.edit_button.configure(state=state)
-
-    def deactivate(self):
-        """Deactivate the delete button and edit button."""
-
-        state = 'disabled'
-        self.delete_button.configure(state=state)
-        self.edit_button.configure(state=state)
-
-    def _invisible_button(self, button: customtkinter.CTkButton, state: str):
-        # button.configure(border_width=0, text="", state=state)
-        pass
-
-    def _visible_button(self, button: customtkinter.CTkButton, label: str, state: str):
-        button.configure(border_width=2, text=label, state=state)
 
     def button_pressed(self, type: JournalButton):
         """Respond to a button being pressed in the GUI"""
         print(type)
         if type == JournalButton.SAVE:
-            self.activate()
             self._add()
 
         if type == JournalButton.DELETE:
-            self.deactivate()
+            pass
 
         if type == JournalButton.CLEAR:
             self._clear()
@@ -256,9 +211,6 @@ class App(customtkinter.CTk):
 
         if view == View.ENTRIES:
             self._show_entries_view()
-
-        # if view == View.CHALLENGES:
-        #     self._show_challenges_view()
 
         if view == View.LOGOUT:
             self.navigation_bar.grid_forget()
