@@ -29,7 +29,7 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
         self.current_view = customtkinter.CTkFrame(self)
-        self._start_up(with_login=True)
+        self._start_up(with_login=False)
 
     def _start_up(self, with_login: bool):
         self._show_login_view() if with_login else self._show_main_view()
@@ -49,10 +49,10 @@ class App(customtkinter.CTk):
     def _attach_center_view(self, view: View):
         if view == View.JOURNAL:
             self._show_journal_view()
-        if view == View.PLANNING:
-            self._show_planning_view()
-        if view == View.CHALLENGES:
-            self._show_challenges_view()
+        if view == View.ENTRIES:
+            self._show_entries_view()
+        # if view == View.CHALLENGES:
+        #     self._show_challenges_view()
 
 # ############## CREATE THE JOURNAL VIEW HERE ###################################
     def _show_journal_view(self):
@@ -184,17 +184,17 @@ class App(customtkinter.CTk):
         self.focus()
 
 # ############# END JOURNAL ENTRY VIEW ##########################################
-    def _show_planning_view(self):
-        self.navigation_bar.set_active_button(View.PLANNING)
+    def _show_entries_view(self):
+        self.navigation_bar.set_active_button(View.ENTRIES)
         self._forget_journal_view_()
         self.current_view.grid_forget()
-        self._show_temporary_center_view(View.PLANNING)
+        self._show_temporary_center_view(View.ENTRIES)
 
-    def _show_challenges_view(self):
-        self.navigation_bar.set_active_button(View.CHALLENGES)
-        self._forget_journal_view_()
-        self.current_view.grid_forget()
-        self._show_temporary_center_view(View.CHALLENGES)
+    # def _show_challenges_view(self):
+    #     self.navigation_bar.set_active_button(View.CHALLENGES)
+    #     self._forget_journal_view_()
+    #     self.current_view.grid_forget()
+    #     self._show_temporary_center_view(View.CHALLENGES)
 
     def _configure_main_view(self):
         self.title("NPX App | Your Secret Companion")
@@ -238,11 +238,11 @@ class App(customtkinter.CTk):
         if view == View.JOURNAL:
             self._show_journal_view()
 
-        if view == View.PLANNING:
-            self._show_planning_view()
+        if view == View.ENTRIES:
+            self._show_entries_view()
 
-        if view == View.CHALLENGES:
-            self._show_challenges_view()
+        # if view == View.CHALLENGES:
+        #     self._show_challenges_view()
 
         if view == View.LOGOUT:
             self.navigation_bar.grid_forget()
