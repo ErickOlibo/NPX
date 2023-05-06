@@ -61,6 +61,16 @@ class StartUp(Enum):
     SIGN_IN = auto()
     LOG_IN = auto()
 
+class JournalButton(Enum):
+    """Enum listing the different custom button on the Journal View"""
+    SAVE = auto()
+    DELETE = auto()
+    EDIT = auto()
+    CLEAR = auto()
+
+    def __str__(self):
+        return str(self.name)
+
 
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
