@@ -77,6 +77,7 @@ class View(Enum):
 
     JOURNAL = auto()
     ENTRIES = auto()
+    DIARY = auto()
     LOGIN = auto()
     LOGOUT = auto()
     NAVIGATION_BAR = auto()
@@ -88,6 +89,8 @@ class Assets(ExtendEnum):
     LIGHT_JOURNAL = auto()
     DARK_ENTRIES = auto()
     LIGHT_ENTRIES = auto()
+    DARK_DIARY = auto()
+    LIGHT_DIARY = auto()
     DARK_LOGIN = auto()
     LIGHT_LOGIN = auto()
     DARK_LOGOUT = auto()
