@@ -125,13 +125,10 @@ class App(customtkinter.CTk):
         print(type)
         if type == JournalButton.SAVE:
             self._add()
-
         if type == JournalButton.DELETE:
             pass
-
         if type == JournalButton.CLEAR:
             self._clear()
-
         if type == JournalButton.EDIT:
             pass
 
@@ -160,12 +157,6 @@ class App(customtkinter.CTk):
         self._forget_journal_view_()
         self.current_view.grid_forget()
         self._show_temporary_center_view(View.ENTRIES)
-
-    # def _show_challenges_view(self):
-    #     self.navigation_bar.set_active_button(View.CHALLENGES)
-    #     self._forget_journal_view_()
-    #     self.current_view.grid_forget()
-    #     self._show_temporary_center_view(View.CHALLENGES)
 
     def _configure_main_view(self):
         self.title("NPX App | Your Secret Companion")
