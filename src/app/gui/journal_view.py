@@ -18,16 +18,11 @@ class JournalView(customtkinter.CTkFrame):
         self.configure(fg_color="transparent")
         
         # Set the view UI elements
-        self._entry_title()
         self._entry_text_box()
         self._entry_tags()
-        self._recent_entries()
         self._buttons()
 
-    # ##### PUBLIC METHODS ##### #
-    def forget_view(self):
-        pass
-
+# ##### PUBLIC METHODS ##### #
     def state(self, state: ViewState):
         if state == ViewState.JOURNAL_INSERT:
             self.delete_button.hidden
@@ -37,11 +32,7 @@ class JournalView(customtkinter.CTkFrame):
             self.delete_button.visible
             self.edit_button.visible
 
-    # ##### PRIVATE METHODS ##### #
-    # TO IMPLEMENT
-    def _entry_title(self):
-        pass
-
+# ##### PRIVATE METHODS ##### #
     def _entry_text_box(self):
         self.entry_box = customtkinter.CTkTextbox(self, width=350, wrap="word")
         self.entry_box.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
@@ -49,10 +40,6 @@ class JournalView(customtkinter.CTkFrame):
     def _entry_tags(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
         self.tags_entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(0, 80), sticky="nsew")
-
-    # TO IMPLEMENT
-    def _recent_entries(self):
-        pass
 
     def _buttons(self):
         self.save_button = CustomButton(
@@ -84,7 +71,7 @@ class JournalView(customtkinter.CTkFrame):
             self._clear()
         if type == JournalButton.EDIT:
             self._edit()
-    
+
     def _insert_update(self):
         tags = self.tags_entry.get()
         entry = self.entry_box.get('1.0', 'end')
@@ -97,7 +84,7 @@ class JournalView(customtkinter.CTkFrame):
 
     def _delete(self):
         print("DELETE selected ENTRY")
-    
+
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
             self.entry_box.delete('1.0', 'end')
@@ -105,6 +92,6 @@ class JournalView(customtkinter.CTkFrame):
         self.tags_entry.configure(placeholder_text="Tags")
         self.focus()
 
-    
+
     def _edit(self):
         print("EDIT selected ENTRY")

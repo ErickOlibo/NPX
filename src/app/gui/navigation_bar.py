@@ -37,8 +37,8 @@ class NavigationBar(customtkinter.CTkFrame):
             size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).image
         self.entries_icon = CustomImage(
             size, Assets.LIGHT_ENTRIES, Assets.DARK_ENTRIES).image
-        self.diary_icon = CustomImage(
-            size, Assets.LIGHT_DIARY, Assets.DARK_DIARY).image
+        # self.diary_icon = CustomImage(
+        #     size, Assets.LIGHT_DIARY, Assets.DARK_DIARY).image
 
     def _navigation_buttons(self):
         self.journal_button = CustomTabButton(
@@ -47,9 +47,9 @@ class NavigationBar(customtkinter.CTkFrame):
         self.entries_button = CustomTabButton(
             self, "Entries", self.entries_icon,
             self._entries_pressed, (2, 0), "ew").button
-        self.diary_button = CustomTabButton(
-            self, "Diary", self.diary_icon,
-            self._diary_pressed, (3, 0), "ew").button
+        # self.diary_button = CustomTabButton(
+        #     self, "Diary", self.diary_icon,
+        #     self._diary_pressed, (3, 0), "ew").button
 
     def _set_mode_menu(self):
         self.mode_menu = customtkinter.CTkSegmentedButton(
@@ -75,15 +75,15 @@ class NavigationBar(customtkinter.CTkFrame):
             self.journal_button.configure(fg_color=color)
         if tab == View.ENTRIES:
             self.entries_button.configure(fg_color=color)
-        if tab == View.DIARY:
-            self.diary_button.configure(fg_color=color)
+        # if tab == View.DIARY:
+        #     self.diary_button.configure(fg_color=color)
 
 
     def _reset_navigation_buttons_color(self):
         color = "transparent"
         self.journal_button.configure(fg_color=color)
         self.entries_button.configure(fg_color=color)
-        self.diary_button.configure(fg_color=color)
+        # self.diary_button.configure(fg_color=color)
 
     def _journal_pressed(self):
         self._action(View.JOURNAL)
@@ -91,8 +91,8 @@ class NavigationBar(customtkinter.CTkFrame):
     def _entries_pressed(self):
         self._action(View.ENTRIES)
         
-    def _diary_pressed(self):
-        self._action(View.DIARY)
+    # def _diary_pressed(self):
+    #     self._action(View.DIARY)
 
     def _logout_pressed(self):
         self._action(View.LOGOUT)

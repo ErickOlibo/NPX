@@ -12,7 +12,7 @@ class TestHelpers(unittest.TestCase):
         pass
     
     def test_assets(self):
-        self.assertIn(Assets.DARK_CHALLENGES.name, Assets.list("name"))
+        self.assertIn(Assets.DARK_JOURNAL.name, Assets.list("name"))
         self.assertIn("icons", str(Assets.NPX_LOGO))
     
     def test_custom_image(self):
