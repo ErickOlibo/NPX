@@ -4,6 +4,7 @@ from custom_button import CustomButton
 from helpers import JournalButton, ViewState, EntriesData
 from sql_handler import SQLHandler
 
+
 class JournalView(customtkinter.CTkFrame):
 
     def __init__(self, master: customtkinter.CTk, username: str):
@@ -16,7 +17,7 @@ class JournalView(customtkinter.CTkFrame):
         self.grid_columnconfigure(2, weight=0)
         self.grid_rowconfigure(0, weight=1)
         self.configure(fg_color="transparent")
-        
+
         # Set the view UI elements
         self._entry_text_box()
         self._entry_tags()
@@ -58,8 +59,6 @@ class JournalView(customtkinter.CTkFrame):
             self, JournalButton.CLEAR, lambda: self._button_pressed(JournalButton.CLEAR))
         self.clear_button.grid(row=3, column=3, padx=(40, 20), pady=(60, 20), sticky="nsew")
 
-
-
     def _button_pressed(self, type: JournalButton):
         """Respond to a button being pressed in the GUI"""
         print(type)
@@ -91,7 +90,6 @@ class JournalView(customtkinter.CTkFrame):
         self.tags_entry.delete(0, 'end')
         self.tags_entry.configure(placeholder_text="Tags")
         self.focus()
-
 
     def _edit(self):
         print("EDIT selected ENTRY")

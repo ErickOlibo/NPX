@@ -78,7 +78,6 @@ class NavigationBar(customtkinter.CTkFrame):
         # if tab == View.DIARY:
         #     self.diary_button.configure(fg_color=color)
 
-
     def _reset_navigation_buttons_color(self):
         color = "transparent"
         self.journal_button.configure(fg_color=color)
@@ -90,7 +89,7 @@ class NavigationBar(customtkinter.CTkFrame):
 
     def _entries_pressed(self):
         self._action(View.ENTRIES)
-        
+
     # def _diary_pressed(self):
     #     self._action(View.DIARY)
 

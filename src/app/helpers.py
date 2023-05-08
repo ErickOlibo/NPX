@@ -61,6 +61,7 @@ class StartUp(Enum):
     SIGN_IN = auto()
     LOG_IN = auto()
 
+
 class JournalButton(Enum):
     """Enum listing the different custom button on the Journal View"""
     SAVE = auto()
@@ -71,6 +72,7 @@ class JournalButton(Enum):
     def __str__(self):
         return str(self.name)
 
+
 class ViewState(Enum):
     """Enum listing the different state views can take during execussion."""
     JOURNAL_INSERT = auto()
@@ -78,6 +80,7 @@ class ViewState(Enum):
 
     def __str__(self):
         return str(self.name)
+
 
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""

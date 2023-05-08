@@ -4,7 +4,7 @@ the flow of data between the Views and the data models
 """
 
 import customtkinter
-from helpers import * 
+from helpers import SessionData, StartUp, IssueMessage, View, ViewState
 from gui.login_view import LoginView
 from gui.navigation_bar import NavigationBar
 from sql_handler import SQLHandler
@@ -46,7 +46,7 @@ class App(customtkinter.CTk):
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
         self.login_view = LoginView(self, self._login_signin_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=50, sticky="ns")
-    
+
     def _login_signin_pressed(self, data: SessionData):
         self._session_data = data
         issue = IssueHandler().get_issue_message(data)
@@ -55,7 +55,7 @@ class App(customtkinter.CTk):
             self._show_main_view_from_startup()
         else:
             self.login_view.set_wrong_credentials_message(issue)
-    
+
 # ##### MAIN VIEW ##### #
     def _configure_main_view(self):
         self.title("NPX App | Your Secret Companion")
@@ -79,21 +79,19 @@ class App(customtkinter.CTk):
         self._journal_view.state(ViewState.JOURNAL_INSERT)
         self._journal_view.grid(row=0, column=1, rowspan=4, sticky="nsew")
 
-
 # ##### ENTRIES VIEW ##### #
     def _show_entries_view(self):
-        self._entriesView = EntriesView(self)
+        self._entries_view = EntriesView(self)
 
     def _navigation_button_pressed(self, view: View):
         if self._active_view == view:
-            return None
-        else:
-            self._active_view = view
-        
+            return
+        self._active_view = view
+
         self.navigation_bar.set_active_button(view)
         print(view.name)
         if view == View.JOURNAL:
-            self._entriesView.grid_forget()
+            self._entries_view.grid_forget()
             self._show_journal_view()
 
         if view == View.ENTRIES:
@@ -104,7 +102,6 @@ class App(customtkinter.CTk):
             for view in self.grid_slaves():
                 view.grid_forget()
             self._show_login_view()
-    
 
 
 if __name__ == "__main__":
