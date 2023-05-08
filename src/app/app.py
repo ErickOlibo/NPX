@@ -65,6 +65,7 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(0, weight=1)
 
         # Attach Journal View Elements
+        self._attach_title_entry()
         self._attach_entry_box()
         self._attach_tags_entry()
         self._attach_save_botton()
@@ -73,6 +74,7 @@ class App(customtkinter.CTk):
         self._attach_clear_button()
 
     def _forget_journal_view_(self):
+        self.title_entry.grid_forget()
         self.tags_entry.grid_forget()
         self.save_button.grid_forget()
         self.entry_box.grid_forget()
@@ -80,9 +82,13 @@ class App(customtkinter.CTk):
         self.edit_button.grid_forget()
         self.clear_button.grid_forget()
 
+    def _attach_title_entry(self):
+        self.title_entry = customtkinter.CTkEntry(self, placeholder_text="Title")
+        self.title_entry.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
+
     def _attach_entry_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=350, wrap="word")
-        self.entry_box.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry_box = customtkinter.CTkTextbox(self, width=350, height= 400, wrap="word")
+        self.entry_box.grid(row=1, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _attach_tags_entry(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
@@ -166,12 +172,13 @@ class App(customtkinter.CTk):
 
     def _add(self):
         username = self._session_data.username
+        title = self.title_entry.get()
         tags = self.tags_entry.get()
         entry = self.entry_box.get('1.0', 'end')
         now = datetime.now().strftime('%Y/%m/%d')
         timenow = datetime.now().strftime("%H:%M:%S")
         if len(entry.rstrip()) > 0:
-            data = EntriesData(username, entry, now, timenow, tags)
+            data = EntriesData(username, title, entry, now, timenow, tags)
             self._handler.insert_into_entries(data)
         self._clear()
 
@@ -179,6 +186,7 @@ class App(customtkinter.CTk):
         if self.entry_box.get('1.0', 'end-1c') != '':
             self.entry_box.delete('1.0', 'end')
 
+        self.title_entry.delete(0, 'end')
         self.tags_entry.delete(0, 'end')
         self.tags_entry.configure(placeholder_text="Tags")
         self.focus()
