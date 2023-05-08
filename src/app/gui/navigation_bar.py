@@ -35,21 +35,21 @@ class NavigationBar(customtkinter.CTkFrame):
         size = (26, 26)
         self.journal_icon = CustomImage(
             size, Assets.LIGHT_JOURNAL, Assets.DARK_JOURNAL).image
-        self.planning_icon = CustomImage(
-            size, Assets.LIGHT_PLANNING, Assets.DARK_PLANNING).image
-        self.challenges_icon = CustomImage(
-            size, Assets.LIGHT_CHALLENGES, Assets.DARK_CHALLENGES).image
+        self.entries_icon = CustomImage(
+            size, Assets.LIGHT_ENTRIES, Assets.DARK_ENTRIES).image
+        # self.diary_icon = CustomImage(
+        #     size, Assets.LIGHT_DIARY, Assets.DARK_DIARY).image
 
     def _navigation_buttons(self):
         self.journal_button = CustomTabButton(
             self, "Journal", self.journal_icon,
             self._journal_pressed, (1, 0), "ew").button
-        self.planning_button = CustomTabButton(
-            self, "Planning", self.planning_icon,
-            self._planning_pressed, (2, 0), "ew").button
-        self.challenges_button = CustomTabButton(
-            self, "Challenges", self.challenges_icon,
-            self._challenges_pressed, (3, 0), "ew").button
+        self.entries_button = CustomTabButton(
+            self, "Entries", self.entries_icon,
+            self._entries_pressed, (2, 0), "ew").button
+        # self.diary_button = CustomTabButton(
+        #     self, "Diary", self.diary_icon,
+        #     self._diary_pressed, (3, 0), "ew").button
 
     def _set_mode_menu(self):
         self.mode_menu = customtkinter.CTkSegmentedButton(
@@ -73,25 +73,25 @@ class NavigationBar(customtkinter.CTkFrame):
         color = ("gray75", "gray25")
         if tab == View.JOURNAL:
             self.journal_button.configure(fg_color=color)
-        if tab == View.PLANNING:
-            self.planning_button.configure(fg_color=color)
-        if tab == View.CHALLENGES:
-            self.challenges_button.configure(fg_color=color)
+        if tab == View.ENTRIES:
+            self.entries_button.configure(fg_color=color)
+        # if tab == View.DIARY:
+        #     self.diary_button.configure(fg_color=color)
 
     def _reset_navigation_buttons_color(self):
         color = "transparent"
         self.journal_button.configure(fg_color=color)
-        self.planning_button.configure(fg_color=color)
-        self.challenges_button.configure(fg_color=color)
+        self.entries_button.configure(fg_color=color)
+        # self.diary_button.configure(fg_color=color)
 
     def _journal_pressed(self):
         self._action(View.JOURNAL)
 
-    def _planning_pressed(self):
-        self._action(View.PLANNING)
+    def _entries_pressed(self):
+        self._action(View.ENTRIES)
 
-    def _challenges_pressed(self):
-        self._action(View.CHALLENGES)
+    # def _diary_pressed(self):
+    #     self._action(View.DIARY)
 
     def _logout_pressed(self):
         self._action(View.LOGOUT)

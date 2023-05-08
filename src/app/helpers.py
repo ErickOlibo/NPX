@@ -63,12 +63,32 @@ class StartUp(Enum):
     LOG_IN = auto()
 
 
+class JournalButton(Enum):
+    """Enum listing the different custom button on the Journal View"""
+    SAVE = auto()
+    DELETE = auto()
+    EDIT = auto()
+    CLEAR = auto()
+
+    def __str__(self):
+        return str(self.name)
+
+
+class ViewState(Enum):
+    """Enum listing the different state views can take during execussion."""
+    JOURNAL_INSERT = auto()
+    JOURNAL_UPDATE = auto()
+
+    def __str__(self):
+        return str(self.name)
+
+
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""
 
     JOURNAL = auto()
-    PLANNING = auto()
-    CHALLENGES = auto()
+    ENTRIES = auto()
+    DIARY = auto()
     LOGIN = auto()
     LOGOUT = auto()
     NAVIGATION_BAR = auto()
@@ -78,10 +98,10 @@ class Assets(ExtendEnum):
     """Enum listing different name of assets in the icon folder"""
     DARK_JOURNAL = auto()
     LIGHT_JOURNAL = auto()
-    DARK_PLANNING = auto()
-    LIGHT_PLANNING = auto()
-    DARK_CHALLENGES = auto()
-    LIGHT_CHALLENGES = auto()
+    DARK_ENTRIES = auto()
+    LIGHT_ENTRIES = auto()
+    DARK_DIARY = auto()
+    LIGHT_DIARY = auto()
     DARK_LOGIN = auto()
     LIGHT_LOGIN = auto()
     DARK_LOGOUT = auto()
@@ -252,7 +272,6 @@ class SessionData():
         return f"User: {self._username}\nPass: {self._password}\nType: {self._type.name}"
 
 
-# Written By FIONA
 class EntriesData():
     """Container for the data to enter in the entries table"""
     def __init__(self, user: str, title: str, text: str, datenow: str, timenow: str, tags: str):
@@ -309,16 +328,3 @@ class EntriesData():
     def timenow(self) -> str:
         """Return the time of creation of the entry for this current entries data"""
         return self._timenow
-
-
-SAMPLE_ENTRIES = {
-    0: ["Sat 8 April", "A Sunny Day", ("Stress", "Anger"),
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..."],
-    1: ["Wed 5 April", "Waiting for the Results", ("Anxiety", "Panic", "Not eating"),
-        "Ut etiam sit amet nisl purus in mollis. \
-            Donec massa sapien faucibus et molestie ac feugiat..."],
-    2: ["Mon 27 March", "Not Sure How I Feel", (),
-        "Sed augue lacus viverra vitae congue eu consequat. \
-            Lacinia quis vel eros donec ac. At quis risus sed vulputate odio ut enim...."],
-}
