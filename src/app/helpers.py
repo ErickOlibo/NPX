@@ -71,6 +71,13 @@ class JournalButton(Enum):
     def __str__(self):
         return str(self.name)
 
+class ViewState(Enum):
+    """Enum listing the different state views can take during execussion."""
+    JOURNAL_INSERT = auto()
+    JOURNAL_UPDATE = auto()
+
+    def __str__(self):
+        return str(self.name)
 
 class View(Enum):
     """Enum listing the name of the different views in the NPX app."""

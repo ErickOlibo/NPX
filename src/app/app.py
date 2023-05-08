@@ -118,12 +118,12 @@ class App(customtkinter.CTk):
         self._show_new_entry_buttons()
 
     def _show_new_entry_buttons(self):
-        self.delete_button.hidden()
-        self.edit_button.hidden()
+        self.delete_button.hidden
+        self.edit_button.hidden
     
     def _show_edit_entry_buttons(self):
-        self.delete_button.visible()
-        self.edit_button.visible()
+        self.delete_button.visible
+        self.edit_button.visible
 
     def button_pressed(self, type: JournalButton):
         """Respond to a button being pressed in the GUI"""
@@ -166,9 +166,11 @@ class App(customtkinter.CTk):
     
     def _show_diary_view(self):
         self.navigation_bar.set_active_button(View.DIARY)
-        self.grid_columnconfigure(1, weight=0)
+        self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=0)
-        self._diary_view = JournalView(self)
+        self._diary_view = JournalView(self, self._session_data.username)
+        self._diary_view.state(ViewState.JOURNAL_INSERT)
+        self._diary_view.grid(row=0, column=1, rowspan=4, sticky="nsew")
 
     def _configure_main_view(self):
         self.title("NPX App | Your Secret Companion")
@@ -198,6 +200,7 @@ class App(customtkinter.CTk):
             self._show_journal_view()
 
         if view == View.DIARY:
+            self._forget_journal_view_()
             self._show_diary_view()
 
         if view == View.ENTRIES:

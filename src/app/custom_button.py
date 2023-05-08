@@ -16,8 +16,10 @@ class CustomButton(customtkinter.CTkButton):
             text_color=("gray10", "gray90")
             )
 
+    @property
     def hidden(self):
         self.configure(border_width=0, text="", state="disabled")
 
+    @property
     def visible(self):
         self.configure(border_width=2, text=self._label, state="enabled")
