@@ -45,6 +45,7 @@ class SQLCreateTable(Enum):
         CREATE TABLE IF NOT EXISTS entries(
         id INTEGER PRIMARY KEY,
         user VARCHAR(255),
+        title VARCHAR(255),
         text VARCHAR(1000),
         date DATE,
         time TIME,
@@ -120,6 +121,8 @@ class IssueMessage(Enum):
     WRONG_PASSWORD = "Wrong Password!"
     EMPTY_USERNAME = "Username Field is Empty!"
     EMPTY_PASSWORD = "Password Field is Empty!"
+    SHORT_USERNAME = "Username is too short!\n min. 3 characters!"
+    LONG_USERNAME = "Username is too long!\n max. 15 characters!"
     WEAK_PASSWORD = "The Password is too Short!\n8 charaters minimum!"
     MISSING_SPECIAL = "Password needs one special\ncharacter:'!@#$%^&*?'!"
     NO_LOWER_PASSWORD = "Password needs at least\none lowercase character!"
@@ -214,7 +217,7 @@ class SessionData():
 
         Parameters
         ----------
-            name: str
+            username: str
                 The username entered during this login/sign in session
             password: str
                 The password entered duing this login/sing in session
@@ -271,13 +274,15 @@ class SessionData():
 
 class EntriesData():
     """Container for the data to enter in the entries table"""
-    def __init__(self, user: str, text: str, datenow: str, timenow: str, tags: str):
+    def __init__(self, user: str, title: str, text: str, datenow: str, timenow: str, tags: str):
         """Instantiate with the necessary attributes.
 
         Parameters
         ----------
             user: str
                 The username of the person writting the journal
+            title:str
+                The title entered
             text: str
                 The text entered
             datenow: str
@@ -288,6 +293,7 @@ class EntriesData():
                 The tags added to the entry
         """
         self._user = user
+        self._title = title
         self._text = text
         self._tags = tags
         self._datenow = datenow
@@ -297,6 +303,11 @@ class EntriesData():
     def user(self) -> str:
         """Return the username of this current entries data"""
         return self._user
+
+    @property
+    def title(self) -> str:
+        """Return the title of the entry for this current entries data"""
+        return self._title
 
     @property
     def text(self) -> str:

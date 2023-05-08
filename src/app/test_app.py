@@ -70,5 +70,15 @@ class TestApp(unittest.TestCase):
         # self.app._login_signin_pressed(data)
         pass
 
+        data = SessionData("AC", "Password!2", StartUp.SIGN_IN)
+        self.app._login_signing_pressed(data)
+
+        data = SessionData("ACCCCCCCCCCCCCCC", "Password!2", StartUp.SIGN_IN)
+        self.app._login_signing_pressed(data)
+
+        data = SessionData("ACCCC", "Password!1", StartUp.SIGN_IN)
+        self.app._login_signin_pressed(data)
+
+
 if __name__ == '__main__':
     unittest.main()
