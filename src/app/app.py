@@ -11,6 +11,7 @@ from sql_handler import SQLHandler
 from issue_handler import IssueHandler
 from gui.entries_view import EntriesView
 from gui.journal_view import JournalView
+from data_sampler import DataSampler
 
 
 customtkinter.set_appearance_mode("System")
@@ -27,12 +28,11 @@ class App(customtkinter.CTk):
         """Instantiate the App object and display the login view"""
         super().__init__()
         self._handler = SQLHandler()
-        entries_count = self._handler.row_count_entries_table()
-        print(f"Row Entries: {entries_count}")
+        self._fill_in_entries_table()  # FILL database with Sample Entries
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
         
-        # PUT SAMPLE ENTRIES IN THE DATABASE IF LESS THAN 100
+        
         
         self.resizable(False, False)
         self._start_up(with_login=False)
@@ -44,6 +44,13 @@ class App(customtkinter.CTk):
         else:
             self._session_data = SessionData("Test User", "123456", StartUp.LOG_IN)
             self._show_main_view_from_startup()
+
+# ##### ADD SAMPLE ENTRIES TO DATABASE IF LESS THAN 10 ##### #
+    def _fill_in_entries_table(self):
+        if self._handler.row_count_entries_table() <= 100:
+            sample = DataSampler().get_sample(200)
+            [self._handler.insert_into_entries(entry) for entry in sample]
+
 
 # ##### LOGIN VIEW ##### #
     def _show_login_view(self):
