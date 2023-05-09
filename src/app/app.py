@@ -27,8 +27,13 @@ class App(customtkinter.CTk):
         """Instantiate the App object and display the login view"""
         super().__init__()
         self._handler = SQLHandler()
+        entries_count = self._handler.row_count_entries_table()
+        print(f"Row Entries: {entries_count}")
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
+        
+        # PUT SAMPLE ENTRIES IN THE DATABASE IF LESS THAN 100
+        
         self.resizable(False, False)
         self._start_up(with_login=False)
 
