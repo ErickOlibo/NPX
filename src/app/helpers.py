@@ -75,7 +75,7 @@ class JournalButton(Enum):
 
 
 class ViewState(Enum):
-    """Enum listing the different state views can take during execussion."""
+    """Enum listing the different state views can take during execution."""
     JOURNAL_INSERT = auto()
     JOURNAL_UPDATE = auto()
 
