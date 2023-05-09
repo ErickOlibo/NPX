@@ -76,8 +76,9 @@ class JournalView(customtkinter.CTkFrame):
         entry = self.entry_box.get('1.0', 'end')
         now = datetime.now().strftime('%Y/%m/%d')
         timenow = datetime.now().strftime("%H:%M:%S")
+        title = "This Is A Temp Title"  # TO REMOVE WHEN IMPLEMENTING THE ENTRY TITLE
         if len(entry.rstrip()) > 0:
-            data = EntriesData(self._username, entry, now, timenow, tags)
+            data = EntriesData(self._username, title, entry, now, timenow, tags)
             self._handler.insert_into_entries(data)
         self._clear()
 
