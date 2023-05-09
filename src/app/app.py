@@ -91,6 +91,7 @@ class App(customtkinter.CTk):
 # ##### ENTRIES VIEW ##### #
     def _show_entries_view(self):
         self._entries_view = EntriesView(self)
+        self._entries_view.grid(row=0, column=1, rowspan=4, sticky="nsew")
 
     def _navigation_button_pressed(self, view: View):
         if self._active_view == view:

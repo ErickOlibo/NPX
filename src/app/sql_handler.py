@@ -116,6 +116,13 @@ class SQLHandler:
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
         return self._cursor.execute(sql).fetchone()[0]
     
+    def select_all_entries(self):
+        sql = f"SELECT * FROM {SQLTable.ENTRIES}"
+        self._cursor.execute(sql)
+        rows = self._cursor.fetchall()
+        for row in rows:
+            print(row)
+    
     def close_connection(self):
         """Close the SQLite connection after use"""
         self._conn.close()
