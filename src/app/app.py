@@ -31,9 +31,6 @@ class App(customtkinter.CTk):
         self._fill_in_entries_table()  # FILL database with Sample Entries
         self.login_view_size = (500, 500)
         self.main_view_size = (800, 600)
-        
-        
-        
         self.resizable(False, False)
         self._start_up(with_login=False)
 
@@ -45,7 +42,7 @@ class App(customtkinter.CTk):
             self._session_data = SessionData("Test User", "123456", StartUp.LOG_IN)
             self._show_main_view_from_startup()
 
-# ##### ADD SAMPLE ENTRIES TO DATABASE IF LESS THAN 10 ##### #
+# ##### ADD SAMPLE ENTRIES TO DATABASE IF LESS THAN 100 ##### #
     def _fill_in_entries_table(self):
         if self._handler.row_count_entries_table() <= 100:
             sample = DataSampler().get_sample(200)
