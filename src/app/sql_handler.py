@@ -112,6 +112,10 @@ class SQLHandler:
         self._cursor.execute(sql, (user_name,))
         return self._cursor.fetchone() is not None
 
+    def row_count_entries_table(self) -> int:
+        sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
+        return self._cursor.execute(sql).fetchone()[0]
+    
     def close_connection(self):
         """Close the SQLite connection after use"""
         self._conn.close()

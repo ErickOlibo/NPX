@@ -298,6 +298,11 @@ class EntriesData():
         self._tags = tags
         self._datenow = datenow
         self._timenow = timenow
+        
+    def __str__(self) -> str:
+        part_one = f"USER: {self._user}\nTITLE: {self._title}\nTEXT: {self._text}\n"
+        part_two = f"DAY: {self._datenow} | TIME: {self._timenow}\nTAGS: {self._tags}\n"
+        return part_one + part_two
 
     @property
     def user(self) -> str:
