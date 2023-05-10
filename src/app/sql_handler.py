@@ -130,6 +130,22 @@ class SQLHandler:
         #     print(f"ID: {k} | Name: {v.user} | DateTime: {v.datenow} {v.timenow}")
         
         return results
+    
+    def select_entries_for_search_text(self, user: str, text: str) -> dict[int, EntriesData]:
+        like_text = f"%{text}%"
+        select = f"SELECT * FROM {SQLTable.ENTRIES}"
+        where = "WHERE user = ? AND title LIKE ?"
+        order = "ORDER BY date DESC, time DESC"
+        sql = f"{select} {where} {order}"
+        # sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
+        
+        self._cursor.execute(sql, (user.lower(), like_text.lower()))
+        rows = self._cursor.fetchall()
+        results = {
+            str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
+            for row in rows
+            }
+        return results
 
     
     def close_connection(self):
