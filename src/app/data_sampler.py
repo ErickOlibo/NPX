@@ -24,7 +24,7 @@ class DataSampler:
     def get_sample(self, size: int) -> list[EntriesData]:
         return [self._get_entry_data() for _ in range(size)]
 
-    usernames = ["Anne-Clare", "Erick", "Fiona", "Ibrahim", "Michaelia", "Moritz"]
+    usernames = ["Anne-Claire", "Erick", "Fiona", "Ibrahim", "Michaelia", "Moritz"]
 
     tags = [
         "Abusive", "Alone", "Alzheimers", "Angry", "Anti-social", "Asylums",

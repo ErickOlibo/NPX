@@ -45,6 +45,7 @@ class ResultScrollView(customtkinter.CTkScrollableFrame):
         
     
     def set_entries(self, entries: dict[int, EntriesData]):
+        print(f"Size Entries: {len(entries)}")
         for i, value in enumerate(entries.values()):
             checkbox = customtkinter.CTkCheckBox(self, text=value.title)
             checkbox.grid(row=i, column=0, padx=20, pady=(20, 0), sticky="w")
