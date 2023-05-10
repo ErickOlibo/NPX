@@ -61,21 +61,43 @@ class ResultScrollView(customtkinter.CTkScrollableFrame):
         print(f"Size Entries: {len(entries)}")
         self.set_title(f"Result: {len(entries)} Entries")
         for i, value in enumerate(entries.values()):
-            checkbox = customtkinter.CTkCheckBox(self, text=value.title)
-            checkbox.grid(row=i, column=0, padx=20, pady=(20, 0), sticky="w")
-            self.rows.append(checkbox)
-            # print(f"{i} - {value.title}")
-            
+            row = TableRow(self, value.title)
+            row.configure(fg_color=("gray80", "gray20") if i % 2 == 0 else ("gray75", "gray15"))
+            row.grid(row=i, column=0, sticky="ew")
+            self.rows.append(row)
+
     def remove_rows(self):
-        
         for row in self.rows:
             row.destroy()
         self.rows = []
-    
+
     def set_title(self, title: str):
         print(f"New Title: {title}")
         # label = "Result"
         # if not title:
-            
+
         self.configure(label_text=str(title))
+        pass
+
+class TableRow(customtkinter.CTkFrame):
+    
+    def __init__(self, master, title: str):
+        super().__init__(master)
+        self.configure(corner_radius=0)
+        checkbox = customtkinter.CTkCheckBox(self, text=title)
+        checkbox.grid(row=0, column=0, padx=20, pady=(20, 20), sticky="w")
+        # self.grid_columnconfigure(0, weight=1)
+        # self.grid_columnconfigure(1, weight=0)
+        # self.grid_columnconfigure((2,9), weight=1)
+        # self.edit_button()
+        # self.delete_button()
+        pass
+    
+    # def configure(self, fg_color):
+    #     self.configure(fg_color=fg_color)
+        
+    def edit_button(self):
+        pass
+    
+    def delete_button(self):
         pass
