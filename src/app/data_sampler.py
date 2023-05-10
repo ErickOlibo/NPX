@@ -6,7 +6,7 @@ from helpers import EntriesData
 class DataSampler:
 
     def _get_entry_data(self) -> EntriesData:
-        user = random.choice(self.usernames)
+        user = random.choice(self.usernames).lower()
         title = random.choice(self.phrases)
         text = " ".join(random.choices(self.phrases, k=random.randint(5, 15)))
         (rdn_day, rdn_time) = self._get_random_date_time()

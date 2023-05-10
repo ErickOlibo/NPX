@@ -116,12 +116,21 @@ class SQLHandler:
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
         return self._cursor.execute(sql).fetchone()[0]
     
-    def select_all_entries(self):
-        sql = f"SELECT * FROM {SQLTable.ENTRIES}"
-        self._cursor.execute(sql)
+    def select_all_entries_for_user(self, user: str) -> dict[int, EntriesData]:
+        print(f"[select_all_entries_for_user] --> {user}")
+        sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
+        self._cursor.execute(sql, (user.lower(),))
         rows = self._cursor.fetchall()
-        for row in rows:
-            print(row)
+        results = {
+            str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
+            for row in rows
+            }
+
+        # for k ,v in results.items():
+        #     print(f"ID: {k} | Name: {v.user} | DateTime: {v.datenow} {v.timenow}")
+        
+        return results
+
     
     def close_connection(self):
         """Close the SQLite connection after use"""

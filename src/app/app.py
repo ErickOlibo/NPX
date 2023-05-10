@@ -39,7 +39,7 @@ class App(customtkinter.CTk):
         if with_login:
             self._show_login_view()
         else:
-            self._session_data = SessionData("Test User", "123456", StartUp.LOG_IN)
+            self._session_data = SessionData("Erick", "123456", StartUp.LOG_IN)
             self._show_main_view_from_startup()
 
 # ##### ADD SAMPLE ENTRIES TO DATABASE IF LESS THAN 100 ##### #
@@ -90,7 +90,7 @@ class App(customtkinter.CTk):
 
 # ##### ENTRIES VIEW ##### #
     def _show_entries_view(self):
-        self._entries_view = EntriesView(self)
+        self._entries_view = EntriesView(self, self._session_data.username)
         self._entries_view.grid(row=0, column=1, rowspan=4, sticky="nsew")
 
     def _navigation_button_pressed(self, view: View):
