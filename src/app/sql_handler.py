@@ -115,7 +115,7 @@ class SQLHandler:
     def row_count_entries_table(self) -> int:
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
         return self._cursor.execute(sql).fetchone()[0]
-    
+
     def select_all_entries_for_user(self, user: str) -> dict[int, EntriesData]:
         print(f"[select_all_entries_for_user] --> {user}")
         sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
@@ -123,31 +123,23 @@ class SQLHandler:
         rows = self._cursor.fetchall()
         results = {
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
-            for row in rows
-            }
-
-        # for k ,v in results.items():
-        #     print(f"ID: {k} | Name: {v.user} | DateTime: {v.datenow} {v.timenow}")
-        
+            for row in rows}
         return results
-    
+
     def select_entries_for_search_text(self, user: str, text: str) -> dict[int, EntriesData]:
         like_text = f"%{text}%"
         select = f"SELECT * FROM {SQLTable.ENTRIES}"
         where = "WHERE user = ? AND title LIKE ?"
         order = "ORDER BY date DESC, time DESC"
         sql = f"{select} {where} {order}"
-        # sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
-        
+
         self._cursor.execute(sql, (user.lower(), like_text.lower()))
         rows = self._cursor.fetchall()
         results = {
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
-            for row in rows
-            }
+            for row in rows}
         return results
 
-    
     def close_connection(self):
         """Close the SQLite connection after use"""
         self._conn.close()

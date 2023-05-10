@@ -48,7 +48,6 @@ class App(customtkinter.CTk):
             sample = DataSampler().get_sample(200)
             [self._handler.insert_into_entries(entry) for entry in sample]
 
-
 # ##### LOGIN VIEW ##### #
     def _show_login_view(self):
         self.title("NPX App | Login Screen")

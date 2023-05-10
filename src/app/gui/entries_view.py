@@ -26,7 +26,7 @@ class EntriesView(customtkinter.CTkFrame):
         search_label = customtkinter.CTkLabel(self, text="Search:")
         search_label.grid(row=0, column=0, padx=20, pady=20, sticky="w")
         self.search_entry = customtkinter.CTkEntry(self, textvariable=self._search_var)
-        self.search_entry.grid(row=0, column=1, padx=(0,20), pady=20, sticky="new")
+        self.search_entry.grid(row=0, column=1, padx=(0, 20), pady=20, sticky="new")
 
     def _result_view(self):
         entries = self._handler.select_all_entries_for_user(self._username)
@@ -40,7 +40,7 @@ class EntriesView(customtkinter.CTkFrame):
         self._scroll_view.set_entries(result)
 
     def row_pressed(self, id: int):
-        print (f"ID: {id}")
+        print(f"ID: {id}")
 
 
 class ResultScrollView(customtkinter.CTkScrollableFrame):

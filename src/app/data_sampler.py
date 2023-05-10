@@ -3,6 +3,7 @@ import random
 import datetime
 from helpers import EntriesData
 
+
 class DataSampler:
 
     def _get_entry_data(self) -> EntriesData:
@@ -65,8 +66,7 @@ class DataSampler:
         "Unstable", "Upsetting", "Veg", "Vegetable", "Victim", "Victimised", "Violence", "Violent",
         "Voices", "Voices in your head", "Vulnerable", "Wacky", "Wally", "War", "Weird", "Weirdo",
         "Wheel chairs", "Wheelchair jockey", "Wheelchairs", "White coats", "Wild", "Wild funny noises",
-        "Window licker", "Withdrawn", "World of their own", "Worried", "You belong in a home"
-        ]
+        "Window licker", "Withdrawn", "World of their own", "Worried", "You belong in a home"]
 
     phrases = [
         "Everything you can imagine is real.",
@@ -120,8 +120,7 @@ class DataSampler:
         "Stay hungry, stay foolish.",
         "What will you do with your one wild and precious life?",
         "The best things in life aren't things.",
-        "The first step in crafting the life you want is to get rid of everything you don't."
-        ]
+        "The first step in crafting the life you want is to get rid of everything you don't."]
 
 
 if __name__ == "__main__":
