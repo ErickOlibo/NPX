@@ -62,8 +62,8 @@ class ResultScrollView(customtkinter.CTkScrollableFrame):
         print(f"Size Entries: {len(entries)}")
         title = f"Result: {len(entries)} Entries"
         self.configure(label_text=str(title))
-        for i, value in enumerate(entries.values()):
-            row = TableRow(self, value.title, i, self.row_clicked_at_id)
+        for i, (key, value) in enumerate(entries.items()):
+            row = TableRow(self, value.title, key, self.row_clicked_at_id)
             row.configure(fg_color=("gray80", "gray20") if i % 2 == 0 else ("gray75", "gray15"))
             row.grid(row=i, column=0, sticky="ew")
             self.rows.append(row)
