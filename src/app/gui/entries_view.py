@@ -40,7 +40,10 @@ class EntriesView(customtkinter.CTkFrame):
         self._scroll_view.grid(row=2, column=0, columnspan=2, padx=20, pady=(0, 20), sticky="sew")
 
     def search_text_changed(self, *args):
-        print("SEARCH TEXT HAS CHANGED")
+        content = self._search_var.get()
+        print(f"Text To Search: {content}")
+        
+        # self._scroll_view.set_title(content)
         pass
 
 
@@ -54,12 +57,17 @@ class ResultScrollView(customtkinter.CTkScrollableFrame):
     
     def set_entries(self, entries: dict[int, EntriesData]):
         print(f"Size Entries: {len(entries)}")
+        self.set_title(f"Result: {len(entries)} Entries")
         for i, value in enumerate(entries.values()):
             checkbox = customtkinter.CTkCheckBox(self, text=value.title)
             checkbox.grid(row=i, column=0, padx=20, pady=(20, 0), sticky="w")
             # print(f"{i} - {value.title}")
             
     
-    def set_scroll_title(self, title: str):
-        
+    def set_title(self, title: str):
+        print(f"New Title: {title}")
+        # label = "Result"
+        # if not title:
+            
+        self.configure(label_text=str(title))
         pass
