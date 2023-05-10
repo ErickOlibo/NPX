@@ -19,6 +19,7 @@ class JournalView(customtkinter.CTkFrame):
         self.configure(fg_color="transparent")
 
         # Set the view UI elements
+        self._entry_title()
         self._entry_text_box()
         self._entry_tags()
         self._buttons()
@@ -34,9 +35,13 @@ class JournalView(customtkinter.CTkFrame):
             self.edit_button.visible
 
 # ##### PRIVATE METHODS ##### #
+    def _entry_title(self):
+        self.title_entry = customtkinter.CTkEntry(self, placeholder_text="Title")
+        self.title_entry.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
+
     def _entry_text_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=350, wrap="word")
-        self.entry_box.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry_box = customtkinter.CTkTextbox(self, width=350, height= 400, wrap="word")
+        self.entry_box.grid(row=1, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _entry_tags(self):
         self.tags_entry = customtkinter.CTkEntry(self, placeholder_text="Tags")
@@ -72,11 +77,11 @@ class JournalView(customtkinter.CTkFrame):
             self._edit()
 
     def _insert_update(self):
+        title = self.title_entry.get()
         tags = self.tags_entry.get()
         entry = self.entry_box.get('1.0', 'end')
         now = datetime.now().strftime('%Y/%m/%d')
         timenow = datetime.now().strftime("%H:%M:%S")
-        title = "This Is A Temp Title"  # TO REMOVE WHEN IMPLEMENTING THE ENTRY TITLE
         if len(entry.rstrip()) > 0:
             data = EntriesData(self._username, title, entry, now, timenow, tags)
             self._handler.insert_into_entries(data)
@@ -88,6 +93,7 @@ class JournalView(customtkinter.CTkFrame):
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
             self.entry_box.delete('1.0', 'end')
+        self.title_entry.delete(0, 'end')
         self.tags_entry.delete(0, 'end')
         self.tags_entry.configure(placeholder_text="Tags")
         self.focus()
