@@ -40,7 +40,7 @@ class JournalView(customtkinter.CTkFrame):
         self.title_entry.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
 
     def _entry_text_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=350, height= 400, wrap="word")
+        self.entry_box = customtkinter.CTkTextbox(self, width=350, height=400, wrap="word")
         self.entry_box.grid(row=1, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _entry_tags(self):
