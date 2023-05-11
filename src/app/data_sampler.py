@@ -3,10 +3,11 @@ import random
 import datetime
 from helpers import EntriesData
 
-class DataSampler:
 
+class DataSampler:
+    """Create a random list of entries to insert in the database"""
     def _get_entry_data(self) -> EntriesData:
-        user = random.choice(self.usernames)
+        user = random.choice(self.usernames).lower()
         title = random.choice(self.phrases)
         text = " ".join(random.choices(self.phrases, k=random.randint(5, 15)))
         (rdn_day, rdn_time) = self._get_random_date_time()
@@ -22,9 +23,21 @@ class DataSampler:
         return (chosen_day, chosen_time)
 
     def get_sample(self, size: int) -> list[EntriesData]:
+        """Returns a list of Entries generated randomnly
+
+        Parameters
+        ----------
+            size: int
+                The number of random entries to generate.
+
+        Returns
+        -------
+            list[EntriesData]:
+                List of object EntriesData representing the entries created.
+        """
         return [self._get_entry_data() for _ in range(size)]
 
-    usernames = ["Anne-Clare", "Erick", "Fiona", "Ibrahim", "Michaelia", "Moritz"]
+    usernames = ["Anne-Claire", "Erick", "Fiona", "Ibrahim", "Michaelia", "Moritz"]
 
     tags = [
         "Abusive", "Alone", "Alzheimers", "Angry", "Anti-social", "Asylums",
@@ -65,8 +78,7 @@ class DataSampler:
         "Unstable", "Upsetting", "Veg", "Vegetable", "Victim", "Victimised", "Violence", "Violent",
         "Voices", "Voices in your head", "Vulnerable", "Wacky", "Wally", "War", "Weird", "Weirdo",
         "Wheel chairs", "Wheelchair jockey", "Wheelchairs", "White coats", "Wild", "Wild funny noises",
-        "Window licker", "Withdrawn", "World of their own", "Worried", "You belong in a home"
-        ]
+        "Window licker", "Withdrawn", "World of their own", "Worried", "You belong in a home"]
 
     phrases = [
         "Everything you can imagine is real.",
@@ -120,8 +132,7 @@ class DataSampler:
         "Stay hungry, stay foolish.",
         "What will you do with your one wild and precious life?",
         "The best things in life aren't things.",
-        "The first step in crafting the life you want is to get rid of everything you don't."
-        ]
+        "The first step in crafting the life you want is to get rid of everything you don't."]
 
 
 if __name__ == "__main__":
