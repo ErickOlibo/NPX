@@ -113,10 +113,22 @@ class SQLHandler:
         return self._cursor.fetchone() is not None
 
     def row_count_entries_table(self) -> int:
+        """Returns the number of rows in the Entries table"""
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
         return self._cursor.execute(sql).fetchone()[0]
 
     def select_all_entries_for_user(self, user: str) -> dict[int, EntriesData]:
+        """Returns the list of entries made by a user in the Entries table.
+
+        Parameters
+        ----------
+            user: str
+                The user for which the entries are fetched
+
+        Returns
+        -------
+            dict[int, EntriesData]: The entries data in a dictionary with IDs as keys
+        """
         print(f"[select_all_entries_for_user] --> {user}")
         sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
         self._cursor.execute(sql, (user.lower(),))
@@ -127,6 +139,20 @@ class SQLHandler:
         return results
 
     def select_entries_for_search_text(self, user: str, text: str) -> dict[int, EntriesData]:
+        """selects from the entries table the instance satisfying the search query
+
+        Parameters
+        ----------
+            user: str
+                The user for which the entries are fetched
+            text: str
+                The search text to lookup
+
+        Returns
+        -------
+            dict[int, EntriesData]:
+                returns the data fetched as a dictionary [ID : EntriesData]
+        """
         like_text = f"%{text}%"
         select = f"SELECT * FROM {SQLTable.ENTRIES}"
         where = "WHERE user = ? AND title LIKE ?"

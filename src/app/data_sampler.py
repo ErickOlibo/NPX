@@ -5,7 +5,7 @@ from helpers import EntriesData
 
 
 class DataSampler:
-
+    """Create a random list of entries to insert in the database"""
     def _get_entry_data(self) -> EntriesData:
         user = random.choice(self.usernames).lower()
         title = random.choice(self.phrases)
@@ -23,6 +23,18 @@ class DataSampler:
         return (chosen_day, chosen_time)
 
     def get_sample(self, size: int) -> list[EntriesData]:
+        """Returns a list of Entries generated randomnly
+
+        Parameters
+        ----------
+            size: int
+                The number of random entries to generate.
+
+        Returns
+        -------
+            list[EntriesData]:
+                List of object EntriesData representing the entries created.
+        """
         return [self._get_entry_data() for _ in range(size)]
 
     usernames = ["Anne-Claire", "Erick", "Fiona", "Ibrahim", "Michaelia", "Moritz"]
