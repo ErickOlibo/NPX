@@ -112,10 +112,49 @@ class SQLHandler:
         self._cursor.execute(sql, (user_name,))
         return self._cursor.fetchone() is not None
 
+    def get_data_desc(self, username: str):
+        """Return all entries in the entries table sorted by user and date in descending order"""
+        sql = f"SELECT user, title, text, date, tags " \
+              f"FROM {SQLTable.ENTRIES} " \
+              f"WHERE user = ?" \
+              f"ORDER BY date DESC LIMIT 5"
+        user = str(username)
+        self._cursor.execute(sql, (user,))
+        userdata = self._cursor.fetchall()
+        data_of_user = []
+        print(data_of_user)
+        if not userdata:
+            # Return an empty list or a message indicating no entries were found
+            return []
+        for i, entry in enumerate(userdata):
+            try:
+                title = entry[1]
+            except IndexError:
+                title = ""
+            try:
+                text = entry[2]
+            except IndexError:
+                text = ""
+            try:
+                date = entry[3]
+            except IndexError:
+                date = ""
+            try:
+                tags = entry[4]
+            except IndexError:
+                tags = ""
+            data_of_user.append({
+                'title': title,
+                'first_sentence': text,
+                'date': date,
+                'tag': tags,
+            })
+        return data_of_user
+
     def row_count_entries_table(self) -> int:
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
         return self._cursor.execute(sql).fetchone()[0]
-    
+
     def close_connection(self):
         """Close the SQLite connection after use"""
         self._conn.close()

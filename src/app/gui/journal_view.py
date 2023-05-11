@@ -1,8 +1,9 @@
-from datetime import datetime
 import customtkinter
+from datetime import datetime
 from custom_button import CustomButton
 from helpers import JournalButton, ViewState, EntriesData
 from sql_handler import SQLHandler
+from quick_access import JournalEachEntry
 
 
 class JournalView(customtkinter.CTkFrame):
@@ -24,7 +25,12 @@ class JournalView(customtkinter.CTkFrame):
         self._entry_tags()
         self._buttons()
 
-# ##### PUBLIC METHODS ##### #
+        # get journal entries
+        self.entries_frame = customtkinter.CTkScrollableFrame(master=self, width=180, height=300)
+        self.entries_frame.grid(row=0, column=3, rowspan=3, padx=24, pady=20, sticky='n')
+        self._add_data_to_quick_access(self._username)
+
+    # ##### PUBLIC METHODS ##### #
     def state(self, state: ViewState):
         if state == ViewState.JOURNAL_INSERT:
             self.delete_button.hidden
@@ -34,13 +40,13 @@ class JournalView(customtkinter.CTkFrame):
             self.delete_button.visible
             self.edit_button.visible
 
-# ##### PRIVATE METHODS ##### #
+    # ##### PRIVATE METHODS ##### #
     def _entry_title(self):
         self.title_entry = customtkinter.CTkEntry(self, placeholder_text="Title")
         self.title_entry.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
 
     def _entry_text_box(self):
-        self.entry_box = customtkinter.CTkTextbox(self, width=350, height= 400, wrap="word")
+        self.entry_box = customtkinter.CTkTextbox(self, width=350, height=400, wrap="word")
         self.entry_box.grid(row=1, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
     def _entry_tags(self):
@@ -100,3 +106,15 @@ class JournalView(customtkinter.CTkFrame):
 
     def _edit(self):
         print("EDIT selected ENTRY")
+
+    def _add_data_to_quick_access(self, data):
+        data_for_entries = self._handler.get_data_desc(data)
+        for entry in data_for_entries:
+            self.entry_widget = JournalEachEntry(
+                self.entries_frame,
+                title=entry['title'],
+                date=entry['date'],
+                first_sentence=entry['first_sentence'],
+                tag=entry['tag']
+            )
+            self.entry_widget.grid(padx=3, pady=3)
