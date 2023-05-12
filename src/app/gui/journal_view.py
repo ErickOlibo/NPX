@@ -26,9 +26,9 @@ class JournalView(customtkinter.CTkFrame):
         self._buttons()
 
         # setting journal entries
-        self.entries_frame = customtkinter.CTkScrollableFrame(master=self, width=180, height=300)
+        self.entries_frame = customtkinter.CTkScrollableFrame(master=self, width=160, height=390)
         self.entries_frame.grid(row=1, column=3, rowspan=3, padx=24, pady=20, sticky='n')
-        self._add_data_to_quick_access(self._username)
+        #self._add_data_to_quick_access(self._username)
 
     # ##### PUBLIC METHODS ##### #
     def state(self, state: ViewState):
@@ -110,7 +110,7 @@ class JournalView(customtkinter.CTkFrame):
     def _add_data_to_quick_access(self, username):
         data_for_entries = self._handler.get_data_desc(username)
         #print(f"[{username}] - add_data_to_quick_access: {data_for_entries}")
-        for entry in data_for_entries:
+        for i, entry in enumerate(data_for_entries):
             self.entry_widget = JournalEachEntry(
                 self.entries_frame,
                 id=entry['id'],
@@ -119,7 +119,7 @@ class JournalView(customtkinter.CTkFrame):
                 first_sentence=entry['first_sentence'],
                 tag=entry['tag']
             )
-            self.entry_widget.grid(padx=3, pady=3)
+            self.entry_widget.grid(row=i, padx=3, pady=3)
 
     '''_journal_entry_get_content was used for on_click function in "quick_access" '''
     # def _journal_entry_get_content(self, journal_id):
