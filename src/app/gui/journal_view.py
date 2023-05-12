@@ -2,9 +2,8 @@ import customtkinter
 from datetime import datetime
 from custom_button import CustomButton
 from helpers import JournalButton, ViewState, EntriesData
-from sql_handler import SQLHandler
+from src.app.sql_handler import SQLHandler
 from quick_access import JournalEachEntry
-
 
 class JournalView(customtkinter.CTkFrame):
 
@@ -25,7 +24,7 @@ class JournalView(customtkinter.CTkFrame):
         self._entry_tags()
         self._buttons()
 
-        # get journal entries
+        # setting journal entries
         self.entries_frame = customtkinter.CTkScrollableFrame(master=self, width=180, height=300)
         self.entries_frame.grid(row=0, column=3, rowspan=3, padx=24, pady=20, sticky='n')
         self._add_data_to_quick_access(self._username)
@@ -112,9 +111,17 @@ class JournalView(customtkinter.CTkFrame):
         for entry in data_for_entries:
             self.entry_widget = JournalEachEntry(
                 self.entries_frame,
+                id=entry['id'],
                 title=entry['title'],
                 date=entry['date'],
                 first_sentence=entry['first_sentence'],
                 tag=entry['tag']
             )
             self.entry_widget.grid(padx=3, pady=3)
+
+    '''_journal_entry_get_content was used for on_click function in "quick_access" '''
+    # def _journal_entry_get_content(self, journal_id):
+    #     title, text, tags = self._handler.get_data_on_click(journal_id)
+    #     self.title_entry.insert(0, title)
+    #     self.entry_box.insert(0, text)
+    #     self.tags_entry.insert(0, tags)

@@ -113,13 +113,22 @@ class SQLHandler:
         return self._cursor.fetchone() is not None
 
     def get_data_desc(self, username: str):
-        """Return all entries in the entries table sorted by user and date in descending order"""
-        sql = f"SELECT user, title, text, date, time, tags " \
+        """Return all entries in the entries table sorted by user, and date and time in descending order
+
+         Parameters
+        ----------
+            username: str
+                The username entered in the field
+
+        Returns
+        -------
+            A list with userdata"""
+        sql = f"SELECT id, title, text, date, time, tags " \
               f"FROM {SQLTable.ENTRIES} " \
               f"WHERE user = ? " \
               f"ORDER BY date DESC, time DESC " \
               f"LIMIT 5"
-        user = str(username)
+        user = username
         self._cursor.execute(sql, (user,))
         userdata = self._cursor.fetchall()
         data_of_user = []
@@ -127,6 +136,10 @@ class SQLHandler:
             # Return an empty list or a message indicating no entries were found
             return []
         for i, entry in enumerate(userdata):
+            try:
+                id = entry[0]
+            except IndexError:
+                id = ""
             try:
                 title = entry[1]
             except IndexError:
@@ -144,12 +157,33 @@ class SQLHandler:
             except IndexError:
                 tags = ""
             data_of_user.append({
+                'id': id,
                 'title': title,
                 'first_sentence': text,
                 'date': date,
                 'tag': tags,
             })
         return data_of_user
+
+    '''get_data_on_click was for call from _journal_entry_get_content or on_click'''
+    # def get_data_on_click(self, id: int):
+    #     """show content in the main window when clicking quick access entry
+    #
+    #              Parameters
+    #             ----------
+    #                 username: str
+    #                     The username entered in the field
+    #
+    #             Returns
+    #             -------
+    #                 """
+    #     sql = f"SELECT title, text, tags " \
+    #           f"FROM {SQLTable.ENTRIES} " \
+    #           f"WHERE id = ? "
+    #     self._cursor.execute(sql, (id,))
+    #     title, text, tags = self._cursor.fetchone()
+    #     print(title,text,tags)
+    #     return title, text, tags
 
     def row_count_entries_table(self) -> int:
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
