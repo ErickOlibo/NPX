@@ -114,15 +114,15 @@ class SQLHandler:
 
     def get_data_desc(self, username: str):
         """Return all entries in the entries table sorted by user and date in descending order"""
-        sql = f"SELECT user, title, text, date, tags " \
+        sql = f"SELECT user, title, text, date, time, tags " \
               f"FROM {SQLTable.ENTRIES} " \
-              f"WHERE user = ?" \
-              f"ORDER BY date DESC LIMIT 5"
+              f"WHERE user = ? " \
+              f"ORDER BY date DESC, time DESC " \
+              f"LIMIT 5"
         user = str(username)
         self._cursor.execute(sql, (user,))
         userdata = self._cursor.fetchall()
         data_of_user = []
-        print(data_of_user)
         if not userdata:
             # Return an empty list or a message indicating no entries were found
             return []
@@ -140,7 +140,7 @@ class SQLHandler:
             except IndexError:
                 date = ""
             try:
-                tags = entry[4]
+                tags = entry[5]
             except IndexError:
                 tags = ""
             data_of_user.append({
