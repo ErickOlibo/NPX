@@ -39,7 +39,7 @@ class App(customtkinter.CTk):
         if with_login:
             self._show_login_view()
         else:
-            self._session_data = SessionData("Test User", "123456", StartUp.LOG_IN)
+            self._session_data = SessionData("Erick", "123456", StartUp.LOG_IN)
             self._show_main_view_from_startup()
 
 # ##### ADD SAMPLE ENTRIES TO DATABASE IF LESS THAN 100 ##### #

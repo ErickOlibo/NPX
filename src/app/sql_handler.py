@@ -128,7 +128,7 @@ class SQLHandler:
               f"WHERE user = ? " \
               f"ORDER BY date DESC, time DESC " \
               f"LIMIT 5"
-        user = username
+        user = username.lower()
         self._cursor.execute(sql, (user,))
         userdata = self._cursor.fetchall()
         data_of_user = []
