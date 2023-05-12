@@ -1,16 +1,92 @@
+from collections.abc import Callable
 import customtkinter
+from sql_handler import SQLHandler
+from helpers import EntriesData
 
 
 class EntriesView(customtkinter.CTkFrame):
 
-    def __init__(self, master: customtkinter.CTk):
+    def __init__(self, master: customtkinter.CTk, username: str):
         super().__init__(master)
-        self.configure(
-            corner_radius=0,
-            fg_color=("gray90", "gray15"))
+        self._master = master
+        self._username = username
+        self._handler = SQLHandler()
+        self._search_var = customtkinter.StringVar()
+        self._search_var.trace('w', self.search_text_changed)
+        self.configure(fg_color="transparent")
+        self.grid_columnconfigure(0, weight=0)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
+        # set the UI elements
+        self._search_bar()
+        self._result_view()
+
+    def _search_bar(self):
+        search_label = customtkinter.CTkLabel(self, text="Search:")
+        search_label.grid(row=0, column=0, padx=20, pady=20, sticky="w")
+        self.search_entry = customtkinter.CTkEntry(self, textvariable=self._search_var)
+        self.search_entry.grid(row=0, column=1, padx=(0, 20), pady=20, sticky="new")
+
+    def _result_view(self):
+        entries = self._handler.select_all_entries_for_user(self._username)
+        self._scroll_view = ResultScrollView(self, self.row_pressed)
+        self._scroll_view.set_entries(entries)
+        self._scroll_view.grid(row=2, column=0, columnspan=2, padx=20, pady=(0, 20), sticky="sew")
+
+    def search_text_changed(self, *args):
+        content = self._search_var.get()
+        result = self._handler.select_entries_for_search_text(self._username, content)
+        self._scroll_view.set_entries(result)
+
+    def row_pressed(self, id: int):
+        print(f"ID: {id}")
+
+
+class ResultScrollView(customtkinter.CTkScrollableFrame):
+    def __init__(self, master, action: Callable[[], int]):
+        super().__init__(master, label_text="Results", height=450)
+        self._master = master
+        self._action = action
+        self.rows = []
         self.grid_columnconfigure(0, weight=1)
-        button = customtkinter.CTkButton(
-            self, text="ENTRIES", compound="left")
-        button.grid(row=0, column=0, padx=20, pady=300)
-        self.grid(row=0, column=1, sticky="nsew")
+
+    def set_entries(self, entries: dict[int, EntriesData]):
+        self.remove_rows()
+        size = len(entries)
+        ending = "ies" if size > 1 else "y"
+        title = f"Result: {size} Entr{ending}"
+        self.configure(label_text=str(title))
+        for i, (key, value) in enumerate(entries.items()):
+            row = TableRow(self, value.title, key, self.row_clicked_at_id)
+            row.configure(fg_color=("gray80", "gray20") if i % 2 == 0 else ("gray75", "gray15"))
+            row.grid(row=i, column=0, sticky="ew")
+            self.rows.append(row)
+
+    def remove_rows(self):
+        for row in self.rows:
+            row.destroy()
+        self.rows = []
+
+    def row_clicked_at_id(self, id: int):
+        self._action(id)
+
+
+class TableRow(customtkinter.CTkFrame):
+
+    def __init__(self, master, title: str, id: int, action: Callable[[], int]):
+        super().__init__(master)
+        self.configure(corner_radius=0)
+        self._action = action
+        self._id = id
+        row = customtkinter.CTkButton(
+            self, corner_radius=0, border_spacing=20,
+            text=title, fg_color="transparent", text_color=("gray10", "gray90"),
+            hover_color=("gray70", "gray30"), anchor="w",
+            command=self.row_pressed)
+
+        row.grid(row=0, column=0, sticky="ew")
+        self.grid_columnconfigure(0, weight=1)
+
+    def row_pressed(self):
+        self._action(self._id)

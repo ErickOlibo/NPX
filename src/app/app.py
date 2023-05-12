@@ -48,7 +48,6 @@ class App(customtkinter.CTk):
             sample = DataSampler().get_sample(200)
             [self._handler.insert_into_entries(entry) for entry in sample]
 
-
 # ##### LOGIN VIEW ##### #
     def _show_login_view(self):
         self.title("NPX App | Login Screen")
@@ -90,7 +89,8 @@ class App(customtkinter.CTk):
 
 # ##### ENTRIES VIEW ##### #
     def _show_entries_view(self):
-        self._entries_view = EntriesView(self)
+        self._entries_view = EntriesView(self, self._session_data.username)
+        self._entries_view.grid(row=0, column=1, rowspan=4, sticky="nsew")
 
     def _navigation_button_pressed(self, view: View):
         if self._active_view == view:
