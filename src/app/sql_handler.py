@@ -127,7 +127,7 @@ class SQLHandler:
               f"FROM {SQLTable.ENTRIES} " \
               f"WHERE user = ? " \
               f"ORDER BY date DESC, time DESC " \
-              f"LIMIT 5"
+              f"LIMIT 10"
         user = username.lower()
         self._cursor.execute(sql, (user,))
         userdata = self._cursor.fetchall()
@@ -153,6 +153,10 @@ class SQLHandler:
             except IndexError:
                 date = ""
             try:
+                time = entry[4]
+            except IndexError:
+                time = ""
+            try:
                 tags = entry[5]
             except IndexError:
                 tags = ""
@@ -161,11 +165,12 @@ class SQLHandler:
                 'title': title,
                 'first_sentence': text,
                 'date': date,
+                'time': time,
                 'tag': tags,
             })
         return data_of_user
 
-    '''get_data_on_click was for call from _journal_entry_get_content or on_click'''
+    '''get_data_on_click was for call from _journal_entry_get_content or on_click, CIRCULAR IMPORTING'''
     # def get_data_on_click(self, id: int):
     #     """show content in the main window when clicking quick access entry
     #
@@ -182,7 +187,6 @@ class SQLHandler:
     #           f"WHERE id = ? "
     #     self._cursor.execute(sql, (id,))
     #     title, text, tags = self._cursor.fetchone()
-    #     print(title,text,tags)
     #     return title, text, tags
 
     def row_count_entries_table(self) -> int:
