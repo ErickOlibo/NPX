@@ -40,7 +40,7 @@ class EntriesView(customtkinter.CTkFrame):
         self._scroll_view.set_entries(result)
 
     def row_pressed(self, id: int):
-        self.hidden()
+        #self.hidden()
         print(f"ID: {id}")
         
     def hidden(self):
