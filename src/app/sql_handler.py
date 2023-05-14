@@ -206,7 +206,7 @@ class SQLHandler:
         -------
             dict[int, EntriesData]: The entries data in a dictionary with IDs as keys
         """
-        print(f"[select_all_entries_for_user] --> {user}")
+        #print(f"[select_all_entries_for_user] --> {user}")
         sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
         self._cursor.execute(sql, (user.lower(),))
         rows = self._cursor.fetchall()
@@ -237,6 +237,15 @@ class SQLHandler:
         sql = f"{select} {where} {order}"
 
         self._cursor.execute(sql, (user.lower(), like_text.lower()))
+        rows = self._cursor.fetchall()
+        results = {
+            str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
+            for row in rows}
+        return results
+    
+    def get_recent_entries(self, user: str, size: int) -> dict[int, EntriesData]:
+        sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC LIMIT {size}"
+        self._cursor.execute(sql, (user.lower(),))
         rows = self._cursor.fetchall()
         results = {
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
