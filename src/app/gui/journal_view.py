@@ -35,8 +35,8 @@ class JournalView(customtkinter.CTkFrame):
     # ##### PUBLIC METHODS ##### #
     def state(self, state: ViewState):
         if state == ViewState.JOURNAL_INSERT:
-            self.delete_button.hidden
-            self.edit_button.hidden
+            self.delete_button.visible
+            self.edit_button.visible
 
         if state == ViewState.JOURNAL_UPDATE:
             self.delete_button.visible
@@ -96,7 +96,13 @@ class JournalView(customtkinter.CTkFrame):
         self._clear()
 
     def _delete(self):
-        print("DELETE selected ENTRY")
+        """Deletes the selected entry of the current user from the journal and clears the input fields."""
+        entry_id = self._handler.get_entry_id(self._username, self.selected_entry_id)
+        if entry_id:
+            self._handler.delete_entry(entry_id)
+            self._add_recent_entries_to_scrollview(self._username)
+            self._clear()
+        self.selected_entry_id = None
 
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
@@ -119,6 +125,7 @@ class JournalView(customtkinter.CTkFrame):
 
     def row_clicked_at_id(self, id: int):
         print(f"Selected Entry ID: {id}")
+        self.selected_entry_id = id
         data = self._recent_entries[id]
 
         # clear content from text fields
