@@ -36,7 +36,7 @@ class JournalView(customtkinter.CTkFrame):
     def state(self, state: ViewState):
         if state == ViewState.JOURNAL_INSERT:
             self.delete_button.visible
-            self.edit_button.visible
+            self.edit_button.hidden
 
         if state == ViewState.JOURNAL_UPDATE:
             self.delete_button.visible
