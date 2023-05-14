@@ -1,11 +1,10 @@
 import customtkinter
-import textwrap
-from collections.abc import Callable
 from datetime import datetime
 from custom_button import CustomButton
 from helpers import JournalButton, ViewState, EntriesData
 from sql_handler import SQLHandler
-# from quick_access import JournalEachEntry
+from recent_post import RecentPostRow
+
 
 class JournalView(customtkinter.CTkFrame):
 
@@ -32,15 +31,6 @@ class JournalView(customtkinter.CTkFrame):
             label_font=("Helvetica", 15, "bold"))
         self.entries_frame.grid(row=0, column=3, rowspan=3, padx=24, pady=20, sticky='n')
         self._add_recent_entries_to_scrollview(self._username)
-        
-        # Setting journal entries
-        # self.entries_frame = customtkinter.CTkScrollableFrame(master=self, width=160, height=390)
-        # self.entries_frame.grid(row=1, column=3, rowspan=3, padx=24, pady=20, sticky='n')
-        # self.recent_posts = customtkinter.CTkLabel(self.entries_frame,
-        #                                            text="Recent posts",
-        #                                            font=("Helvetica", 17, "bold"),)
-        # self.recent_posts.grid(row=0, sticky="w", pady=2, padx=5)
-        # self._add_data_to_quick_access(self._username)
 
     # ##### PUBLIC METHODS ##### #
     def state(self, state: ViewState):
@@ -119,21 +109,6 @@ class JournalView(customtkinter.CTkFrame):
     def _edit(self):
         print("EDIT selected ENTRY")
 
-    def _add_data_to_quick_access(self, username):
-        data_for_entries = self._handler.get_data_desc(username)
-        # print(f"[{username}] - add_data_to_quick_access: {data_for_entries}")
-        # for i, entry in enumerate(data_for_entries):
-        #     self.entry_widget = JournalEachEntry(
-        #         self.entries_frame,
-        #         id=entry['id'],
-        #         title=entry['title'],
-        #         date=entry['date'],
-        #         first_sentence=entry['first_sentence'],
-        #         time=entry['time'],
-        #         tag=entry['tag']
-        #     )
-        #     self.entry_widget.grid(row=i+1, padx=3, pady=3)
-
     # ##### DISPLAY ENTRIES and LOAD SELECTED ENTRY DATA ##### #
     def _add_recent_entries_to_scrollview(self, username):
         self._recent_entries = self._handler.get_recent_entries(username, 10)
@@ -156,55 +131,3 @@ class JournalView(customtkinter.CTkFrame):
         self.title_entry.insert(0, data.title)
         self.tags_entry.insert(0, data.tags)
         self.entry_box.insert("1.0", data.text)
-
-
-    '''_journal_entry_get_content was used for on_click function in "quick_access" CIRCULAR IMPORTING '''
-    # def _journal_entry_get_content(self, journal_id):
-    #     title, text, tags = self._handler.get_data_on_click(journal_id)
-    #     self.title_entry.insert(0, title)
-    #     self.entry_box.insert(0, text)
-    #     self.tags_entry.insert(0, tags)
-
-
-
-# #############  RECENT POST ROW  ############## #
-class RecentPostRow(customtkinter.CTkFrame):
-    def __init__(self, master, id: int, entry: EntriesData, action: Callable[[], int]):
-        super().__init__(master, fg_color="transparent", corner_radius=0)
-        self._master = master
-        self.grid_columnconfigure(0, weight=0)
-        self.grid_columnconfigure(1, weight=1)
-        self._id = id
-        self._handler = SQLHandler()
-        self._action = action
-        self._entry = entry
-        self.create_date_frame()
-        self.create_title_frame()
-
-    def create_date_frame(self):
-        date_obj = datetime.strptime(self._entry.datenow, "%Y/%m/%d")
-        date_text = date_obj.strftime("%e\n%b")
-        self.date_frame = customtkinter.CTkButton(
-            self, fg_color="transparent", text_color=("gray10", "gray90"), anchor="w",
-            text=date_text, width=35, height=40, font=("Helvetica", 15, "bold"), 
-            command=self._row_pressed, corner_radius=0, hover_color=("gray70", "gray30"))
-        self.date_frame.grid(row=0, column=0, rowspan=3, padx=2, pady=2, sticky='ew')
-    
-    def create_title_frame(self):
-        title_text = self._wrap_title()
-        self.title_frame = customtkinter.CTkButton(
-            self, fg_color="transparent", text_color=("gray10", "gray90"), anchor="w",
-            text=title_text, width=150, height=40, font=("Helvetica", 12), compound="right",
-            command=self._row_pressed, corner_radius=0, hover_color=("gray70", "gray30"))
-        self.title_frame.grid(row=0, column=1, rowspan=3, columnspan=3, padx=2, pady=2, sticky='w')
-    
-    def _wrap_title(self) -> str:
-        lines = textwrap.wrap(self._entry.title, width=28)
-        if len(lines) > 2:
-            lines = lines[:2]
-            last_line = lines[-1] + "..."
-            lines = lines[:-1] + [last_line]
-        return "\n".join(lines)
-    
-    def _row_pressed(self):
-        self._action(self._id)
