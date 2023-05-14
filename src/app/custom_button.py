@@ -25,4 +25,4 @@ class CustomButton(customtkinter.CTkButton):
     @property
     def visible(self):
         """Set the button to enable and showwing in the GUI."""
-        self.configure(border_width=2, text=self._label, state="enabled")
+        self.configure(border_width=2, text=self._label, state="normal")

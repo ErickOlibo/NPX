@@ -23,7 +23,7 @@ class TestSQLHandler(unittest.TestCase):
         self.assertTrue(self.handler.verified_user("Thomas", "12345"))
     
     def test_username_taken(self):
-        self.assertTrue(self.handler.username_taken("Thomas"))
+        self.assertTrue(self.handler.username_taken("thomas"))
         self.assertFalse(self.handler.username_taken("Mario"))
 
 
