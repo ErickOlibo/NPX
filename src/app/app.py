@@ -30,7 +30,7 @@ class App(customtkinter.CTk):
         self._handler = SQLHandler()
         self._fill_in_entries_table()  # FILL database with Sample Entries
         self.login_view_size = (500, 500)
-        self.main_view_size = (800, 600)
+        self.main_view_size = (840, 600)
         self.resizable(False, False)
         self._start_up(with_login=False)
 
