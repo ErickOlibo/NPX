@@ -264,6 +264,41 @@ class SQLHandler:
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
             for row in rows}
         return results
+    
+    def get_entry_id(self, username: str, id: int):
+        """Retrieve the entry ID of a given entry by its ID and the username of the user who created it.
+
+        Args:
+            username (str): The username of the user who created the entry.
+            id (int): The ID of the entry to retrieve.
+
+        Returns:
+            Optional[int]: The ID of the entry if it exists, None otherwise.
+        """
+
+        sql = f"SELECT id FROM {SQLTable.ENTRIES} WHERE user = ? AND id = ?"
+        user = username.lower()
+
+        self._cursor.execute(sql, (user, id))
+        result = self._cursor.fetchone()
+
+        if result:
+            return result[0]
+        else:
+            return None
+
+    def delete_entry(self, entry_id: int):
+        """Deletes an entry from the database with the given ID.
+
+        Args:
+            entry_id (int): The ID of the entry to delete.
+
+        Returns:
+            None
+        """
+        sql = f"DELETE FROM {SQLTable.ENTRIES} WHERE id = ?"
+        self._cursor.execute(sql, (entry_id,))
+        self._conn.commit()
 
     def update_entry_with_id(self, entry_id: int, data: EntriesData):
         """Updates a record in the database.
