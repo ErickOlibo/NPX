@@ -288,6 +288,19 @@ class SQLHandler:
         else:
             return None
 
+    def delete_entry(self, entry_id: int):
+        """Deletes an entry from the database with the given ID.
+
+        Args:
+            entry_id (int): The ID of the entry to delete.
+
+        Returns:
+            None
+        """
+        sql = f"DELETE FROM {SQLTable.ENTRIES} WHERE id = ?"
+        self._cursor.execute(sql, (entry_id,))
+        self._conn.commit()
+
     def close_connection(self):
         """Close the SQLite connection after use"""
         self._conn.close()
