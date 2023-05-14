@@ -69,7 +69,7 @@ class SQLHandler:
                 to insert into the database.
         """
         sql = f"INSERT INTO {SQLTable.ENTRIES} (user, title, text, date, time, tags) VALUES (?, ?, ?, ?, ?, ?)"
-        self._cursor.execute(sql, (data.user, data.title, data.text, data.datenow, data.timenow, data.tags))
+        self._cursor.execute(sql, (data.user.lower(), data.title, data.text, data.datenow, data.timenow, data.tags))
         self._conn.commit()
 
     def _get_hash_digest(self, password: str) -> str:
@@ -112,65 +112,65 @@ class SQLHandler:
         self._cursor.execute(sql, (user_name,))
         return self._cursor.fetchone() is not None
 
-    def get_data_desc(self, username: str):
-        """Return all entries in the entries table sorted by user, and date and time in descending order
+    # def get_data_desc(self, username: str):
+    #     """Return all entries in the entries table sorted by user, and date and time in descending order
 
-         Parameters
-        ----------
-            username: str
-                The username entered in the field
+    #      Parameters
+    #     ----------
+    #         username: str
+    #             The username entered in the field
 
-        Returns
-        -------
-            A list with userdata"""
-        sql = f"SELECT id, title, text, date, time, tags " \
-              f"FROM {SQLTable.ENTRIES} " \
-              f"WHERE user = ? " \
-              f"ORDER BY date DESC, time DESC " \
-              f"LIMIT 10"
-        user = username.lower()
-        self._cursor.execute(sql, (user,))
-        userdata = self._cursor.fetchall()
-        data_of_user = []
-        if not userdata:
-            # Return an empty list or a message indicating no entries were found
-            return []
-        for i, entry in enumerate(userdata):
-            try:
-                id = entry[0]
-            except IndexError:
-                id = ""
-            try:
-                title = entry[1]
-            except IndexError:
-                title = ""
-            try:
-                text = entry[2]
-            except IndexError:
-                text = ""
-            try:
-                date = entry[3]
-            except IndexError:
-                date = ""
-            try:
-                time = entry[4]
-            except IndexError:
-                time = ""
-            try:
-                tags = entry[5]
-            except IndexError:
-                tags = ""
-            data_of_user.append({
-                'id': id,
-                'title': title,
-                'first_sentence': text,
-                'date': date,
-                'time': time,
-                'tag': tags,
-            })
-        return data_of_user
+    #     Returns
+    #     -------
+    #         A list with userdata"""
+    #     sql = f"SELECT id, title, text, date, time, tags " \
+    #           f"FROM {SQLTable.ENTRIES} " \
+    #           f"WHERE user = ? " \
+    #           f"ORDER BY date DESC, time DESC " \
+    #           f"LIMIT 10"
+    #     user = username.lower()
+    #     self._cursor.execute(sql, (user,))
+    #     userdata = self._cursor.fetchall()
+    #     data_of_user = []
+    #     if not userdata:
+    #         # Return an empty list or a message indicating no entries were found
+    #         return []
+    #     for i, entry in enumerate(userdata):
+    #         try:
+    #             id = entry[0]
+    #         except IndexError:
+    #             id = ""
+    #         try:
+    #             title = entry[1]
+    #         except IndexError:
+    #             title = ""
+    #         try:
+    #             text = entry[2]
+    #         except IndexError:
+    #             text = ""
+    #         try:
+    #             date = entry[3]
+    #         except IndexError:
+    #             date = ""
+    #         try:
+    #             time = entry[4]
+    #         except IndexError:
+    #             time = ""
+    #         try:
+    #             tags = entry[5]
+    #         except IndexError:
+    #             tags = ""
+    #         data_of_user.append({
+    #             'id': id,
+    #             'title': title,
+    #             'first_sentence': text,
+    #             'date': date,
+    #             'time': time,
+    #             'tag': tags,
+    #         })
+    #     return data_of_user
 
-    '''get_data_on_click was for call from _journal_entry_get_content or on_click, CIRCULAR IMPORTING'''
+    # '''get_data_on_click was for call from _journal_entry_get_content or on_click, CIRCULAR IMPORTING'''
     # def get_data_on_click(self, id: int):
     #     """show content in the main window when clicking quick access entry
     #
@@ -265,6 +265,12 @@ class SQLHandler:
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
             for row in rows}
         return results
+
+    def update_entry_with_id(self, id: int, data: EntriesData):
+        print(f"SQL_HANDLER Im update_entry_with_id: {id}")
+        sql = f"UPDATE {SQLTable.ENTRIES} SET title = ?, text = ?, tags = ? WHERE id = ?"
+        self._cursor.execute(sql, (data.title, data.text, data.tags, id,))
+        self._conn.commit()
 
     def close_connection(self):
         """Close the SQLite connection after use"""
