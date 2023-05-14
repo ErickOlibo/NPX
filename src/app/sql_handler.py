@@ -244,6 +244,20 @@ class SQLHandler:
         return results
     
     def get_recent_entries(self, user: str, size: int) -> dict[int, EntriesData]:
+        """gets from the entries table the latest entries
+
+        Parameters
+        ----------
+            user: str
+                The user for which the entries are fetched
+            size: int
+                how many records to return
+
+        Returns
+        -------
+            dict[int, EntriesData]:
+                returns the data fetched as a dictionary [ID : EntriesData]
+        """
         sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC LIMIT {size}"
         self._cursor.execute(sql, (user.lower(),))
         rows = self._cursor.fetchall()
