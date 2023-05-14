@@ -206,7 +206,6 @@ class SQLHandler:
         -------
             dict[int, EntriesData]: The entries data in a dictionary with IDs as keys
         """
-        #print(f"[select_all_entries_for_user] --> {user}")
         sql = f"SELECT * FROM {SQLTable.ENTRIES} WHERE user = ? ORDER BY date DESC, time DESC"
         self._cursor.execute(sql, (user.lower(),))
         rows = self._cursor.fetchall()
@@ -242,7 +241,7 @@ class SQLHandler:
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
             for row in rows}
         return results
-    
+
     def get_recent_entries(self, user: str, size: int) -> dict[int, EntriesData]:
         """gets from the entries table the latest entries
 
@@ -266,10 +265,19 @@ class SQLHandler:
             for row in rows}
         return results
 
-    def update_entry_with_id(self, id: int, data: EntriesData):
-        print(f"SQL_HANDLER Im update_entry_with_id: {id}")
+    def update_entry_with_id(self, entry_id: int, data: EntriesData):
+        """Updates a record in the database.
+
+        Parameters
+        ----------
+            id: int
+                The unique ID of the record to update
+            data: EntriesData
+                The username, title, text, date, time, and the tags. only the
+                title, text and tags are getting updated.
+        """
         sql = f"UPDATE {SQLTable.ENTRIES} SET title = ?, text = ?, tags = ? WHERE id = ?"
-        self._cursor.execute(sql, (data.title, data.text, data.tags, id,))
+        self._cursor.execute(sql, (data.title, data.text, data.tags, entry_id,))
         self._conn.commit()
 
     def close_connection(self):

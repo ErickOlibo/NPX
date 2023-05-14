@@ -16,7 +16,7 @@ class TestApp(unittest.TestCase):
     def test_app(self):
         self.assertIsInstance(self.app, App)
         self.assertTupleEqual(self.app.login_view_size, (500, 500))
-        self.assertTupleEqual(self.app.main_view_size, (800, 600))
+        self.assertTupleEqual(self.app.main_view_size, (840, 600))
         self.assertTupleEqual(self.app.resizable(), (False, False))
 
     def test_show_main_view(self):

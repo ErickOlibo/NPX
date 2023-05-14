@@ -10,11 +10,11 @@ class JournalEachEntry(customtkinter.CTkFrame):
         self._handler = SQLHandler()
         self.create_left_frame(date, id)
         self.create_right_frame(title, first_sentence, tag, time, id)
-        #self.bind("<Button-1>", lambda event: self.on_click(id))
+        # self.bind("<Button-1>", lambda event: self.on_click(id))
         print(time)
 
     def create_left_frame(self, date, id):
-        from journal_view import JournalView
+        # from journal_view import JournalView
         # convert date string to datetime object
         date_obj = datetime.strptime(date, "%Y/%m/%d")
 
@@ -26,7 +26,6 @@ class JournalEachEntry(customtkinter.CTkFrame):
                                                   text_color="black",
                                                   text=date_obj.strftime("%e\n%b"),
                                                   font=("Helvetica", 15, "bold"))
-                                                 # command=JournalView._journal_entry_get_content(id))
         self.left_frame.grid(row=0, column=0, rowspan=3, padx=2, pady=2, sticky='w')
 
         # self.day_label = customtkinter.CTkLabel(self.left_frame, height=30, text=date_obj.strftime("%a"),
@@ -42,7 +41,7 @@ class JournalEachEntry(customtkinter.CTkFrame):
         # self.month_label.grid(row=2, column=0, sticky='nsew', padx=5)
 
     def create_right_frame(self, title, first_sentence, tag, time, id):
-        from journal_view import JournalView
+        # from journal_view import JournalView
         # get limited text
         # text_obj = first_sentence[:69] if len(first_sentence) > 300 else first_sentence
 
@@ -61,7 +60,6 @@ class JournalEachEntry(customtkinter.CTkFrame):
                                                    text=f"{title_obj}",
                                                    text_color="black",
                                                    font=("Helvetica", 11))
-                                                   #command=self._handler.get_data_on_click(id))
         self.right_frame.grid(row=0, column=1, rowspan=3, columnspan=3, padx=2, pady=2, sticky='nsew')
 
         # self.title_label = customtkinter.CTkLabel(self.right_frame, text=title, font=("Helvetica", 12, "bold"))

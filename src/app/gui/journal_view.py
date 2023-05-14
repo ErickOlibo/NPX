@@ -38,11 +38,11 @@ class JournalView(customtkinter.CTkFrame):
     def state(self, state: ViewState):
         if state == ViewState.JOURNAL_INSERT:
             self.delete_button.hidden
-            #self.edit_button.hidden
+            # self.edit_button.hidden
 
         if state == ViewState.JOURNAL_UPDATE:
             self.delete_button.visible
-            #self.edit_button.visible
+            # self.edit_button.visible
 
     # ##### PRIVATE METHODS ##### #
     def _entry_title(self):
@@ -84,9 +84,6 @@ class JournalView(customtkinter.CTkFrame):
         if type == JournalButton.CLEAR:
             self._clear()
 
-
-
-    
     def _save(self):
         title = self.title_entry.get().strip()
         tags = self.tags_entry.get().strip()
@@ -106,7 +103,7 @@ class JournalView(customtkinter.CTkFrame):
             data = EntriesData(entry.user, title, text, entry.datenow, entry.timenow, tags)
             self._handler.update_entry_with_id(self._post_id, data)
         self._reload_recent_entries()
-    
+
     def _insert(self, title: str, text: str, tags: str):
         current_date = datetime.now().strftime('%Y/%m/%d')
         current_time = datetime.now().strftime("%H:%M:%S")
@@ -115,7 +112,6 @@ class JournalView(customtkinter.CTkFrame):
             data = EntriesData(self._username, title, text, current_date, current_time, tags)
             self._handler.insert_into_entries(data)
         self._reload_recent_entries()
-
 
     def _reload_recent_entries(self):
         self._clear()
@@ -130,19 +126,18 @@ class JournalView(customtkinter.CTkFrame):
         title = title.strip()
         text = text.strip()
         print(f"AF - Length [{len(title)}, {len(text)}]")
-        processed_title =  "_Untitled_" if not title else title
+        processed_title = "_Untitled_" if not title else title
         processed_text = "_Empty_" if not text else text
         print(f"Title: {processed_title}\nText: {processed_text}")
         return (processed_title, processed_text)
-    
+
     def _delete(self):
         # Warning MESSAGE BOX for DELETING ENTRY
         print("DELETE selected ENTRY")
 
     def _delete_entry_on_empty(self, id: int):
         print("Delete from Update empty Title and Text")
-    
-    
+
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
             self.entry_box.delete('1.0', 'end')
