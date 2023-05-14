@@ -132,18 +132,20 @@ class JournalView(customtkinter.CTkFrame):
         return (processed_title, processed_text)
 
     def _delete(self):
+        """Deletes the selected entry of the current user from the journal and clears the input fields."""
         # Warning MESSAGE BOX for DELETING ENTRY
         print("DELETE selected ENTRY")
 
-        """Deletes the selected entry of the current user from the journal and clears the input fields."""
         entry_id = self._handler.get_entry_id(self._username, self.selected_entry_id)
         if entry_id:
             self._handler.delete_entry(entry_id)
-            self._add_recent_entries_to_scrollview(self._username)
-            self._clear()
+            self._reload_recent_entries()
+            # self._add_recent_entries_to_scrollview(self._username)
+            # self._clear()
         self.selected_entry_id = None
 
     def _delete_entry_on_empty(self, id: int):
+        self._handler.delete_entry(id)
         print("Delete from Update empty Title and Text")
 
     def _clear(self):
