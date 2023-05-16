@@ -35,9 +35,9 @@ class LoginView(customtkinter.CTkFrame):
         self._message_box.configure(text=f"* {message}")
 
     def _attach_logo_to_login_view(self):
-        logo_image = CustomImage((45, 45), Assets.NPX_LOGO).image
+        logo_image = CustomImage((45, 45), Assets.USUKU_LOGO).image
         label = customtkinter.CTkLabel(
-            self, text="     NPX App", image=logo_image,
+            self, text="     USUKU", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=25, weight="bold"))
         label.grid(row=0, column=0, padx=30, pady=(10, 15))
 

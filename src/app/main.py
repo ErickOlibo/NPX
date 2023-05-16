@@ -1,5 +1,5 @@
 """
-===== NPX App =====
+===== USUKU App =====
 
 some docstring here to explain the purpose and how to use
 """

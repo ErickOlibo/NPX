@@ -1,4 +1,4 @@
-# Coverage EXCLUDE SETTINGS (NPX App)
+# Coverage EXCLUDE SETTINGS (Usuku App)
 [run]
 omit =
     test_*.py

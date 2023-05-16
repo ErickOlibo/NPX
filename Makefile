@@ -16,7 +16,7 @@ endef
 #
 
 run:
-	@printf "This Starts up the NPX App\n"
+	@printf "This Starts up Usuku App\n"
 	$(PYTHON) src/app/main.py
 
 

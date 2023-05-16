@@ -1,1 +1,1 @@
-"""NPX App."""
+"""USUKU App."""
