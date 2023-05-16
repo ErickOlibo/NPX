@@ -7,7 +7,7 @@ from helpers import SQLCreateTable, SQLTable, SessionData, EntriesData
 
 
 class SQLHandler:
-    """This handles every query to the database. """
+    """This handles every query to the database."""
 
     def __init__(self):
         db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "db/npx_app.db")
