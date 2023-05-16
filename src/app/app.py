@@ -20,7 +20,7 @@ customtkinter.set_default_color_theme("green")
 
 class App(customtkinter.CTk):
     """
-    Create an instance of the NPX application. At start-up the login view is
+    Create an instance of the USUKU application. At start-up the login view is
     presented following by the save journal or the creation of a new journal .
     """
 
@@ -50,7 +50,7 @@ class App(customtkinter.CTk):
 
 # ##### LOGIN VIEW ##### #
     def _show_login_view(self):
-        self.title("NPX App | Login Screen")
+        self.title("Usuku | Login Screen")
         self.geometry(f"{self.login_view_size[0]}x{self.login_view_size[1]}")
         self.login_view = LoginView(self, self._login_signin_pressed)
         self.login_view.grid(row=0, column=0, padx=120, pady=50, sticky="ns")
@@ -66,7 +66,7 @@ class App(customtkinter.CTk):
 
 # ##### MAIN VIEW ##### #
     def _configure_main_view(self):
-        self.title("NPX App | Your Secret Companion")
+        self.title("Usuku | Your Secret Companion")
         self.geometry(f"{self.main_view_size[0]}x{self.main_view_size[1]}")
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)

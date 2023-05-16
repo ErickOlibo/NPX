@@ -1,4 +1,4 @@
-"""This module creates a NPX Navigation Bar."""
+"""This module creates a USUKU Navigation Bar."""
 from collections.abc import Callable
 import customtkinter
 from helpers import View, Assets, CustomImage, CustomTabButton
@@ -25,9 +25,9 @@ class NavigationBar(customtkinter.CTkFrame):
         self._set_logout_button()
 
     def _attach_logo(self):
-        logo_image = CustomImage((35, 35), Assets.NPX_LOGO).image
+        logo_image = CustomImage((35, 35), Assets.USUKU_LOGO).image
         self.top_logo = customtkinter.CTkLabel(
-            self, text="     NPX App", image=logo_image,
+            self, text="     USUKU", image=logo_image,
             compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
         self.top_logo.grid(row=0, column=0, padx=20, pady=20)
 

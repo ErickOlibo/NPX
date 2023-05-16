@@ -7,7 +7,7 @@ from helpers import SQLCreateTable, SQLTable, SessionData, EntriesData
 
 
 class SQLHandler:
-    """This handles every query to the database. """
+    """This handles every query to the database."""
 
     def __init__(self):
         db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "db/npx_app.db")
@@ -112,83 +112,6 @@ class SQLHandler:
         self._cursor.execute(sql, (user_name,))
         return self._cursor.fetchone() is not None
 
-    # def get_data_desc(self, username: str):
-    #     """Return all entries in the entries table sorted by user, and date and time in descending order
-
-    #      Parameters
-    #     ----------
-    #         username: str
-    #             The username entered in the field
-
-    #     Returns
-    #     -------
-    #         A list with userdata"""
-    #     sql = f"SELECT id, title, text, date, time, tags " \
-    #           f"FROM {SQLTable.ENTRIES} " \
-    #           f"WHERE user = ? " \
-    #           f"ORDER BY date DESC, time DESC " \
-    #           f"LIMIT 10"
-    #     user = username.lower()
-    #     self._cursor.execute(sql, (user,))
-    #     userdata = self._cursor.fetchall()
-    #     data_of_user = []
-    #     if not userdata:
-    #         # Return an empty list or a message indicating no entries were found
-    #         return []
-    #     for i, entry in enumerate(userdata):
-    #         try:
-    #             id = entry[0]
-    #         except IndexError:
-    #             id = ""
-    #         try:
-    #             title = entry[1]
-    #         except IndexError:
-    #             title = ""
-    #         try:
-    #             text = entry[2]
-    #         except IndexError:
-    #             text = ""
-    #         try:
-    #             date = entry[3]
-    #         except IndexError:
-    #             date = ""
-    #         try:
-    #             time = entry[4]
-    #         except IndexError:
-    #             time = ""
-    #         try:
-    #             tags = entry[5]
-    #         except IndexError:
-    #             tags = ""
-    #         data_of_user.append({
-    #             'id': id,
-    #             'title': title,
-    #             'first_sentence': text,
-    #             'date': date,
-    #             'time': time,
-    #             'tag': tags,
-    #         })
-    #     return data_of_user
-
-    # '''get_data_on_click was for call from _journal_entry_get_content or on_click, CIRCULAR IMPORTING'''
-    # def get_data_on_click(self, id: int):
-    #     """show content in the main window when clicking quick access entry
-    #
-    #              Parameters
-    #             ----------
-    #                 username: str
-    #                     The username entered in the field
-    #
-    #             Returns
-    #             -------
-    #                 """
-    #     sql = f"SELECT title, text, tags " \
-    #           f"FROM {SQLTable.ENTRIES} " \
-    #           f"WHERE id = ? "
-    #     self._cursor.execute(sql, (id,))
-    #     title, text, tags = self._cursor.fetchone()
-    #     return title, text, tags
-
     def row_count_entries_table(self) -> int:
         """Returns the number of rows in the Entries table"""
         sql = f"SELECT COUNT(*) FROM {SQLTable.ENTRIES}"
@@ -264,7 +187,7 @@ class SQLHandler:
             str(row[0]): EntriesData(row[1], row[2], row[3], row[4], row[5], row[6])
             for row in rows}
         return results
-    
+
     def get_entry_id(self, username: str, id: int):
         """Retrieve the entry ID of a given entry by its ID and the username of the user who created it.
 
@@ -281,11 +204,7 @@ class SQLHandler:
 
         self._cursor.execute(sql, (user, id))
         result = self._cursor.fetchone()
-
-        if result:
-            return result[0]
-        else:
-            return None
+        return result[0] if result else None
 
     def delete_entry(self, entry_id: int):
         """Deletes an entry from the database with the given ID.

@@ -58,7 +58,7 @@ class SQLCreateTable(Enum):
 
 
 class StartUp(Enum):
-    """Enum listing the option available at the start of the NPX app"""
+    """Enum listing the option available at the start of the USUKU app"""
     SIGN_IN = auto()
     LOG_IN = auto()
 
@@ -84,7 +84,7 @@ class ViewState(Enum):
 
 
 class View(Enum):
-    """Enum listing the name of the different views in the NPX app."""
+    """Enum listing the name of the different views in the USUKU app."""
 
     JOURNAL = auto()
     ENTRIES = auto()
@@ -106,7 +106,7 @@ class Assets(ExtendEnum):
     LIGHT_LOGIN = auto()
     DARK_LOGOUT = auto()
     LIGHT_LOGOUT = auto()
-    NPX_LOGO = auto()
+    USUKU_LOGO = auto()
 
     def __str__(self):
         asset_path = f"gui/assets/icons/{self.name.lower()}.png"
