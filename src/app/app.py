@@ -98,7 +98,7 @@ class App(customtkinter.CTk):
         self._active_view = view
 
         self.navigation_bar.set_active_button(view)
-        print(view.name)
+        # print(view.name)
         if view == View.JOURNAL:
             self._entries_view.grid_forget()
             self._show_journal_view()

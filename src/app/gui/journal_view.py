@@ -15,6 +15,7 @@ class JournalView(customtkinter.CTkFrame):
         self._editing = False
         self._post_id = None
         self._handler = SQLHandler()
+        self.postRows = list[RecentPostRow]()
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=0)
         self.grid_columnconfigure(2, weight=0)
@@ -76,7 +77,7 @@ class JournalView(customtkinter.CTkFrame):
 
     def _button_pressed(self, type: JournalButton):
         """Respond to a button being pressed in the GUI"""
-        print(type)
+        # print(type)
         if type == JournalButton.SAVE:
             self._save()
         if type == JournalButton.DELETE:
@@ -116,37 +117,33 @@ class JournalView(customtkinter.CTkFrame):
     def _reload_recent_entries(self):
         self._clear()
         self._add_recent_entries_to_scrollview(self._username)
-        self._post_id = 0
+        self._post_id = None
         self._editing = False
         self.delete_button.hidden
         pass
 
     def _process_empty_title_text(self, title: str, text: str) -> tuple[str, str]:
-        print(f"B4 - Length [{len(title)}, {len(text)}]")
+        # print(f"B4 - Length [{len(title)}, {len(text)}]")
         title = title.strip()
         text = text.strip()
-        print(f"AF - Length [{len(title)}, {len(text)}]")
+        # print(f"AF - Length [{len(title)}, {len(text)}]")
         processed_title = "_Untitled_" if not title else title
         processed_text = "_Empty_" if not text else text
-        print(f"Title: {processed_title}\nText: {processed_text}")
+        # print(f"Title: {processed_title}\nText: {processed_text}")
         return (processed_title, processed_text)
 
     def _delete(self):
         """Deletes the selected entry of the current user from the journal and clears the input fields."""
         # Warning MESSAGE BOX for DELETING ENTRY
-        print("DELETE selected ENTRY")
-
-        entry_id = self._handler.get_entry_id(self._username, self.selected_entry_id)
+        # print("DELETE selected ENTRY")
+        entry_id = self._handler.get_entry_id(self._username, self._post_id)
         if entry_id:
             self._handler.delete_entry(entry_id)
-            self._reload_recent_entries()
-            # self._add_recent_entries_to_scrollview(self._username)
-            # self._clear()
-        self.selected_entry_id = None
+        self._reload_recent_entries()
 
     def _delete_entry_on_empty(self, id: int):
         self._handler.delete_entry(id)
-        print("Delete from Update empty Title and Text")
+        # print("Delete from Update empty Title and Text")
 
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
@@ -162,18 +159,23 @@ class JournalView(customtkinter.CTkFrame):
 
     # ##### DISPLAY ENTRIES and LOAD SELECTED ENTRY DATA ##### #
     def _add_recent_entries_to_scrollview(self, username):
+        self._remove_post_rows()
         self._recent_entries = self._handler.get_recent_entries(username, 10)
         for i, (key, value) in enumerate(self._recent_entries.items()):
             row = RecentPostRow(self.entries_frame, key, value, self.row_clicked_at_id)
             row.configure(fg_color=("gray80", "gray20") if i % 2 == 0 else ("gray75", "gray15"))
             row.grid(row=i, column=0, sticky="ew")
+            self.postRows.append(row)
+
+    def _remove_post_rows(self):
+        _ = [row.destroy() for row in self.postRows]
 
     def row_clicked_at_id(self, id: int):
         self._editing = True
         self._post_id = id
         self.delete_button.visible
-        print(f"Selected Entry ID: {id} -- {self._post_id}")
-        self.selected_entry_id = id
+        # print(f"Selected Entry ID: {id} -- {self._post_id}")
+        # self.selected_entry_id = id
 
         data = self._recent_entries[id]
         self._clear()

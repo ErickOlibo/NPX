@@ -5,6 +5,7 @@ omit =
     test/*
     */__init__.py
     /database/test_verification.py
+    src/app/test_*.py
 
 [report]
 omit =
