@@ -1,7 +1,7 @@
 """This module tests Login View using unittest."""
 import unittest
 from gui.login_view import LoginView
-from customtkinter import CTkButton
+from customtkinter import CTkButton, CTkLabel
 from app import App
 
 class TestLoginView(unittest.TestCase):
@@ -15,6 +15,7 @@ class TestLoginView(unittest.TestCase):
 
     def tearDown(self):
         self.view.destroy()
+        self.app.destroy()
     
     
     def test_login_view(self):
@@ -24,7 +25,7 @@ class TestLoginView(unittest.TestCase):
 
 
     # def test_atach_logo_to_login_view(self):
-    #     #self.view._attach_logo_to_login_view()
+    #     self.view._attach_logo_to_login_view()
     #     self.assertIsInstance(self.view._logo_label, CTkLabel)
     
     # def test_atach_title_credentials(self):
