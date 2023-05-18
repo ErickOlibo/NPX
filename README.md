@@ -1,16 +1,21 @@
-# Ninja Project X v0.1.0
+# Usuku v0.1.0
 
 ## The privacy oriented journal and task-planning app
 
-The Ninja Project X is a desktop app for Windows that allows users to journal, plan tasks and create challenges. To ensure the privacy of the user a login is required, and all entries are encrypted and saved in a local database. The application is meant to help students maintain a good mental health.
+The Usuku is a desktop app for Windows that allows users to journal, plan tasks and create challenges. To ensure the privacy of the user a login is required, and all entries are encrypted and saved in a local database. The application is meant to help students maintain a good mental health.
 
 ## Features
-- Create account
-- Login with user name and password
+- Sign-in: Create account
+- Login: With username and password
 - Set the theme to darkmode, lightmode or system based
+- create an new entry with Title, Text and Tags
+- Direct access to the last 10 entries
+- Update, Delete an entry
+- List of all entries
+- Search all entries by title
 
 ### To be implemented
-- Create journal entries, to track your thoughts and mental state
+- Create details display when selecting entry from all entries
 - Create tasks with reminders
 - Create challenges and track your progress
 
@@ -36,10 +41,3 @@ At this point the project is not open for community contribution. If that change
 
 ## License
 [license.md](https://github.com/ErickOlibo/NPX/blob/main/LICENSE.md)
-
-
-### Attributions and Copyrights
- - [FreePik](https://www.freepik.com) for the Usuku logomark
- - [FontAwesome](https://fontawesome.com) for the icons in the SideBar Navigation
- - [CustomTKinter](https://github.com/TomSchimansky/CustomTkinter) library for a custom GUI
- - [Python Pillow](https://github.com/python-pillow/Pillow) for handling image loading and displaying
