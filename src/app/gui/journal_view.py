@@ -76,7 +76,7 @@ class JournalView(customtkinter.CTkFrame):
 
     def _button_pressed(self, type: JournalButton):
         """Respond to a button being pressed in the GUI"""
-        print(type)
+        # print(type)
         if type == JournalButton.SAVE:
             self._save()
         if type == JournalButton.DELETE:
@@ -122,19 +122,19 @@ class JournalView(customtkinter.CTkFrame):
         pass
 
     def _process_empty_title_text(self, title: str, text: str) -> tuple[str, str]:
-        print(f"B4 - Length [{len(title)}, {len(text)}]")
+        # print(f"B4 - Length [{len(title)}, {len(text)}]")
         title = title.strip()
         text = text.strip()
-        print(f"AF - Length [{len(title)}, {len(text)}]")
+        # print(f"AF - Length [{len(title)}, {len(text)}]")
         processed_title = "_Untitled_" if not title else title
         processed_text = "_Empty_" if not text else text
-        print(f"Title: {processed_title}\nText: {processed_text}")
+        # print(f"Title: {processed_title}\nText: {processed_text}")
         return (processed_title, processed_text)
 
     def _delete(self):
         """Deletes the selected entry of the current user from the journal and clears the input fields."""
         # Warning MESSAGE BOX for DELETING ENTRY
-        print("DELETE selected ENTRY")
+        # print("DELETE selected ENTRY")
 
         entry_id = self._handler.get_entry_id(self._username, self.selected_entry_id)
         if entry_id:
@@ -146,7 +146,7 @@ class JournalView(customtkinter.CTkFrame):
 
     def _delete_entry_on_empty(self, id: int):
         self._handler.delete_entry(id)
-        print("Delete from Update empty Title and Text")
+        # print("Delete from Update empty Title and Text")
 
     def _clear(self):
         if self.entry_box.get('1.0', 'end-1c') != '':
@@ -172,7 +172,7 @@ class JournalView(customtkinter.CTkFrame):
         self._editing = True
         self._post_id = id
         self.delete_button.visible
-        print(f"Selected Entry ID: {id} -- {self._post_id}")
+        # print(f"Selected Entry ID: {id} -- {self._post_id}")
         self.selected_entry_id = id
 
         data = self._recent_entries[id]

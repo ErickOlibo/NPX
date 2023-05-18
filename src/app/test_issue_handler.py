@@ -61,7 +61,7 @@ class TestIssueHandler(unittest.TestCase):
         issue = self.handler.get_issue_message(data)
         self.assertEqual(issue, IssueMessage.NO_DIGIT_PASSWORD)
         
-        data = SessionData("Erick", "!aa!AA!aa", StartUp.SIGN_IN)
+        data = SessionData("Erick", "!aa!AA!aa2", StartUp.SIGN_IN)
         issue = self.handler.get_issue_message(data)
         self.assertEqual(issue, IssueMessage.USERNAME_TAKEN)
 

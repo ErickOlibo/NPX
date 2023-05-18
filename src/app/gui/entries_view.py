@@ -40,7 +40,8 @@ class EntriesView(customtkinter.CTkFrame):
         self._scroll_view.set_entries(result)
 
     def row_pressed(self, id: int):
-        print(f"ID: {id}")
+        # print(f"ID: {id}")
+        pass
 
 
 class ResultScrollView(customtkinter.CTkScrollableFrame):

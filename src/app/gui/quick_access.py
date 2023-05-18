@@ -11,7 +11,7 @@ class JournalEachEntry(customtkinter.CTkFrame):
         self.create_left_frame(date, id)
         self.create_right_frame(title, first_sentence, tag, time, id)
         # self.bind("<Button-1>", lambda event: self.on_click(id))
-        print(time)
+        # print(time)
 
     def create_left_frame(self, date, id):
         # from journal_view import JournalView
