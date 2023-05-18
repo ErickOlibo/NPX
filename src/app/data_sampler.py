@@ -133,11 +133,3 @@ class DataSampler:
         "What will you do with your one wild and precious life?",
         "The best things in life aren't things.",
         "The first step in crafting the life you want is to get rid of everything you don't."]
-
-
-if __name__ == "__main__":
-    sampler = DataSampler()
-    sample = sampler.get_sample(10)
-
-    for element in sample:
-        print(element)
