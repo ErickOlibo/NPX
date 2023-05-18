@@ -140,7 +140,6 @@ class JournalView(customtkinter.CTkFrame):
         if entry_id:
             self._handler.delete_entry(entry_id)
         self._reload_recent_entries()
-        
 
     def _delete_entry_on_empty(self, id: int):
         self._handler.delete_entry(id)
@@ -167,7 +166,7 @@ class JournalView(customtkinter.CTkFrame):
             row.configure(fg_color=("gray80", "gray20") if i % 2 == 0 else ("gray75", "gray15"))
             row.grid(row=i, column=0, sticky="ew")
             self.postRows.append(row)
-    
+
     def _remove_post_rows(self):
         _ = [row.destroy() for row in self.postRows]
 
