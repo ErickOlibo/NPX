@@ -3,6 +3,9 @@ import unittest
 from app import App
 from customtkinter import CTkFrame
 from helpers import SessionData, StartUp, View
+from gui.journal_view import JournalView
+from gui.entries_view import EntriesView
+from gui.login_view import LoginView
 
 class TestApp(unittest.TestCase):
     """Test classes and methods using UnitTest."""
@@ -37,38 +40,13 @@ class TestApp(unittest.TestCase):
         title = "Login Screen"
         self.assertIn(title, self.app.title())
 
-    def test_login_signin_pressed(self):
-        # Need to create assert statements
-        
-        # data = SessionData("", "", StartUp.LOG_IN)
-        # self.app._login_signin_pressed(data)
-
-        # data = SessionData("Erick", "", StartUp.LOG_IN)
-        # self.app._login_signin_pressed(data)
-
-        # data = SessionData("Erick", "1234", StartUp.LOG_IN)
-        # self.app._login_signin_pressed(data)
-
-        # data = SessionData("Erick", "1234", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
-
-        # data = SessionData("AC9", "Password", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
-    
-        # data = SessionData("AC9", "Password1", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
-    
-        # data = SessionData("AC9", "Pass1!", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
-    
-        # data = SessionData("AC9", "password1!", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
-    
-        # data = SessionData("AC9", "PASSWORD1!", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
-    
-        # data = SessionData("AC9", "Password!", StartUp.SIGN_IN)
-        # self.app._login_signin_pressed(data)
+    def test_navigation_button_pressed(self):
+        self.app._navigation_button_pressed(View.JOURNAL)
+        self.assertIsInstance(self.app._journal_view, JournalView)
+        self.app._navigation_button_pressed(View.ENTRIES)
+        self.assertIsInstance(self.app._entries_view, EntriesView)
+        self.app._navigation_button_pressed(View.LOGOUT)
+        self.assertIsInstance(self.app.login_view, LoginView)
         pass
 
 

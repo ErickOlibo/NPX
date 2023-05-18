@@ -113,6 +113,6 @@ class App(customtkinter.CTk):
             self._show_login_view()
 
 
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+# if __name__ == "__main__":
+#     app = App()
+#     app.mainloop()
