@@ -1,3 +1,4 @@
+"""This module create an instance of the Entries view to display"""
 from collections.abc import Callable
 import customtkinter
 from sql_handler import SQLHandler
@@ -5,6 +6,7 @@ from helpers import EntriesData
 
 
 class EntriesView(customtkinter.CTkFrame):
+    """This shows the content of the database as a list in a scroll view."""
 
     def __init__(self, master: customtkinter.CTk, username: str):
         super().__init__(master)
@@ -35,11 +37,12 @@ class EntriesView(customtkinter.CTkFrame):
         self._scroll_view.grid(row=2, column=0, columnspan=2, padx=20, pady=(0, 20), sticky="sew")
 
     def search_text_changed(self, *args):
+        """Query the database and reload the recent posts with the result"""
         content = self._search_var.get()
         result = self._handler.select_entries_for_search_text(self._username, content)
         self._scroll_view.set_entries(result)
 
-    def row_pressed(self, id: int):
+    def row_pressed(self, post_id: int):
         # print(f"ID: {id}")
         pass
 

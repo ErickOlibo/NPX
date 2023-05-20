@@ -45,6 +45,13 @@ pylint:
 			pylint $${f}; \
 		fi \
 	done
+	for f in src/app/gui/*.py; do \
+		if grep -q test_ "$${f}"; then \
+			continue; \
+		else \
+			pylint $${f}; \
+		fi \
+	done
 
 
 .PHONY: run clean
