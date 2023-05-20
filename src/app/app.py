@@ -32,7 +32,7 @@ class App(customtkinter.CTk):
         self.login_view_size = (500, 500)
         self.main_view_size = (840, 600)
         self.resizable(False, False)
-        self._start_up(with_login=False)
+        self._start_up(with_login=True)
 
 # ##### BYPASS LOGIN VIEW ##### #
     def _start_up(self, with_login: bool):
